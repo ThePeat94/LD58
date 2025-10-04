@@ -1,4 +1,5 @@
 ﻿using System;
+using Nidavellir.EventArgs;
 using Nidavellir.Player;
 using Nidavellir.Scriptables;
 using UnityEngine;
@@ -42,8 +43,18 @@ namespace Nidavellir.Entity
             this.m_ownEntityInformation = ownEntityInformation;
             this.m_targetEntityInformation = targetEntityInformation;
             this.m_characterStatFacade = characterStatFacade;
+            
+            this.m_ownEntityInformation.EntityStats[this.m_characterStatFacade.Hp].OnValueChanged += this.OnOwnHealthChanged;
         }
-        
+
+        private void OnOwnHealthChanged(object sender, CharacterStatValueChangeEventArgs e)
+        {
+            if (e.NewValue > 0)
+                return;
+            
+            this.CanAttack = false;
+        }
+
         public void SetTarget(EntityInformation targetEntityInformation)
         {
             this.m_targetEntityInformation = targetEntityInformation;
