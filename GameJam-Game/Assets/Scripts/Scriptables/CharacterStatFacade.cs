@@ -5,20 +5,23 @@ namespace Nidavellir.Scriptables
     [CreateAssetMenu(fileName = "Character Stat Facade", menuName = "Data/Character Stat Facade", order = 0)]
     public class CharacterStatFacade : ScriptableObject
     {
-        [SerializeField] private CharacterStat m_hpStat;
-        [SerializeField] private CharacterStat m_attackStat;
-        [SerializeField] private CharacterStat m_defenseStat;
-        [SerializeField] private CharacterStat m_likesStat;
-        [SerializeField] private CharacterStat m_dislikesStat;
-        [SerializeField] private CharacterStat m_superLikeStat;
-        [SerializeField] private CharacterStat m_moneyStat;
+        [SerializeField] private CharacterStat m_hp;
+        [SerializeField] private CharacterStat m_attack;
+        [SerializeField] private CharacterStat m_defense;
+        [SerializeField] private CharacterStat m_likes;
+        [SerializeField] private CharacterStat m_dislikes;
+        [SerializeField] private CharacterStat m_superLike;
+        [SerializeField] private CharacterStat m_money;
+        [SerializeField] private CharacterStat m_distance;
+        
 
-        public CharacterStat HpStat => this.m_hpStat;
-        public CharacterStat AttackStat => this.m_attackStat;
-        public CharacterStat DefenseStat => this.m_defenseStat;
-        public CharacterStat LikesStat => this.m_likesStat;
-        public CharacterStat DislikesStat => this.m_dislikesStat;
-        public CharacterStat SuperLikeStat => this.m_superLikeStat;
-        public CharacterStat MoneyStat => this.m_moneyStat;
+        public CharacterStat Hp => this.m_hp;
+        public CharacterStat Attack => this.m_attack;
+        public CharacterStat Defense => this.m_defense;
+        public CharacterStat Likes => this.m_likes;
+        public CharacterStat Dislikes => this.m_dislikes;
+        public CharacterStat SuperLike => this.m_superLike;
+        public CharacterStat Money => this.m_money;
+        public CharacterStat Distance => this.m_distance;
     }
 }

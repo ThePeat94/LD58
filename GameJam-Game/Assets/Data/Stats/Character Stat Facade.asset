@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12f3056bd5ff499e8358a6be68a7b919, type: 3}
   m_Name: Character Stat Facade
   m_EditorClassIdentifier: Assembly-CSharp::Nidavellir.Scriptables.CharacterStatFacade
-  m_hpStat: {fileID: 11400000, guid: 0de6cd014dd489244a339cada70df215, type: 2}
-  m_attackStat: {fileID: 11400000, guid: 66f649dbe1ee3b9418ad58127e50de64, type: 2}
-  m_defenseStat: {fileID: 11400000, guid: 65c3f7b45bbcfa349b3c0ddc3e3e4756, type: 2}
-  m_likesStat: {fileID: 11400000, guid: 151839cb124f461428ac3eca8a61a55b, type: 2}
-  m_dislikesStat: {fileID: 11400000, guid: 41fdbc50be249da47a15f93ee244bf01, type: 2}
-  m_superLikeStat: {fileID: 11400000, guid: 2022bced44fb3da44ac2f00592ae9920, type: 2}
-  m_moneyStat: {fileID: 11400000, guid: c860b7721fbb7434da1f834efadc5cb7, type: 2}
+  m_hp: {fileID: 11400000, guid: 0de6cd014dd489244a339cada70df215, type: 2}
+  m_attack: {fileID: 11400000, guid: 66f649dbe1ee3b9418ad58127e50de64, type: 2}
+  m_defense: {fileID: 11400000, guid: 65c3f7b45bbcfa349b3c0ddc3e3e4756, type: 2}
+  m_likes: {fileID: 11400000, guid: 151839cb124f461428ac3eca8a61a55b, type: 2}
+  m_dislikes: {fileID: 11400000, guid: 41fdbc50be249da47a15f93ee244bf01, type: 2}
+  m_superLike: {fileID: 11400000, guid: 2022bced44fb3da44ac2f00592ae9920, type: 2}
+  m_money: {fileID: 11400000, guid: c860b7721fbb7434da1f834efadc5cb7, type: 2}
+  m_distance: {fileID: 11400000, guid: 6e83f8fa03a57424a841fa82a7fcac88, type: 2}

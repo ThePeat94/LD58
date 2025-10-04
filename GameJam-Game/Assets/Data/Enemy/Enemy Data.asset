@@ -16,4 +16,5 @@ MonoBehaviour:
   m_name: Basic Ork
   m_icon: {fileID: -1503954403, guid: 1c4adb8ce8ae16b47b8f7d4ae59687ea, type: 3}
   m_profileDescription: 'Who matches, attacks first :) '
-  m_initialStats: []
+  m_initialStats: {fileID: 11400000, guid: 3c7bc466cff6f934283aad725ca7d32b, type: 2}
+  m_possibleBackgrounds: []

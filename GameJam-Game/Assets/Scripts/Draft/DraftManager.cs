@@ -17,7 +17,6 @@ namespace Nidavellir.Draft
         [SerializeField] private DraftUI m_draftUI;
         [SerializeField] private EntityStats m_playerStats;
         [SerializeField] private CharacterStatFacade m_characterStatFacade;
-        [SerializeField] private GameStateManager m_gameStateManager;
 
         private EnemyData m_currentProfile;
 
@@ -32,7 +31,6 @@ namespace Nidavellir.Draft
         private void Awake()
         {
             this.m_draftUI ??= FindFirstObjectByType<DraftUI>();
-            this.m_gameStateManager ??= FindFirstObjectByType<GameStateManager>();
         }
 
         private void Start()
@@ -70,7 +68,7 @@ namespace Nidavellir.Draft
         {
             Debug.Log("Yay, its a match :) Literally.");
             this.m_likedProfiles.Add(e.EnemyData);
-            var playerLikes = this.m_playerStats[this.m_characterStatFacade.LikesStat];
+            var playerLikes = this.m_playerStats[this.m_characterStatFacade.Likes];
             playerLikes.UseResource(1);
             Debug.Log($"You have {playerLikes.CurrentValue} likes remaining.");
             if (playerLikes.CurrentValue > 0)

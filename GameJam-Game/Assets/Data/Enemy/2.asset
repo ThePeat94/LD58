@@ -13,8 +13,11 @@ MonoBehaviour:
   m_Name: 2
   m_EditorClassIdentifier: 
   m_id: 3
-  m_name: Annelise
-  m_icon: {fileID: 21300000, guid: b724a5ff14083ee43804593a78d1a43c, type: 3}
-  m_profileDescription: Zu vino sag ich nie no
-  m_initialStats: {fileID: 0}
-  m_possibleBackgrounds: []
+  m_name: Vexxa Red-Lens
+  m_icon: {fileID: 21300000, guid: 5aebd995decde3841be7d6aa6659bf3a, type: 3}
+  m_profileDescription: I like fast rides and faster decisions. Swipe before the
+    light turns green.
+  m_initialStats: {fileID: 11400000, guid: 3c7bc466cff6f934283aad725ca7d32b, type: 2}
+  m_possibleBackgrounds:
+  - {fileID: 21300000, guid: 090355b6d5deac34a82caaefb12d1e74, type: 3}
+  - {fileID: 21300000, guid: 39cc489e2eb75c2489d80e4e96c9591b, type: 3}

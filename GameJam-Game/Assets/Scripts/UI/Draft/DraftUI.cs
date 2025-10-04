@@ -15,13 +15,13 @@ namespace Nidavellir.UI.Draft
         [SerializeField] private Button m_likeButton;
         [SerializeField] private Button m_superlikeButton;
         [SerializeField] private Button m_startFightButton;
-        [SerializeField] private EnemyData m_currentEnemy;
         [SerializeField] private ProfileCardUI m_profileCardUI;
 
         [SerializeField] private GameObject m_profilesUi;
         [SerializeField] private GameObject m_startFightUi;
         
         private List<EnemyData> m_likedProfiles = new();
+        private EnemyData m_currentEnemy;
         
         private void Awake()
         {

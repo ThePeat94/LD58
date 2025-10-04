@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 4812541115898919370}
   - component: {fileID: 2483651771025681331}
   - component: {fileID: 3674390833669132849}
+  - component: {fileID: 7796396811094291155}
+  - component: {fileID: 7362253909098490232}
   m_Layer: 5
   m_Name: Profile Battle Card
   m_TagString: Untagged
@@ -79,6 +81,37 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7796396811094291155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 668862178687518497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43f565393a4649e3aff0d38d6d3d0baf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Nidavellir.UI.Fight.ProfileFightCard
+  m_name: {fileID: 877714896204777271}
+  m_background: {fileID: 4055258278381860235}
+  m_profilePicture: {fileID: 8676647947657727935}
+  m_hpBarDisplay: {fileID: 7362253909098490232}
+  m_characterStatFacade: {fileID: 11400000, guid: a2a1da657de052b4da4fb551a730056a, type: 2}
+--- !u!114 &7362253909098490232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 668862178687518497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ee485abf044155a5b0d357329bf8be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Nidavellir.UI.Fight.HpBarDisplay
+  m_slider: {fileID: 7837888101258291415}
+  m_hpTexxter: {fileID: 4175881276778770103}
 --- !u!1 &1459815096890920206
 GameObject:
   m_ObjectHideFlags: 0

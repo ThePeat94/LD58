@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: 4
   m_EditorClassIdentifier: 
   m_id: 5
-  m_name: Orcina
-  m_icon: {fileID: 21300000, guid: b811fd4f8b851ef48bba11114824376c, type: 3}
-  m_profileDescription: I won't just ride a board ;)
-  m_initialStats: {fileID: 0}
+  m_name: Thrum One-Scar
+  m_icon: {fileID: 21300000, guid: 6e1e8116544556f439ed9b0e91d59ae8, type: 3}
+  m_profileDescription: "Low talker, high damage. I\u2019m great at pointy conversations."
+  m_initialStats: {fileID: 11400000, guid: 3c7bc466cff6f934283aad725ca7d32b, type: 2}
   m_possibleBackgrounds:
   - {fileID: 21300000, guid: 39cc489e2eb75c2489d80e4e96c9591b, type: 3}
   - {fileID: 21300000, guid: 090355b6d5deac34a82caaefb12d1e74, type: 3}

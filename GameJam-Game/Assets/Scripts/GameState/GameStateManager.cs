@@ -11,6 +11,7 @@ namespace Nidavellir.GameState
     {
         [SerializeField] private GameObject m_draftUi;
         [SerializeField] private GameObject m_shopUi;
+        [SerializeField] private GameObject m_fightUi;
         
         private IEventBinding<StartFightEvent> m_startFightEventBinding;
         
@@ -31,6 +32,7 @@ namespace Nidavellir.GameState
             this.m_currentState = State.Draft;
             this.m_draftUi?.SetActive(true);
             this.m_shopUi?.SetActive(false);
+            this.m_fightUi?.SetActive(false);
         }
         
         private void OnDestroy()
