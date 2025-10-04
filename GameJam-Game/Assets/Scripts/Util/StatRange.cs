@@ -7,6 +7,9 @@ namespace Nidavellir.Util
     public class StatRange
     {
         [SerializeField] private CharacterStat m_characterStat;
-        [SerializeField, Range(1, 1000)] private int m_value;
+        [SerializeField] private int m_value;
+
+        public CharacterStat CharacterStat => this.m_characterStat;
+        public int Value => this.m_value;
     }
 }
