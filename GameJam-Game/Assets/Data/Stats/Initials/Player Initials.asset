@@ -12,4 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c794eeb2d314e7d9c7e8a5799777f23, type: 3}
   m_Name: Player Initials
   m_EditorClassIdentifier: Assembly-CSharp::Nidavellir.Scriptables.InitialStatData
-  m_initialStats: []
+  m_initialStats:
+  - m_characterStat: {fileID: 11400000, guid: 151839cb124f461428ac3eca8a61a55b, type: 2}
+    m_value: 5
+    m_maxValue: 5
+  - m_characterStat: {fileID: 11400000, guid: 41fdbc50be249da47a15f93ee244bf01, type: 2}
+    m_value: 3
+    m_maxValue: 3
+  - m_characterStat: {fileID: 11400000, guid: 2022bced44fb3da44ac2f00592ae9920, type: 2}
+    m_value: 1
+    m_maxValue: 1
