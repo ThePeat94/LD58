@@ -11,12 +11,12 @@ namespace Nidavellir.Scriptables
         [SerializeField] private string m_name;
         [SerializeField] private Sprite m_icon;
         [SerializeField] private string m_profileDescription;
-        [SerializeField] private List<StatRange> m_initialStats;
-
+        [SerializeField] private InitialStatData m_initialStats;
+        
         public int ID => this.m_id;
         public string Name => this.m_name;
         public Sprite Icon => this.m_icon;
         public string ProfileDescription => this.m_profileDescription;
-        public List<StatRange> InitialStats => this.m_initialStats;
+        public InitialStatData InitialStats => this.m_initialStats;
     }
 }
