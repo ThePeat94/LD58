@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 847bbf3fb62e4f00b644cc989a4eb3da, type: 3}
+  m_Name: Basic HP Upgrade
+  m_EditorClassIdentifier: Assembly-CSharp::Nidavellir.Scriptables.UpgradeData
+  m_id: 1
+  m_name: Basic Health Upgrade
+  m_affectedStats:
+  - m_affectedStat: {fileID: 11400000, guid: 0de6cd014dd489244a339cada70df215, type: 2}
+    m_increaseAmount: 5
+  m_cost: 5
+  m_cardImage: {fileID: 0}

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Nidavellir.Entity;
 using Nidavellir.GameEventBus;
 using Nidavellir.GameEventBus.EventBindings;
 using Nidavellir.GameEventBus.Events.Fight;
@@ -14,17 +15,15 @@ namespace Nidavellir.Shop
     {
         [SerializeField] private List<UpgradeData> m_availableUpgrades;
         [SerializeField] private ShopUI m_shopUI;
+        [SerializeField] private EntityStats m_entityStats;
+        [SerializeField] private CharacterStatFacade m_characterStatFacade;
         
-        private int m_initialRerollCost = 2;
-        private int m_rerollCost = 2;
         private int m_upgradeAmount = 2;
         
         private IEventBinding<RerollUpgradesEvent> m_rerollUpgradesEventBinding;
         private IEventBinding<PurchaseUpgradeEvent> m_purchaseUpgradeEventBinding;
         private IEventBinding<StartDraftEvent> m_startDraftEventBinding;
         private IEventBinding<VisitShopEvent> m_visitShopEventBinding;
-        
-        public int RerollCost => this.m_rerollCost;
         
         private void Start()
         {
@@ -43,24 +42,21 @@ namespace Nidavellir.Shop
 
         private void OnVisitShop(object sender, VisitShopEvent e)
         {
-            this.m_rerollCost = this.m_initialRerollCost;
             this.m_shopUI.Show(this.GetRandomUpgrades(this.m_upgradeAmount));
         }
 
         private void OnPurchaseUpgrade(object sender, PurchaseUpgradeEvent e)
         {
-            throw new System.NotImplementedException();
+            this.m_entityStats[this.m_characterStatFacade.Money].UseResource(e.UpgradeData.Cost);
         }
 
         private void OnRerollUpgrades(object sender, RerollUpgradesEvent e)
         {
-            this.m_rerollCost++;
             this.m_shopUI.Show(this.GetRandomUpgrades(this.m_upgradeAmount));
         }
         
         private void OnStartDraft(object sender, StartDraftEvent e)
         {
-            throw new System.NotImplementedException();
         }
         
         private void OnDestroy()

@@ -14,15 +14,13 @@ namespace Nidavellir.UI.Shop
         [SerializeField] private GameObject m_upgradeStack;
         [SerializeField] private UpgradeCardUI m_upgradeCardPrefab;
         [SerializeField] private EntityStats m_playerStats;
-        [SerializeField] private Button m_rerollButton;
-        [SerializeField] private Button m_startSwingButton;
+        [SerializeField] private Button m_startDraftButton;
         
         private List<UpgradeCardUI> m_upgradeCards;
 
         private void Awake()
         {
-            this.m_rerollButton.onClick.AddListener(this.OnRerollClick);
-            this.m_startSwingButton.onClick.AddListener(this.OnStartDraftClick);
+            this.m_startDraftButton.onClick.AddListener(this.OnStartDraftClick);
         }
 
         public void Show(List<UpgradeData> data)
@@ -53,11 +51,6 @@ namespace Nidavellir.UI.Shop
             GameEventBus<PurchaseUpgradeEvent>.Invoke(this, new PurchaseUpgradeEvent(data));
             this.m_upgradeCards.Remove(upgradeCardUI);
             Destroy(upgradeCardUI.gameObject);
-        }
-        
-        private void OnRerollClick()
-        {
-            GameEventBus<RerollUpgradesEvent>.Invoke(this, new RerollUpgradesEvent());
         }
         
         private void OnStartDraftClick()

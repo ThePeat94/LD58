@@ -213,9 +213,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Nidavellir.UI.Shop.UpgradeCardUI
   m_upgradeText: {fileID: 1291950296772185915}
-  m_costText: {fileID: 1291950296772185915}
+  m_costText: {fileID: 4222840629648049489}
   m_backgroundImage: {fileID: 1346079729863500470}
   m_buyButton: {fileID: 6431856265294304136}
+  m_characterStatFacade: {fileID: 11400000, guid: a2a1da657de052b4da4fb551a730056a, type: 2}
 --- !u!1 &6337664021473942961
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,7 +229,7 @@ GameObject:
   - component: {fileID: 1943531918991314624}
   - component: {fileID: 1291950296772185915}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Upgrade Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -500,7 +501,7 @@ GameObject:
   - component: {fileID: 4622750307248395697}
   - component: {fileID: 4222840629648049489}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: Cost Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

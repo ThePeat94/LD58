@@ -31,3 +31,6 @@ MonoBehaviour:
   - m_characterStat: {fileID: 11400000, guid: 65c3f7b45bbcfa349b3c0ddc3e3e4756, type: 2}
     m_value: 2
     m_maxValue: 2
+  - m_characterStat: {fileID: 11400000, guid: c860b7721fbb7434da1f834efadc5cb7, type: 2}
+    m_value: 4
+    m_maxValue: 4

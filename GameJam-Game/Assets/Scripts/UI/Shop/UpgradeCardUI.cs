@@ -40,12 +40,15 @@ namespace Nidavellir.UI.Shop
             this.m_upgradeText.text = upgradeText;
             this.m_costText.text = String.Format(COST_FORMAT, data.Cost);
             
-            this.m_playerStats[this.m_characterStatFacade.Money].OnValueChanged += this.OnMoneyChanged;
+            var moneyStat = this.m_playerStats[this.m_characterStatFacade.Money];
+            moneyStat.OnValueChanged += this.OnMoneyChanged;
+            
+            this.m_buyButton.interactable = moneyStat.CurrentValue >= data.Cost;
         }
 
         private void OnMoneyChanged(object sender, CharacterStatValueChangeEventArgs e)
         {
-            if (this.m_data == null)
+            if (this.m_data is null)
                 return;
             
             this.m_buyButton.interactable = e.NewValue >= this.m_data.Cost;
@@ -53,7 +56,7 @@ namespace Nidavellir.UI.Shop
 
         private void OnDestroy()
         {
-            if (this.m_playerStats == null)
+            if (this.m_playerStats is null)
                 return;
             
             this.m_playerStats[this.m_characterStatFacade.Money].OnValueChanged -= this.OnMoneyChanged;
