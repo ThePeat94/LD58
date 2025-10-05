@@ -7,6 +7,7 @@ using Nidavellir.GameEventBus.Events.Fight;
 using Nidavellir.GameEventBus.Events.Shop;
 using Nidavellir.UI.Draft;
 using Nidavellir.UI.GameOver;
+using Nidavellir.UI.GameWon;
 using UnityEngine;
 
 namespace Nidavellir.GameState
@@ -17,13 +18,14 @@ namespace Nidavellir.GameState
         [SerializeField] private GameObject m_shopUi;
         [SerializeField] private GameObject m_fightUi;
         [SerializeField] private GameOverUI m_gameOverUI;
-        
+        [SerializeField] private GameWonUI m_gameWonUI;
         
         private IEventBinding<StartFightEvent> m_startFightEventBinding;
         private IEventBinding<VisitShopEvent> m_visitShopEventBinding;
         private IEventBinding<StartDraftEvent> m_startDraftEventBinding;
-        private IEventBinding<BountyRequirementNotFulfilled> m_bountyRequirementNotFulfilledEvent;
-        private IEventBinding<PlayerDiedEvent> m_playerDiedEvent;
+        private IEventBinding<BountyRequirementNotFulfilled> m_bountyRequirementNotFulfilledEventBinding;
+        private IEventBinding<PlayerDiedEvent> m_playerDiedEventBinding;
+        private IEventBinding<GameWonEvent> m_gameWonEventBinding;
         
         private State m_currentState;
         
@@ -33,6 +35,7 @@ namespace Nidavellir.GameState
         {
             this.m_draftUi ??= FindFirstObjectByType<DraftUI>(FindObjectsInactive.Include);
             this.m_gameOverUI ??= FindFirstObjectByType<GameOverUI>(FindObjectsInactive.Include);
+            this.m_gameWonUI ??= FindFirstObjectByType<GameWonUI>(FindObjectsInactive.Include);
 
             this.m_startFightEventBinding = new EventBinding<StartFightEvent>(this.OnStartFight);
             GameEventBus<StartFightEvent>.Register(this.m_startFightEventBinding);
@@ -43,18 +46,30 @@ namespace Nidavellir.GameState
             this.m_startDraftEventBinding = new EventBinding<StartDraftEvent>(this.OnStartDraft);
             GameEventBus<StartDraftEvent>.Register(this.m_startDraftEventBinding);
             
-            this.m_bountyRequirementNotFulfilledEvent = new EventBinding<BountyRequirementNotFulfilled>(this.OnBountyRequirementNotFulfilled);
-            GameEventBus<BountyRequirementNotFulfilled>.Register(this.m_bountyRequirementNotFulfilledEvent);
+            this.m_bountyRequirementNotFulfilledEventBinding = new EventBinding<BountyRequirementNotFulfilled>(this.OnBountyRequirementNotFulfilled);
+            GameEventBus<BountyRequirementNotFulfilled>.Register(this.m_bountyRequirementNotFulfilledEventBinding);
             
-            this.m_playerDiedEvent = new EventBinding<PlayerDiedEvent>(this.OnPlayerDied);
-            GameEventBus<PlayerDiedEvent>.Register(this.m_playerDiedEvent);
+            this.m_playerDiedEventBinding = new EventBinding<PlayerDiedEvent>(this.OnPlayerDied);
+            GameEventBus<PlayerDiedEvent>.Register(this.m_playerDiedEventBinding);
+            
+            this.m_gameWonEventBinding = new EventBinding<GameWonEvent>(this.OnGameWon);
+            GameEventBus<GameWonEvent>.Register(this.m_gameWonEventBinding);
             
             this.m_currentState = State.Draft;
             this.m_draftUi?.gameObject.SetActive(true);
             this.m_shopUi?.SetActive(false);
             this.m_fightUi?.SetActive(false);
             this.m_draftUi?.ShowProfiles();
+            this.m_gameWonUI.Hide();
             this.m_gameOverUI.Hide();
+        }
+
+        private void OnGameWon(object sender, GameWonEvent e)
+        {
+            this.m_draftUi?.gameObject.SetActive(false);
+            this.m_shopUi?.SetActive(false);
+            this.m_fightUi?.SetActive(false);
+            this.m_gameWonUI.Show();
         }
 
         private void Start()

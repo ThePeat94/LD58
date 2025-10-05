@@ -126,7 +126,6 @@ namespace Nidavellir.Fight
                     return;
                 }
                 
-                GameEventBus<BountyRequirementFulfilled>.Invoke(this, new());
                 this.StartCoroutine(this.QueueAfterFight());
                 return;
             }
@@ -147,6 +146,7 @@ namespace Nidavellir.Fight
         private IEnumerator QueueAfterFight()
         {
             yield return new WaitForSeconds(1f);
+            GameEventBus<BountyRequirementFulfilled>.Invoke(this, new());
             this.m_fightUI.ShowAfterFightUI();
         }
 
