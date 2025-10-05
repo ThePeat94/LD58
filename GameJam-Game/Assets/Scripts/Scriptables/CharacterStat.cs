@@ -3,7 +3,7 @@
 
 namespace Nidavellir.Scriptables
 {
-    [CreateAssetMenu(fileName = "Stat", menuName = "Data/Stat", order = 0)]
+    [CreateAssetMenu(fileName = "Stat", menuName = "Data/Stats/Stat", order = 0)]
     public class CharacterStat : ScriptableObject
     {
         [SerializeField] private string m_id;

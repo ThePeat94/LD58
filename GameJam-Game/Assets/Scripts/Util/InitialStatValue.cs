@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Nidavellir.Util
 {
-    [System.Serializable]
+    [Serializable]
     public class InitialStatValue
     {
         [SerializeField] private CharacterStat m_characterStat;
