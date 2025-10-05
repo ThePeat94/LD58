@@ -5154,6 +5154,7 @@ GameObject:
   - component: {fileID: 525788350374254553}
   - component: {fileID: 1537223554733796985}
   - component: {fileID: 7501809440731050869}
+  - component: {fileID: 2091204156535539260}
   m_Layer: 5
   m_Name: Rizz Panel
   m_TagString: Untagged
@@ -5246,6 +5247,23 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &2091204156535539260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5405169184274835753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01a9adf1be9c4bfbb2aef00279f916d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Nidavellir.UI.SidePanel.StatDisplay
+  m_playerStats: {fileID: 0}
+  m_characterStatFacade: {fileID: 11400000, guid: a2a1da657de052b4da4fb551a730056a, type: 2}
+  m_statToDisplay: {fileID: 11400000, guid: 08c110349f01d3e45a615b1ae81345f3, type: 2}
+  m_statName: {fileID: 5784722640397224149}
+  m_statValue: {fileID: 9132987248075805032}
 --- !u!1 &5631546652179197529
 GameObject:
   m_ObjectHideFlags: 0

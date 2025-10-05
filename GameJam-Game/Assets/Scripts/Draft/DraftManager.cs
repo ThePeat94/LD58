@@ -63,7 +63,15 @@ namespace Nidavellir.Draft
 
         private void OnStartDraftEvent(object sender, StartDraftEvent e)
         {
-            this.m_playerStats[this.m_characterStatFacade.Round].Add(1);
+            var roundStatController = this.m_playerStats[this.m_characterStatFacade.Round];
+            roundStatController.Add(1);
+
+            if ((roundStatController.CurrentValue - 1) % 3 == 0 && roundStatController.CurrentValue != 1)
+            {
+                var rizzController = this.m_playerStats[this.m_characterStatFacade.Rizz];
+                rizzController.Add(1);
+            }
+            
             this.m_availableProfiles = new List<EnemyData>(this.m_initialProfiles);
             this.m_likedProfiles.Clear();
             this.m_dislikedProfiles.Clear();
