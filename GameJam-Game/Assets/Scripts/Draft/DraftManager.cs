@@ -96,8 +96,6 @@ namespace Nidavellir.Draft
 
         private void StartDraft()
         {
-                            
-
             this.m_likedProfiles.Clear();
             this.m_dislikedProfiles.Clear();
             this.m_superLikedProfiles.Clear();
