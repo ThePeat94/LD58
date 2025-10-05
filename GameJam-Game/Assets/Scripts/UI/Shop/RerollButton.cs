@@ -23,9 +23,13 @@ namespace Nidavellir.UI.Shop
         
         private void Awake()
         {
+            this.m_playerStats ??= FindFirstObjectByType<EntityStats>(FindObjectsInactive.Include);
             this.m_button.onClick.AddListener(this.OnRerollClick);
             this.m_rerollManager ??= FindFirstObjectByType<RerollManager>();
-            
+        }
+
+        private void Start()
+        {
             this.m_playerStats[this.m_characterStatFacade.Money].OnValueChanged += this.OnMoneyChanged;
             this.m_rerollCostText.text = String.Format(REROLL_COST_FORMAT, this.m_rerollManager.RerollCost);
             this.m_button.interactable = this.m_playerStats[this.m_characterStatFacade.Money].CurrentValue >= this.m_rerollManager.RerollCost;

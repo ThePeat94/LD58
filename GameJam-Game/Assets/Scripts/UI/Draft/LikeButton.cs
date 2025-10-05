@@ -19,6 +19,7 @@ namespace Nidavellir.UI.Draft
         private void Awake()
         {
             this.m_draftManager ??= FindFirstObjectByType<DraftManager>();
+            this.m_playerStats ??= FindFirstObjectByType<EntityStats>(FindObjectsInactive.Include);
             this.m_button.onClick.AddListener(this.OnButtonClick);
         }
 

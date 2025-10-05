@@ -23,3 +23,4 @@ MonoBehaviour:
   m_round: {fileID: 11400000, guid: 6769d592877a71549976df596e9e740e, type: 2}
   m_rizz: {fileID: 11400000, guid: 08c110349f01d3e45a615b1ae81345f3, type: 2}
   m_atkSpeed: {fileID: 11400000, guid: 7cbcb0e08f6481341a3e924246c6158f, type: 2}
+  m_bounty: {fileID: 11400000, guid: cfd5cb09d7eec814f88801c2524f8164, type: 2}

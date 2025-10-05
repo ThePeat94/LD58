@@ -21,6 +21,7 @@ namespace Nidavellir.UI.Shop
         private void Awake()
         {
             this.m_startDraftButton.onClick.AddListener(this.OnStartDraftClick);
+            this.m_playerStats ??= FindFirstObjectByType<EntityStats>(FindObjectsInactive.Include);
         }
 
         public void Show(List<UpgradeData> data)

@@ -40,6 +40,7 @@ namespace Nidavellir.UI
                 State.Draft => "Choose your enemies wisely!",
                 State.Fight => "Defeat all your enemies!",
                 State.Shop => "Buy upgrades to become stronger!",
+                State.Gameover => "You have been defeated!",
                 _ => throw new ArgumentOutOfRangeException()
             };
         }

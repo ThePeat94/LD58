@@ -15,11 +15,16 @@ namespace Nidavellir.UI.SidePanel
         [SerializeField] private TextMeshProUGUI m_statName;
         [SerializeField] private TextMeshProUGUI m_statValue;
 
+        private void Awake()
+        {
+            this.m_playerStats ??= FindFirstObjectByType<EntityStats>(FindObjectsInactive.Include);
+        }
+
         private void Start()
         {
             var statController = this.m_playerStats[this.m_statToDisplay];
             statController.OnValueChanged += this.OnStatValueChanged;
-            if (this.m_characterStatFacade is not null)
+            if (this.m_characterStatFacade is not null && this.m_statName is not null)
             {
                 this.m_statName.text = this.m_statToDisplay.Name;
             }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Nidavellir.Entity;
 using Nidavellir.GameEventBus;
 using Nidavellir.GameEventBus.EventBindings;
@@ -37,6 +38,8 @@ namespace Nidavellir.Draft
         private List<EnemyData> m_profilePool;
         
         public EnemyData CurrentProfile => this.m_currentProfile;
+        
+        public IReadOnlyList<EnemyData> LikedProfiles => this.m_likedProfiles;
 
         private void Awake()
         {

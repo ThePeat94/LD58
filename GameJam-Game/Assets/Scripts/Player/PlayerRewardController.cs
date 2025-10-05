@@ -22,7 +22,7 @@ namespace Nidavellir.Player
 
         private void OnEnemyDefeated(object sender, EnemyDefeatedEvent e)
         {
-            this.m_playerStats[this.m_characterStatFacade.Money].Add(e.DefeatedEnemy.EntityStats[this.m_characterStatFacade.Money]?.CurrentValue ?? 0);
+            this.m_playerStats[this.m_characterStatFacade.Bounty].Add(e.DefeatedEnemy.EntityStats[this.m_characterStatFacade.Money]?.CurrentValue ?? 0);
         }
     }
 }

@@ -16,6 +16,7 @@ namespace Nidavellir.Scriptables
         [SerializeField] private CharacterStat m_round;
         [SerializeField] private CharacterStat m_rizz;
         [SerializeField] private CharacterStat m_atkSpeed;
+        [SerializeField] private CharacterStat m_bounty;
         
         public CharacterStat Hp => this.m_hp;
         public CharacterStat Attack => this.m_attack;
@@ -28,5 +29,6 @@ namespace Nidavellir.Scriptables
         public CharacterStat Round => this.m_round;
         public CharacterStat Rizz => this.m_rizz;
         public CharacterStat AtkSpeed => this.m_atkSpeed;
+        public CharacterStat Bounty => this.m_bounty;
     }
 }

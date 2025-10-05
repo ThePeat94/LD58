@@ -6,6 +6,7 @@ using Nidavellir.Entity;
 using Nidavellir.EventArgs;
 using Nidavellir.GameEventBus;
 using Nidavellir.GameEventBus.EventBindings;
+using Nidavellir.GameEventBus.Events;
 using Nidavellir.GameEventBus.Events.Draft;
 using Nidavellir.GameEventBus.Events.Fight;
 using Nidavellir.Player;
@@ -22,6 +23,7 @@ namespace Nidavellir.Fight
         [SerializeField] private EntityInformation m_playerInformation;
         [SerializeField] private CharacterStatFacade m_characterStatFacade;
         [SerializeField] private FightUI m_fightUI;
+        [SerializeField] private BountyRequirementController m_bountyRequirementController;
         
         private List<EnemyData> m_likedEnemies;
         private List<EnemyData> m_defeatedEnemies = new List<EnemyData>();
@@ -37,6 +39,7 @@ namespace Nidavellir.Fight
         private void Awake()
         {
             this.m_fightUI ??= FindFirstObjectByType<FightUI>();
+            this.m_bountyRequirementController ??= FindFirstObjectByType<BountyRequirementController>(FindObjectsInactive.Include);
 
             this.m_startFightEventBinding = new EventBinding<StartFightEvent>(this.OnStartFight);
             GameEventBus<StartFightEvent>.Register(this.m_startFightEventBinding);
@@ -46,7 +49,12 @@ namespace Nidavellir.Fight
         {
             this.m_fightUI.InitPlayerCard(this.m_playerInformation);
         }
-        
+
+        private void OnDestroy()
+        {
+            GameEventBus<StartFightEvent>.Unregister(this.m_startFightEventBinding);
+        }
+
         private void OnStartFight(object sender, StartFightEvent e)
         {
             this.StartFight(e.LikedProfiles);
@@ -111,6 +119,14 @@ namespace Nidavellir.Fight
         {
             if (this.m_enemyQueue.Count == 0)
             {
+
+                if (!this.m_bountyRequirementController.HasFulfilledBountyRequirement())
+                {
+                    GameEventBus<BountyRequirementNotFulfilled>.Invoke(this, new());
+                    return;
+                }
+                
+                GameEventBus<BountyRequirementFulfilled>.Invoke(this, new());
                 this.StartCoroutine(this.QueueAfterFight());
                 return;
             }
