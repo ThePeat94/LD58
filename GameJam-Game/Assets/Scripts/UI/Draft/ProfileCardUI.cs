@@ -29,7 +29,7 @@ namespace Nidavellir.UI.Draft
         
         public void DisplayEnemy(EnemyData enemyData)
         {
-            this.m_name.text = String.Format(NAME_FORMAT, enemyData.Name, 35);
+            this.m_name.text = String.Format(NAME_FORMAT, enemyData.Name, enemyData.Age);
             this.m_description.text = enemyData.ProfileDescription;
             this.m_profilePicture.sprite = enemyData.Icon;
             

@@ -7,6 +7,7 @@ using Nidavellir.EventArgs;
 using Nidavellir.GameEventBus;
 using Nidavellir.GameEventBus.EventBindings;
 using Nidavellir.GameEventBus.Events.Draft;
+using Nidavellir.GameEventBus.Events.Fight;
 using Nidavellir.Player;
 using Nidavellir.Scriptables;
 using Nidavellir.UI.Fight;
@@ -102,6 +103,8 @@ namespace Nidavellir.Fight
             if (e.NewValue > 0)
                 return;
 
+            GameEventBus<EnemyDefeatedEvent>.Invoke(this, new EnemyDefeatedEvent(this.m_currentEnemyData));
+            this.m_defeatedEnemies.Add(this.m_currentEnemyData);
             this.m_playerAttacker.CanAttack = false;
             this.m_playerAttacker.SetTarget(null);
             this.m_currentEnemyInformation.EntityStats[this.m_characterStatFacade.Hp].OnValueChanged -= this.OnEnemyHpChanged;
@@ -114,10 +117,12 @@ namespace Nidavellir.Fight
         {
             if (this.m_enemyQueue.Count == 0)
             {
+                Debug.Log("You have defeated all your enemies! Congratulations!");
+                this.m_fightUI.ShowAfterFightUI();
                 return;
             }
             
-            StartCoroutine(this.QueueEnemy());
+            this.StartCoroutine(this.QueueEnemy());
         }
 
         private IEnumerator QueueEnemy()

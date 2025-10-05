@@ -9,6 +9,7 @@ namespace Nidavellir.Scriptables
     {
         [SerializeField] private int m_id;
         [SerializeField] private string m_name;
+        [SerializeField] private int m_age;
         [SerializeField] private Sprite m_icon;
         [SerializeField] private string m_profileDescription;
         [SerializeField] private InitialStatData m_initialStats;
@@ -17,6 +18,7 @@ namespace Nidavellir.Scriptables
         
         public int ID => this.m_id;
         public string Name => this.m_name;
+        public int Age => this.m_age;
         public Sprite Icon => this.m_icon;
         public string ProfileDescription => this.m_profileDescription;
         public InitialStatData InitialStats => this.m_initialStats;
