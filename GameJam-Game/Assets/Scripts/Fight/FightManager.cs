@@ -97,7 +97,7 @@ namespace Nidavellir.Fight
             if (e.NewValue > 0)
                 return;
 
-            GameEventBus<EnemyDefeatedEvent>.Invoke(this, new EnemyDefeatedEvent(this.m_currentEnemyData));
+            GameEventBus<EnemyDefeatedEvent>.Invoke(this, new EnemyDefeatedEvent(this.m_currentEnemyInformation));
             this.m_defeatedEnemies.Add(this.m_currentEnemyData);
             this.m_playerAttacker.CanAttack = false;
             this.m_playerAttacker.SetTarget(null);

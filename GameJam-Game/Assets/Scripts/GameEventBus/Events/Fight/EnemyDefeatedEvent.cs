@@ -1,14 +1,15 @@
-﻿using Nidavellir.Scriptables;
+﻿using Nidavellir.Player;
+using Nidavellir.Scriptables;
 
 namespace Nidavellir.GameEventBus.Events.Fight
 {
     public class EnemyDefeatedEvent : IEvent
     {
-        public EnemyDefeatedEvent(EnemyData defeatedEnemy)
+        public EnemyDefeatedEvent(EntityInformation defeatedEnemy)
         {
             this.DefeatedEnemy = defeatedEnemy;
         }
         
-        public EnemyData DefeatedEnemy { get; }
+        public EntityInformation DefeatedEnemy { get; }
     }
 }

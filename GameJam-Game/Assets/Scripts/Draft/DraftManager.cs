@@ -4,6 +4,7 @@ using Nidavellir.Entity;
 using Nidavellir.GameEventBus;
 using Nidavellir.GameEventBus.EventBindings;
 using Nidavellir.GameEventBus.Events.Draft;
+using Nidavellir.GameEventBus.Events.Shop;
 using Nidavellir.GameState;
 using Nidavellir.Scriptables;
 using Nidavellir.UI.Draft;
@@ -24,6 +25,7 @@ namespace Nidavellir.Draft
         private IEventBinding<ProfileLikedEvent> m_likedEventBinding;
         private IEventBinding<ProfileSuperLikedEvent> m_superLikedEventBinding;
         private IEventBinding<StartFightEvent> m_startFightEventBinding;
+        private IEventBinding<StartDraftEvent> m_startDraftEventBinding;
 
         private List<EnemyData> m_likedProfiles = new();
         private List<EnemyData> m_dislikedProfiles = new();
@@ -50,8 +52,22 @@ namespace Nidavellir.Draft
             
             this.m_startFightEventBinding = new EventBinding<StartFightEvent>(this.OnStartFightEvent);
             GameEventBus<StartFightEvent>.Register(this.m_startFightEventBinding);
+            
+            this.m_startDraftEventBinding = new EventBinding<StartDraftEvent>(this.OnStartDraftEvent);
+            GameEventBus<StartDraftEvent>.Register(this.m_startDraftEventBinding);
 
             this.m_availableProfiles = new List<EnemyData>(this.m_initialProfiles);
+            this.ChooseNewProfile();
+            this.m_draftUI.ShowProfiles();
+        }
+
+        private void OnStartDraftEvent(object sender, StartDraftEvent e)
+        {
+            this.m_playerStats[this.m_characterStatFacade.Round].Add(1);
+            this.m_availableProfiles = new List<EnemyData>(this.m_initialProfiles);
+            this.m_likedProfiles.Clear();
+            this.m_dislikedProfiles.Clear();
+            this.m_superLikedProfiles.Clear();
             this.ChooseNewProfile();
             this.m_draftUI.ShowProfiles();
         }
@@ -104,6 +120,8 @@ namespace Nidavellir.Draft
         private void OnStartFightEvent(object sender, StartFightEvent e)
         {
             this.m_likedProfiles.Clear();
+            this.m_dislikedProfiles.Clear();
+            this.m_superLikedProfiles.Clear();
         }
     }
 }

@@ -20,3 +20,5 @@ MonoBehaviour:
   m_superLike: {fileID: 11400000, guid: 2022bced44fb3da44ac2f00592ae9920, type: 2}
   m_money: {fileID: 11400000, guid: c860b7721fbb7434da1f834efadc5cb7, type: 2}
   m_distance: {fileID: 11400000, guid: 6e83f8fa03a57424a841fa82a7fcac88, type: 2}
+  m_round: {fileID: 11400000, guid: 6769d592877a71549976df596e9e740e, type: 2}
+  m_rizz: {fileID: 11400000, guid: 08c110349f01d3e45a615b1ae81345f3, type: 2}

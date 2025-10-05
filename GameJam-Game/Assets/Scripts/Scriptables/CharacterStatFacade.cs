@@ -13,8 +13,9 @@ namespace Nidavellir.Scriptables
         [SerializeField] private CharacterStat m_superLike;
         [SerializeField] private CharacterStat m_money;
         [SerializeField] private CharacterStat m_distance;
+        [SerializeField] private CharacterStat m_round;
+        [SerializeField] private CharacterStat m_rizz;
         
-
         public CharacterStat Hp => this.m_hp;
         public CharacterStat Attack => this.m_attack;
         public CharacterStat Defense => this.m_defense;
@@ -23,5 +24,7 @@ namespace Nidavellir.Scriptables
         public CharacterStat SuperLike => this.m_superLike;
         public CharacterStat Money => this.m_money;
         public CharacterStat Distance => this.m_distance;
+        public CharacterStat Round => this.m_round;
+        public CharacterStat Rizz => this.m_rizz;
     }
 }

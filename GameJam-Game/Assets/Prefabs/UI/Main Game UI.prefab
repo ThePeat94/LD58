@@ -1562,8 +1562,9 @@ GameObject:
   - component: {fileID: 933059824349938817}
   - component: {fileID: 6858368855464893123}
   - component: {fileID: 1394095509909367196}
+  - component: {fileID: 1372085178400459551}
   m_Layer: 5
-  m_Name: Panel (1)
+  m_Name: Round Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1654,6 +1655,23 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &1372085178400459551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1633277445591471758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01a9adf1be9c4bfbb2aef00279f916d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Nidavellir.UI.SidePanel.StatDisplay
+  m_playerStats: {fileID: 0}
+  m_characterStatFacade: {fileID: 11400000, guid: a2a1da657de052b4da4fb551a730056a, type: 2}
+  m_statToDisplay: {fileID: 11400000, guid: 6769d592877a71549976df596e9e740e, type: 2}
+  m_statName: {fileID: 4965759083313989325}
+  m_statValue: {fileID: 5071149692386118008}
 --- !u!1 &1773801487343832258
 GameObject:
   m_ObjectHideFlags: 0
@@ -4364,7 +4382,7 @@ GameObject:
   - component: {fileID: 4275420691307384573}
   - component: {fileID: 5071149692386118008}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: Stat Value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5137,7 +5155,7 @@ GameObject:
   - component: {fileID: 1537223554733796985}
   - component: {fileID: 7501809440731050869}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: Rizz Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5580,7 +5598,7 @@ GameObject:
   - component: {fileID: 7455635564679378579}
   - component: {fileID: 4965759083313989325}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Stat Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

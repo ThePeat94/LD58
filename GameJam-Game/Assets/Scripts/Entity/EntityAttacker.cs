@@ -69,13 +69,16 @@ namespace Nidavellir.Entity
             
             var attackStat = this.m_ownEntityInformation.EntityStats[this.m_characterStatFacade.Attack];
             var healthStat = this.m_targetEntityInformation.EntityStats[this.m_characterStatFacade.Hp];
+            var defenseStat = this.m_targetEntityInformation.EntityStats[this.m_characterStatFacade.Defense];
 
-            if (attackStat is null || healthStat is null)
+            if (attackStat is null || healthStat is null || defenseStat is null)
             {
                 throw new InvalidOperationException("EntityAttacker missing required stats");
             }
+            
+            var damage = Math.Max(1, attackStat.CurrentValue - defenseStat.CurrentValue);
 
-            healthStat.UseResource(attackStat.CurrentValue);
+            healthStat.UseResource(damage);
             this.m_currentAttackFrame = this.m_attackFrames;
         }
 
