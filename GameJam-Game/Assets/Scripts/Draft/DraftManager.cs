@@ -26,7 +26,11 @@ namespace Nidavellir.Draft
         private IEventBinding<StartFightEvent> m_startFightEventBinding;
 
         private List<EnemyData> m_likedProfiles = new();
+        private List<EnemyData> m_dislikedProfiles = new();
+        private List<EnemyData> m_superLikedProfiles = new();
         private List<EnemyData> m_availableProfiles;
+        
+        public EnemyData CurrentProfile => this.m_currentProfile;
 
         private void Awake()
         {
@@ -35,16 +39,16 @@ namespace Nidavellir.Draft
 
         private void Start()
         {
-            this.m_dislikedEventBinding = new EventBinding<ProfileDislikedEvent>(this.OnDislikeClick);
+            this.m_dislikedEventBinding = new EventBinding<ProfileDislikedEvent>(this.OnDislikeEvent);
             GameEventBus<ProfileDislikedEvent>.Register(this.m_dislikedEventBinding);
 
-            this.m_likedEventBinding = new EventBinding<ProfileLikedEvent>(this.OnLikeClick);
+            this.m_likedEventBinding = new EventBinding<ProfileLikedEvent>(this.OnLikeEvent);
             GameEventBus<ProfileLikedEvent>.Register(this.m_likedEventBinding);
 
-            this.m_superLikedEventBinding = new EventBinding<ProfileSuperLikedEvent>(this.OnSuperLikeClick);
+            this.m_superLikedEventBinding = new EventBinding<ProfileSuperLikedEvent>(this.OnSuperLikeEvent);
             GameEventBus<ProfileSuperLikedEvent>.Register(this.m_superLikedEventBinding);
             
-            this.m_startFightEventBinding = new EventBinding<StartFightEvent>(this.OnStartFightClick);
+            this.m_startFightEventBinding = new EventBinding<StartFightEvent>(this.OnStartFightEvent);
             GameEventBus<StartFightEvent>.Register(this.m_startFightEventBinding);
 
             this.m_availableProfiles = new List<EnemyData>(this.m_initialProfiles);
@@ -59,18 +63,19 @@ namespace Nidavellir.Draft
             GameEventBus<ProfileSuperLikedEvent>.Unregister(this.m_superLikedEventBinding);
         }
 
-        private void OnDislikeClick(object sender, ProfileDislikedEvent e)
+        private void OnDislikeEvent(object sender, ProfileDislikedEvent e)
         {
-            Debug.Log("Ohhh :(");
+            this.m_dislikedProfiles.Add(e.EnemyData);
+            var playerDislikes = this.m_playerStats[this.m_characterStatFacade.Dislikes];
+            playerDislikes.UseResource(1);
+            this.ChooseNewProfile();
         }
 
-        private void OnLikeClick(object sender, ProfileLikedEvent e)
+        private void OnLikeEvent(object sender, ProfileLikedEvent e)
         {
-            Debug.Log("Yay, its a match :) Literally.");
             this.m_likedProfiles.Add(e.EnemyData);
             var playerLikes = this.m_playerStats[this.m_characterStatFacade.Likes];
             playerLikes.UseResource(1);
-            Debug.Log($"You have {playerLikes.CurrentValue} likes remaining.");
             if (playerLikes.CurrentValue > 0)
             {
                 this.ChooseNewProfile();
@@ -81,9 +86,12 @@ namespace Nidavellir.Draft
             }
         }
 
-        private void OnSuperLikeClick(object sender, ProfileSuperLikedEvent e)
+        private void OnSuperLikeEvent(object sender, ProfileSuperLikedEvent e)
         {
-            Debug.Log("You really want to fight this dude, right?");
+            this.m_superLikedProfiles.Add(e.EnemyData);
+            var playerSuperlikes = this.m_playerStats[this.m_characterStatFacade.SuperLike];
+            playerSuperlikes.UseResource(1);
+            this.ChooseNewProfile();
         }
 
         private void ChooseNewProfile()
@@ -93,7 +101,7 @@ namespace Nidavellir.Draft
             this.m_availableProfiles.Remove(this.m_currentProfile);
         }
         
-        private void OnStartFightClick(object sender, StartFightEvent e)
+        private void OnStartFightEvent(object sender, StartFightEvent e)
         {
             this.m_likedProfiles.Clear();
         }

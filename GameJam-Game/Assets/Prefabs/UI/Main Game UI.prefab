@@ -510,8 +510,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1578.1749, y: -50.328423}
-  m_SizeDelta: {x: 383.26996, y: 100.656845}
+  m_AnchoredPosition: {x: 1578.7977, y: -50.328423}
+  m_SizeDelta: {x: 383.5191, y: 100.656845}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2969207660118687429
 CanvasRenderer:
@@ -667,8 +667,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 278.30164, y: -125}
-  m_SizeDelta: {x: 556.6033, y: 250}
+  m_AnchoredPosition: {x: 278.42624, y: -124.8949}
+  m_SizeDelta: {x: 556.8525, y: 249.7898}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7419794183969861977
 CanvasRenderer:
@@ -1424,6 +1424,7 @@ GameObject:
   - component: {fileID: 4931474687331761222}
   - component: {fileID: 8075091862823520428}
   - component: {fileID: 4069567293369325025}
+  - component: {fileID: 1617516300058708676}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -1533,6 +1534,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1617516300058708676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1497094310651594287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 576f263e89824b7c89721511ae3808c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Nidavellir.UI.Draft.DislikeButton
+  m_button: {fileID: 4069567293369325025}
+  m_playerStats: {fileID: 0}
+  m_characterStatFacade: {fileID: 11400000, guid: a2a1da657de052b4da4fb551a730056a, type: 2}
+  m_draftManager: {fileID: 0}
 --- !u!1 &1633277445591471758
 GameObject:
   m_ObjectHideFlags: 0
@@ -2262,8 +2279,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1491.5082, y: -125}
-  m_SizeDelta: {x: 556.6033, y: 250}
+  m_AnchoredPosition: {x: 1492.1312, y: -124.8949}
+  m_SizeDelta: {x: 556.8525, y: 249.7898}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1757573815704464664
 CanvasRenderer:
@@ -2517,8 +2534,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1184.9049, y: -50.328423}
-  m_SizeDelta: {x: 383.26996, y: 100.656845}
+  m_AnchoredPosition: {x: 1185.2787, y: -50.328423}
+  m_SizeDelta: {x: 383.5191, y: 100.656845}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &328581725416546707
 CanvasRenderer:
@@ -2677,8 +2694,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 884.9049, y: -1215}
-  m_SizeDelta: {x: 1769.8098, y: 250}
+  m_AnchoredPosition: {x: 885.2787, y: -1214.6847}
+  m_SizeDelta: {x: 1770.5574, y: 249.7898}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3071783818585956542
 CanvasRenderer:
@@ -2989,6 +3006,7 @@ GameObject:
   - component: {fileID: 6051874491388139968}
   - component: {fileID: 5235287507430331276}
   - component: {fileID: 2754347767305587629}
+  - component: {fileID: 870643226949951339}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -3098,6 +3116,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &870643226949951339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3882814627073426333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1b3ee517aa744288fa52855b8732f72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Nidavellir.UI.Draft.LikeButton
+  m_button: {fileID: 2754347767305587629}
+  m_playerStats: {fileID: 0}
+  m_characterStatFacade: {fileID: 11400000, guid: a2a1da657de052b4da4fb551a730056a, type: 2}
+  m_draftManager: {fileID: 0}
 --- !u!1 &3892835888475807316
 GameObject:
   m_ObjectHideFlags: 0
@@ -3328,6 +3362,7 @@ GameObject:
   - component: {fileID: 6383451468153441525}
   - component: {fileID: 2936411887919301544}
   - component: {fileID: 669576831977679276}
+  - component: {fileID: 8779907081684951618}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -3437,6 +3472,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8779907081684951618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4113816660872909212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47bfd83c5a61482495a92cb6bf4ba38a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Nidavellir.UI.Draft.SuperlikeButton
+  m_button: {fileID: 669576831977679276}
+  m_playerStats: {fileID: 0}
+  m_characterStatFacade: {fileID: 11400000, guid: a2a1da657de052b4da4fb551a730056a, type: 2}
+  m_draftManager: {fileID: 0}
 --- !u!1 &4238968084402781963
 GameObject:
   m_ObjectHideFlags: 0
@@ -4819,8 +4870,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 884.9049, y: -144.81027}
-  m_SizeDelta: {x: 1769.8098, y: 78.306854}
+  m_AnchoredPosition: {x: 885.2787, y: -144.81027}
+  m_SizeDelta: {x: 1770.5574, y: 78.306854}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4410766984760759246
 CanvasRenderer:
@@ -6551,8 +6602,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 491.63498, y: -50.328423}
-  m_SizeDelta: {x: 983.26996, y: 100.656845}
+  m_AnchoredPosition: {x: 491.75955, y: -50.328423}
+  m_SizeDelta: {x: 983.5191, y: 100.656845}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3802738090358391376
 CanvasRenderer:
@@ -7045,8 +7096,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 884.9049, y: -520}
-  m_SizeDelta: {x: 1769.8098, y: 1040}
+  m_AnchoredPosition: {x: 885.2787, y: -519.8949}
+  m_SizeDelta: {x: 1770.5574, y: 1039.7898}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4515162750332889853
 CanvasRenderer:
@@ -7453,8 +7504,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 884.9049, y: -50.328423}
-  m_SizeDelta: {x: 1769.8098, y: 100.656845}
+  m_AnchoredPosition: {x: 885.2787, y: -50.328423}
+  m_SizeDelta: {x: 1770.5574, y: 100.656845}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4766573247513706739
 CanvasRenderer:
@@ -8556,8 +8607,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 884.9049, y: -125}
-  m_SizeDelta: {x: 556.6033, y: 250}
+  m_AnchoredPosition: {x: 885.2787, y: -124.8949}
+  m_SizeDelta: {x: 556.8525, y: 249.7898}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5911056348988764522
 CanvasRenderer:

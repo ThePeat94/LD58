@@ -21,21 +21,15 @@ namespace Nidavellir.UI.Draft
         [SerializeField] private GameObject m_startFightUi;
         
         private List<EnemyData> m_likedProfiles = new();
-        private EnemyData m_currentEnemy;
         
         private void Awake()
         {
-            this.m_dislikeButton.onClick.AddListener(this.OnDislikeClick);
-            this.m_likeButton.onClick.AddListener(this.OnLikeClick);
-            this.m_superlikeButton.onClick.AddListener(this.OnSuperLikeClick);
             this.m_startFightButton.onClick.AddListener(this.OnStartFightClick);
-
             this.m_profileCardUI ??= this.GetComponentInChildren<ProfileCardUI>();
         }
 
         public void DisplayProfile(EnemyData enemyData)
         {
-            this.m_currentEnemy = enemyData;
             this.m_profileCardUI.DisplayEnemy(enemyData);
         }
 
@@ -51,21 +45,6 @@ namespace Nidavellir.UI.Draft
             this.m_likedProfiles = likedProfiles;
             this.m_profilesUi.SetActive(false);
             this.m_startFightUi.SetActive(true);
-        }
-
-        private void OnDislikeClick()
-        {
-            GameEventBus<ProfileDislikedEvent>.Invoke(this, new(this.m_currentEnemy));
-        }
-
-        private void OnLikeClick()
-        {
-            GameEventBus<ProfileLikedEvent>.Invoke(this, new(this.m_currentEnemy));
-        }
-
-        private void OnSuperLikeClick()
-        {
-            GameEventBus<ProfileSuperLikedEvent>.Invoke(this, new(this.m_currentEnemy));
         }
 
         private void OnStartFightClick()
