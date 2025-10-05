@@ -55,7 +55,6 @@ namespace Nidavellir.Fight
         
         private void StartFight(List<EnemyData> likedEnemies)
         {
-            this.ResetPlayer();
             this.m_likedEnemies = likedEnemies;
             var shuffledList = this.m_likedEnemies.OrderBy(x => Random.value).ToList();
             foreach (var enemy in shuffledList)
@@ -92,11 +91,6 @@ namespace Nidavellir.Fight
             var hpStat = entityInformation.EntityStats[this.m_characterStatFacade.Hp];
             hpStat.OnValueChanged += this.OnEnemyHpChanged;
         }
-
-        private void ResetPlayer()
-        {
-            this.m_playerInformation.EntityStats[this.m_characterStatFacade.Hp].ResetToMax();
-        }
         
         private void OnEnemyHpChanged(object sender, CharacterStatValueChangeEventArgs e)
         {
@@ -117,8 +111,7 @@ namespace Nidavellir.Fight
         {
             if (this.m_enemyQueue.Count == 0)
             {
-                Debug.Log("You have defeated all your enemies! Congratulations!");
-                this.m_fightUI.ShowAfterFightUI();
+                this.StartCoroutine(this.QueueAfterFight());
                 return;
             }
             
@@ -133,6 +126,12 @@ namespace Nidavellir.Fight
             this.m_playerAttacker.ResetAttack();
             this.m_currentEnemyAttacker.CanAttack = true;
             this.m_playerAttacker.CanAttack = true;
+        }
+
+        private IEnumerator QueueAfterFight()
+        {
+            yield return new WaitForSeconds(1f);
+            this.m_fightUI.ShowAfterFightUI();
         }
 
         private void ResetEnemy()

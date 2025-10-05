@@ -12,7 +12,7 @@ namespace Nidavellir.GameState
 {
     public class GameStateManager : MonoBehaviour
     {
-        [SerializeField] private GameObject m_draftUi;
+        [SerializeField] private DraftUI m_draftUi;
         [SerializeField] private GameObject m_shopUi;
         [SerializeField] private GameObject m_fightUi;
         
@@ -26,7 +26,7 @@ namespace Nidavellir.GameState
 
         private void Awake()
         {
-            this.m_draftUi ??= FindFirstObjectByType<DraftUI>()?.gameObject;
+            this.m_draftUi ??= FindFirstObjectByType<DraftUI>(FindObjectsInactive.Include);
 
             this.m_startFightEventBinding = new EventBinding<StartFightEvent>(this.OnStartFight);
             GameEventBus<StartFightEvent>.Register(this.m_startFightEventBinding);
@@ -38,9 +38,10 @@ namespace Nidavellir.GameState
             GameEventBus<StartDraftEvent>.Register(this.m_startDraftEventBinding);
             
             this.m_currentState = State.Draft;
-            this.m_draftUi?.SetActive(true);
+            this.m_draftUi?.gameObject.SetActive(true);
             this.m_shopUi?.SetActive(false);
             this.m_fightUi?.SetActive(false);
+            this.m_draftUi?.ShowProfiles();
         }
 
         private void Start()
@@ -56,7 +57,7 @@ namespace Nidavellir.GameState
         private void OnStartFight(object sender, StartFightEvent evt)
         {
             this.m_currentState = State.Fight;
-            this.m_draftUi?.SetActive(false);
+            this.m_draftUi?.gameObject.SetActive(false);
             this.m_shopUi?.SetActive(false);
             this.m_fightUi?.SetActive(true);
             GameEventBus<GameStateChangedEvent>.Invoke(this, new GameStateChangedEvent(this.m_currentState));
@@ -65,7 +66,7 @@ namespace Nidavellir.GameState
         private void OnVisitShop(object sender, VisitShopEvent evt)
         {
             this.m_currentState = State.Shop;
-            this.m_draftUi?.SetActive(false);
+            this.m_draftUi?.gameObject.SetActive(false);
             this.m_shopUi?.SetActive(true);
             this.m_fightUi?.SetActive(false);
             GameEventBus<GameStateChangedEvent>.Invoke(this, new GameStateChangedEvent(this.m_currentState));
@@ -74,9 +75,10 @@ namespace Nidavellir.GameState
         private void OnStartDraft(object sender, StartDraftEvent evt)
         {
             this.m_currentState = State.Draft;
-            this.m_draftUi?.SetActive(true);
+            this.m_draftUi?.gameObject.SetActive(true);
             this.m_shopUi?.SetActive(false);
             this.m_fightUi?.SetActive(false);
+            this.m_draftUi?.ShowProfiles();
             GameEventBus<GameStateChangedEvent>.Invoke(this, new GameStateChangedEvent(this.m_currentState));
         }
     }

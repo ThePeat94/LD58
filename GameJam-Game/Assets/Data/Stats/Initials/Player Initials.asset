@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Nidavellir.Scriptables.InitialStatData
   m_initialStats:
   - m_characterStat: {fileID: 11400000, guid: 151839cb124f461428ac3eca8a61a55b, type: 2}
-    m_value: 5
-    m_maxValue: 5
+    m_value: 4
+    m_maxValue: 4
   - m_characterStat: {fileID: 11400000, guid: 41fdbc50be249da47a15f93ee244bf01, type: 2}
     m_value: 3
     m_maxValue: 3
