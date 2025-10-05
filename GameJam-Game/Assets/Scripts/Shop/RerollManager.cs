@@ -31,6 +31,12 @@ namespace Nidavellir.Shop
             GameEventBus<VisitShopEvent>.Register(this.m_visitShopEventBinding);
         }
 
+        private void OnDestroy()
+        {
+            GameEventBus<RerollUpgradesEvent>.Unregister(this.m_rerollUpgradesEventBinding);
+            GameEventBus<VisitShopEvent>.Unregister(this.m_visitShopEventBinding);
+        }
+
         private void OnVisitShop(object sender, VisitShopEvent e)
         {
             this.m_rerollCost = this.m_initialRerollCost;

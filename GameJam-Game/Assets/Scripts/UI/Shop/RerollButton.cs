@@ -2,6 +2,8 @@
 using Nidavellir.Entity;
 using Nidavellir.EventArgs;
 using Nidavellir.GameEventBus;
+using Nidavellir.GameEventBus.EventBindings;
+using Nidavellir.GameEventBus.Events.Fight;
 using Nidavellir.GameEventBus.Events.Shop;
 using Nidavellir.Scriptables;
 using Nidavellir.Shop;
@@ -13,7 +15,7 @@ namespace Nidavellir.UI.Shop
 {
     public class RerollButton : MonoBehaviour
     {
-        private const string REROLL_COST_FORMAT = "Reroll ({0}€)";
+        private const string REROLL_COST_FORMAT = "Reroll ({0}g)";
         
         [SerializeField] private Button m_button;
         [SerializeField] private EntityStats m_playerStats;
@@ -21,11 +23,16 @@ namespace Nidavellir.UI.Shop
         [SerializeField] private RerollManager m_rerollManager;
         [SerializeField] private TextMeshProUGUI m_rerollCostText;
         
+        private IEventBinding<VisitShopEvent> m_visitShopEventBinding;
+        
         private void Awake()
         {
             this.m_playerStats ??= FindFirstObjectByType<EntityStats>(FindObjectsInactive.Include);
             this.m_button.onClick.AddListener(this.OnRerollClick);
             this.m_rerollManager ??= FindFirstObjectByType<RerollManager>();
+            
+            this.m_visitShopEventBinding = new EventBinding<VisitShopEvent>(this.OnVisitShopEvent);
+            GameEventBus<VisitShopEvent>.Register(this.m_visitShopEventBinding);
         }
 
         private void Start()
@@ -33,6 +40,12 @@ namespace Nidavellir.UI.Shop
             this.m_playerStats[this.m_characterStatFacade.Money].OnValueChanged += this.OnMoneyChanged;
             this.m_rerollCostText.text = String.Format(REROLL_COST_FORMAT, this.m_rerollManager.RerollCost);
             this.m_button.interactable = this.m_playerStats[this.m_characterStatFacade.Money].CurrentValue >= this.m_rerollManager.RerollCost;
+        }
+
+
+        private void OnDestroy()
+        {
+            GameEventBus<VisitShopEvent>.Unregister(this.m_visitShopEventBinding);
         }
 
         private void OnMoneyChanged(object sender, CharacterStatValueChangeEventArgs e)
@@ -45,6 +58,11 @@ namespace Nidavellir.UI.Shop
             GameEventBus<RerollUpgradesEvent>.Invoke(this, new RerollUpgradesEvent());
             this.m_rerollCostText.text = String.Format(REROLL_COST_FORMAT, this.m_rerollManager.RerollCost);
             this.m_button.interactable = this.m_playerStats[this.m_characterStatFacade.Money].CurrentValue >= this.m_rerollManager.RerollCost;
+        }
+        
+        private void OnVisitShopEvent(object sender, VisitShopEvent e)
+        {
+            this.m_rerollCostText.text = String.Format(REROLL_COST_FORMAT, this.m_rerollManager.RerollCost);
         }
     }
 }

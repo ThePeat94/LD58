@@ -17,11 +17,13 @@ namespace Nidavellir.Scriptables.Scaling
         {
             [SerializeField] private CharacterStat m_stat;
             [SerializeField] private int m_baseValue;
+            [SerializeField] private int m_minValue;
             [SerializeField] private AnimationCurve m_scalingFactor;
             [SerializeField] private AnimationCurve m_varianceFactor;
         
             public CharacterStat Stat => this.m_stat;
             public int BaseValue => this.m_baseValue;
+            public int MinValue => this.m_minValue;
             public AnimationCurve ScalingFactor => this.m_scalingFactor;
             public AnimationCurve VarianceFactor => this.m_varianceFactor;
         }

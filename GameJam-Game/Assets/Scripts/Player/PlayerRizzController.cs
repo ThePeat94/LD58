@@ -25,7 +25,7 @@ namespace Nidavellir.Player
 
         private void OnRizzChanged(object sender, CharacterStatValueChangeEventArgs e)
         {
-            if (e.NewValue < 1)
+            if (e.NewValue <= 4)
                 return;
             
             GameEventBus<GameWonEvent>.Invoke(this, new());

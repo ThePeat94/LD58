@@ -18,11 +18,11 @@ namespace Nidavellir.UI.Shop
         
         private EntityStats m_playerStats;
         
-        private const string COST_FORMAT = "{0}€";
+        private const string COST_FORMAT = "{0}g";
         
         private UpgradeData m_data;
         
-        public Button BuyButton => m_buyButton;
+        public Button BuyButton => this.m_buyButton;
 
         public void Show(UpgradeData data, EntityStats playerStats)
         {

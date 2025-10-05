@@ -1,4 +1,5 @@
-﻿using Nidavellir.Entity;
+﻿using System;
+using Nidavellir.Entity;
 using Nidavellir.GameEventBus;
 using Nidavellir.GameEventBus.EventBindings;
 using Nidavellir.GameEventBus.Events.Fight;
@@ -18,6 +19,11 @@ namespace Nidavellir.Player
         {
             this.m_enemyDefeatedEvent = new EventBinding<EnemyDefeatedEvent>(this.OnEnemyDefeated);
             GameEventBus<EnemyDefeatedEvent>.Register(this.m_enemyDefeatedEvent);
+        }
+
+        private void OnDestroy()
+        {
+            GameEventBus<EnemyDefeatedEvent>.Unregister(this.m_enemyDefeatedEvent);
         }
 
         private void OnEnemyDefeated(object sender, EnemyDefeatedEvent e)

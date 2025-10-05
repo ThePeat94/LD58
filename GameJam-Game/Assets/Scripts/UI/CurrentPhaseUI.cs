@@ -26,6 +26,11 @@ namespace Nidavellir.UI
             var gameStateManager = FindFirstObjectByType<GameStateManager>();
             this.UpdateTexts(gameStateManager.CurrentState);
         }
+        
+        private void OnDestroy()
+        {
+            GameEventBus<GameStateChangedEvent>.Unregister(this.m_gameStateChangedEventBinding);
+        }
 
         private void OnGameStateChanged(object sender, GameStateChangedEvent e)
         {
@@ -43,11 +48,6 @@ namespace Nidavellir.UI
                 State.Gameover => "You have been defeated!",
                 _ => throw new ArgumentOutOfRangeException()
             };
-        }
-        
-        private void OnDestroy()
-        {
-            GameEventBus<GameStateChangedEvent>.Unregister(this.m_gameStateChangedEventBinding);
         }
     }
 }

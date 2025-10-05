@@ -20,6 +20,8 @@ namespace Nidavellir.Draft
         [SerializeField] private EntityStats m_playerStats;
         [SerializeField] private CharacterStatFacade m_characterStatFacade;
         [SerializeField] private List<ProfilePoolData> m_poolsPerRizzLevel;
+        [SerializeField] private EnemyFactory m_enemyFactory;
+        
         
         private RuntimeEnemyInformation m_currentProfile;
 
@@ -43,6 +45,7 @@ namespace Nidavellir.Draft
         private void Awake()
         {
             this.m_draftUI ??= FindFirstObjectByType<DraftUI>();
+            this.m_enemyFactory ??= FindFirstObjectByType<EnemyFactory>();
         }
 
         private void Start()
@@ -74,6 +77,8 @@ namespace Nidavellir.Draft
             GameEventBus<ProfileDislikedEvent>.Unregister(this.m_dislikedEventBinding);
             GameEventBus<ProfileLikedEvent>.Unregister(this.m_likedEventBinding);
             GameEventBus<ProfileSuperLikedEvent>.Unregister(this.m_superLikedEventBinding);
+            GameEventBus<StartFightEvent>.Unregister(this.m_startFightEventBinding);
+            GameEventBus<StartDraftEvent>.Unregister(this.m_startDraftEventBinding);
         }
         
         private void ChooseNewProfile()
@@ -90,18 +95,11 @@ namespace Nidavellir.Draft
             }
 
             var selectedProfile = anchorProfiles[UnityEngine.Random.Range(0, anchorProfiles.Count)];
-            this.m_currentProfile = this.CreateRuntimeEnemyInformation(selectedProfile);
+            this.m_currentProfile = this.m_enemyFactory.CreateEnemy(selectedProfile);
             this.m_draftUI.DisplayProfile(this.m_currentProfile);
             anchorProfiles.Remove(selectedProfile);
         }
         
-        private RuntimeEnemyInformation CreateRuntimeEnemyInformation(EnemyData enemyData)
-        {
-            var stats = enemyData.ScalableStats.ScalableStats.ToDictionary(stat => stat.Stat, stat => stat.BaseValue);
-            stats.Add(this.m_characterStatFacade.Distance, UnityEngine.Random.Range(4, 20));
-            stats.Add(this.m_characterStatFacade.Money, UnityEngine.Random.Range(4, 12));
-            return new RuntimeEnemyInformation(enemyData, stats, 100);
-        }
 
         private void StartDraft()
         {

@@ -20,4 +20,4 @@ MonoBehaviour:
     hilt. I schedule victories; you schedule snacks."
   m_possibleBackgrounds:
   - {fileID: 21300000, guid: d11afb7aa205c494ab0580ab4d9ecd6c, type: 3}
-  m_scalableStats: {fileID: 11400000, guid: 4aece7ea49736fb4e9dcbee5ed97fc3b, type: 2}
+  m_scalableStats: {fileID: 11400000, guid: 44cafa2448d12e945bc44c4d85fd7214, type: 2}

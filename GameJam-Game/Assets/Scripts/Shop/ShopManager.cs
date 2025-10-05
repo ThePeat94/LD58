@@ -39,6 +39,14 @@ namespace Nidavellir.Shop
             this.m_visitShopEventBinding = new EventBinding<VisitShopEvent>(this.OnVisitShop);
             GameEventBus<VisitShopEvent>.Register(this.m_visitShopEventBinding);
         }
+        
+        private void OnDestroy()
+        {
+            GameEventBus<RerollUpgradesEvent>.Unregister(this.m_rerollUpgradesEventBinding);
+            GameEventBus<PurchaseUpgradeEvent>.Unregister(this.m_purchaseUpgradeEventBinding);
+            GameEventBus<StartDraftEvent>.Unregister(this.m_startDraftEventBinding);
+            GameEventBus<VisitShopEvent>.Unregister(this.m_visitShopEventBinding);
+        }
 
         private void OnVisitShop(object sender, VisitShopEvent e)
         {
@@ -57,14 +65,6 @@ namespace Nidavellir.Shop
         
         private void OnStartDraft(object sender, StartDraftEvent e)
         {
-        }
-        
-        private void OnDestroy()
-        {
-            GameEventBus<RerollUpgradesEvent>.Unregister(this.m_rerollUpgradesEventBinding);
-            GameEventBus<PurchaseUpgradeEvent>.Unregister(this.m_purchaseUpgradeEventBinding);
-            GameEventBus<StartDraftEvent>.Unregister(this.m_startDraftEventBinding);
-            GameEventBus<VisitShopEvent>.Unregister(this.m_visitShopEventBinding);
         }
         
         private List<UpgradeData> GetRandomUpgrades(int count)

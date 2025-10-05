@@ -80,6 +80,11 @@ namespace Nidavellir.GameState
         private void OnDestroy()
         {
             GameEventBus<StartFightEvent>.Unregister(this.m_startFightEventBinding);
+            GameEventBus<VisitShopEvent>.Unregister(this.m_visitShopEventBinding);
+            GameEventBus<StartDraftEvent>.Unregister(this.m_startDraftEventBinding);
+            GameEventBus<BountyRequirementNotFulfilled>.Unregister(this.m_bountyRequirementNotFulfilledEventBinding);
+            GameEventBus<PlayerDiedEvent>.Unregister(this.m_playerDiedEventBinding);
+            GameEventBus<GameWonEvent>.Unregister(this.m_gameWonEventBinding);
         }
         
         private void OnStartFight(object sender, StartFightEvent evt)

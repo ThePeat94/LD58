@@ -20,7 +20,7 @@ namespace Nidavellir
         private IEventBinding<BountyRequirementFulfilled> m_bountyRequirementFulfilledEventBinding;
         
         public List<int> BountyRequirementsPerRound => this.m_bountyRequirementsPerRound;
-        public int CurrentBountyRequirement => this.m_bountyRequirementsPerRound[(this.m_playerStats[this.m_characterStatFacade.Round]?.CurrentValue - 1) ?? 0];
+        public int CurrentBountyRequirement => this.m_bountyRequirementsPerRound[Mathf.Min(this.m_playerStats[this.m_characterStatFacade.Round]?.CurrentValue - 1 ?? 0, this.m_bountyRequirementsPerRound.Count - 1)];
 
         private void Awake()
         {
