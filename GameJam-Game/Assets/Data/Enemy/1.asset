@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96f8b0545310497090ce16d306461f52, type: 3}
   m_Name: 1
   m_EditorClassIdentifier: 
-  m_id: 2
+  m_id: 1
   m_name: Ghraza Quickbraid
+  m_age: 20
   m_icon: {fileID: 21300000, guid: 2f328ade9048a514a9e0ec3819b05fb9, type: 3}
   m_profileDescription: I hoard bounties and punchlines. If you can keep up with
     my laugh, you might keep up with my raids.

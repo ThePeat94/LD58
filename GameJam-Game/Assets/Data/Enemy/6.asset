@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96f8b0545310497090ce16d306461f52, type: 3}
   m_Name: 6
   m_EditorClassIdentifier: 
-  m_id: 7
+  m_id: 6
   m_name: Murt Grimline
+  m_age: 22
   m_icon: {fileID: 21300000, guid: 44b3042ea02808841bef7e8c7362eac0, type: 3}
   m_profileDescription: "Face says \u2018no,\u2019 heart says \u2018maybe.\u2019
     Convince either and you win."
