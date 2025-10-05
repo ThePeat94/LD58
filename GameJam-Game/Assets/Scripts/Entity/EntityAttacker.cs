@@ -44,6 +44,9 @@ namespace Nidavellir.Entity
             this.m_targetEntityInformation = targetEntityInformation;
             this.m_characterStatFacade = characterStatFacade;
             
+            this.m_attackFrames = this.m_ownEntityInformation.EntityStats[this.m_characterStatFacade.AtkSpeed]?.CurrentValue ?? 90;
+            this.m_currentAttackFrame = this.m_attackFrames;
+            
             this.m_ownEntityInformation.EntityStats[this.m_characterStatFacade.Hp].OnValueChanged += this.OnOwnHealthChanged;
         }
 

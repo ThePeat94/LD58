@@ -15,6 +15,7 @@ namespace Nidavellir.Scriptables
         [SerializeField] private CharacterStat m_distance;
         [SerializeField] private CharacterStat m_round;
         [SerializeField] private CharacterStat m_rizz;
+        [SerializeField] private CharacterStat m_atkSpeed;
         
         public CharacterStat Hp => this.m_hp;
         public CharacterStat Attack => this.m_attack;
@@ -26,5 +27,6 @@ namespace Nidavellir.Scriptables
         public CharacterStat Distance => this.m_distance;
         public CharacterStat Round => this.m_round;
         public CharacterStat Rizz => this.m_rizz;
+        public CharacterStat AtkSpeed => this.m_atkSpeed;
     }
 }
