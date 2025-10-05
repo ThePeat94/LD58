@@ -300,17 +300,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31fce37c555e4dbd9c0d5d8b18fd8f09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Nidavellir.Draft.DraftManager
-  m_initialProfiles:
-  - {fileID: 11400000, guid: 99e52083b7735a04aade1114f93bda87, type: 2}
-  - {fileID: 11400000, guid: a523228eca12bd3419d5a43534149e37, type: 2}
-  - {fileID: 11400000, guid: 8f0f67485e1929f48be10f5d5f8545ff, type: 2}
-  - {fileID: 11400000, guid: e6a17b75d04ddd24db201c6d5805f7cc, type: 2}
-  - {fileID: 11400000, guid: 23f4c3b5f992ac644a7c3cf74e0fd904, type: 2}
-  - {fileID: 11400000, guid: 72e85c74541b0da4f8b9fd2825a84ade, type: 2}
-  - {fileID: 11400000, guid: 27e21ab7219ed1049933c847b3007f4f, type: 2}
   m_draftUI: {fileID: 28746442}
   m_playerStats: {fileID: 897911648}
   m_characterStatFacade: {fileID: 11400000, guid: a2a1da657de052b4da4fb551a730056a, type: 2}
+  m_poolsPerRizzLevel:
+  - {fileID: 11400000, guid: 30e50c8511ad9254d8902bd436fc2d9e, type: 2}
 --- !u!4 &588201802
 Transform:
   m_ObjectHideFlags: 0

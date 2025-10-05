@@ -10,15 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96f8b0545310497090ce16d306461f52, type: 3}
-  m_Name: 6
-  m_EditorClassIdentifier: 
-  m_id: 6
-  m_name: Murt Grimline
-  m_age: 22
-  m_icon: {fileID: 21300000, guid: 44b3042ea02808841bef7e8c7362eac0, type: 3}
-  m_profileDescription: "Face says \u2018no,\u2019 heart says \u2018maybe.\u2019
-    Convince either and you win."
+  m_Name: Zoruk Tidebound
+  m_EditorClassIdentifier: Assembly-CSharp::Nidavellir.Scriptables.EnemyData
+  m_id: 0
+  m_name: Zoruk Tidebound
+  m_age: 25
+  m_icon: {fileID: 21300000, guid: 00c2a3f1292a6d041bbec23ee0f83746, type: 3}
+  m_profileDescription: I ride waves, you carry towels. Flirt boldly, hydrate often,
+    and try to keep up.
   m_initialStats: {fileID: 11400000, guid: 3c7bc466cff6f934283aad725ca7d32b, type: 2}
   m_possibleBackgrounds:
   - {fileID: 21300000, guid: d11afb7aa205c494ab0580ab4d9ecd6c, type: 3}
-  - {fileID: 21300000, guid: 990e10e0c5b5c074ba5f9dd80989299d, type: 3}

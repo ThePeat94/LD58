@@ -14,11 +14,11 @@ namespace Nidavellir.Draft
 {
     public class DraftManager : MonoBehaviour
     {
-        [SerializeField] private List<EnemyData> m_initialProfiles;
         [SerializeField] private DraftUI m_draftUI;
         [SerializeField] private EntityStats m_playerStats;
         [SerializeField] private CharacterStatFacade m_characterStatFacade;
-
+        [SerializeField] private List<ProfilePoolData> m_poolsPerRizzLevel;
+        
         private EnemyData m_currentProfile;
 
         private IEventBinding<ProfileDislikedEvent> m_dislikedEventBinding;
@@ -30,7 +30,11 @@ namespace Nidavellir.Draft
         private List<EnemyData> m_likedProfiles = new();
         private List<EnemyData> m_dislikedProfiles = new();
         private List<EnemyData> m_superLikedProfiles = new();
-        private List<EnemyData> m_availableProfiles;
+        
+        private List<EnemyData> m_availableNonBossProfiles;
+        private List<EnemyData> m_availableBossProfiles;
+
+        private List<EnemyData> m_profilePool;
         
         public EnemyData CurrentProfile => this.m_currentProfile;
 
@@ -55,12 +59,49 @@ namespace Nidavellir.Draft
             
             this.m_startDraftEventBinding = new EventBinding<StartDraftEvent>(this.OnStartDraftEvent);
             GameEventBus<StartDraftEvent>.Register(this.m_startDraftEventBinding);
+            
+            var rizzIndex = Math.Min(this.m_playerStats[this.m_characterStatFacade.Rizz].CurrentValue - 1, this.m_poolsPerRizzLevel.Count - 1);
+            this.m_availableNonBossProfiles = new List<EnemyData>(this.m_poolsPerRizzLevel[rizzIndex].NonBossProfiles);
+            this.m_availableBossProfiles = new List<EnemyData>(this.m_poolsPerRizzLevel[rizzIndex].BossProfiles);
+            
+            this.StartDraft();
+        }
+        
+        private void OnDestroy()
+        {
+            GameEventBus<ProfileDislikedEvent>.Unregister(this.m_dislikedEventBinding);
+            GameEventBus<ProfileLikedEvent>.Unregister(this.m_likedEventBinding);
+            GameEventBus<ProfileSuperLikedEvent>.Unregister(this.m_superLikedEventBinding);
+        }
+        
+        private void ChooseNewProfile()
+        {
+            var roundController = this.m_playerStats[this.m_characterStatFacade.Round];
+            List<EnemyData> anchorProfiles;
+            if (roundController.CurrentValue % 3 == 0)
+            {
+                anchorProfiles = this.m_availableBossProfiles;
+            }
+            else
+            {
+                anchorProfiles = this.m_availableNonBossProfiles;
+            }
+            this.m_currentProfile = anchorProfiles[UnityEngine.Random.Range(0, anchorProfiles.Count)];
+            this.m_draftUI.DisplayProfile(this.m_currentProfile);
+            anchorProfiles.Remove(this.m_currentProfile);
+        }
 
-            this.m_availableProfiles = new List<EnemyData>(this.m_initialProfiles);
+        private void StartDraft()
+        {
+                            
+
+            this.m_likedProfiles.Clear();
+            this.m_dislikedProfiles.Clear();
+            this.m_superLikedProfiles.Clear();
             this.ChooseNewProfile();
             this.m_draftUI.ShowProfiles();
         }
-
+        
         private void OnStartDraftEvent(object sender, StartDraftEvent e)
         {
             var roundStatController = this.m_playerStats[this.m_characterStatFacade.Round];
@@ -70,21 +111,13 @@ namespace Nidavellir.Draft
             {
                 var rizzController = this.m_playerStats[this.m_characterStatFacade.Rizz];
                 rizzController.Add(1);
+                
+                var rizzIndex = Math.Min(this.m_playerStats[this.m_characterStatFacade.Rizz].CurrentValue - 1, this.m_poolsPerRizzLevel.Count - 1);
+                this.m_availableNonBossProfiles = new List<EnemyData>(this.m_poolsPerRizzLevel[rizzIndex].NonBossProfiles);
+                this.m_availableBossProfiles = new List<EnemyData>(this.m_poolsPerRizzLevel[rizzIndex].BossProfiles);
             }
             
-            this.m_availableProfiles = new List<EnemyData>(this.m_initialProfiles);
-            this.m_likedProfiles.Clear();
-            this.m_dislikedProfiles.Clear();
-            this.m_superLikedProfiles.Clear();
-            this.ChooseNewProfile();
-            this.m_draftUI.ShowProfiles();
-        }
-
-        private void OnDestroy()
-        {
-            GameEventBus<ProfileDislikedEvent>.Unregister(this.m_dislikedEventBinding);
-            GameEventBus<ProfileLikedEvent>.Unregister(this.m_likedEventBinding);
-            GameEventBus<ProfileSuperLikedEvent>.Unregister(this.m_superLikedEventBinding);
+            this.StartDraft();
         }
 
         private void OnDislikeEvent(object sender, ProfileDislikedEvent e)
@@ -116,13 +149,6 @@ namespace Nidavellir.Draft
             var playerSuperlikes = this.m_playerStats[this.m_characterStatFacade.SuperLike];
             playerSuperlikes.UseResource(1);
             this.ChooseNewProfile();
-        }
-
-        private void ChooseNewProfile()
-        {
-            this.m_currentProfile = this.m_availableProfiles[UnityEngine.Random.Range(0, this.m_availableProfiles.Count)];
-            this.m_draftUI.DisplayProfile(this.m_currentProfile);
-            this.m_availableProfiles.Remove(this.m_currentProfile);
         }
         
         private void OnStartFightEvent(object sender, StartFightEvent e)

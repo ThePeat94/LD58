@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96f8b0545310497090ce16d306461f52, type: 3}
+  m_Name: Bruz Thunderarm
+  m_EditorClassIdentifier: Assembly-CSharp::Nidavellir.Scriptables.EnemyData
+  m_id: 0
+  m_name: Bruz Thunderarm
+  m_age: 27
+  m_icon: {fileID: 21300000, guid: bdbe178411598e043a0f6f496b05242e, type: 3}
+  m_profileDescription: "Flex responsibly. Applaud loudly. I\u2019ll bring the thunder;
+    you bring the camera."
+  m_initialStats: {fileID: 11400000, guid: 3c7bc466cff6f934283aad725ca7d32b, type: 2}
+  m_possibleBackgrounds:
+  - {fileID: 21300000, guid: d11afb7aa205c494ab0580ab4d9ecd6c, type: 3}
