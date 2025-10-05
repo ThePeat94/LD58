@@ -1,5 +1,6 @@
 ﻿using Nidavellir.Entity;
 using Nidavellir.Scriptables;
+using Nidavellir.UI.Draft;
 using UnityEngine;
 
 namespace Nidavellir.Player
@@ -16,18 +17,18 @@ namespace Nidavellir.Player
         public Sprite BackgroundImage => this.m_backgroundImage;
         public EntityStats EntityStats => this.m_entityStats;
 
-        public void Init(EnemyData enemyData, EntityStats entityStats)
+        public void Init(RuntimeEnemyInformation enemyData, EntityStats entityStats)
         {
             this.m_entityStats = entityStats;
-            this.m_name = enemyData.Name;
-            this.m_profilePicture = enemyData.Icon;
-            if (enemyData.PossibleBackgrounds is null or { Count: 0 })
+            this.m_name = enemyData.BaseData.Name;
+            this.m_profilePicture = enemyData.BaseData.Icon;
+            if (enemyData.BaseData.PossibleBackgrounds is null or { Count: 0 })
             {
                 this.m_backgroundImage = null;
             }
             else
             {
-                this.m_backgroundImage = enemyData.PossibleBackgrounds[Random.Range(0, enemyData.PossibleBackgrounds.Count)];
+                this.m_backgroundImage = enemyData.BaseData.PossibleBackgrounds[Random.Range(0, enemyData.BaseData.PossibleBackgrounds.Count)];
             }
         }
     }

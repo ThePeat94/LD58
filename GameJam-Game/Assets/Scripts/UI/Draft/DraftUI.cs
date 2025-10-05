@@ -20,7 +20,7 @@ namespace Nidavellir.UI.Draft
         [SerializeField] private GameObject m_profilesUi;
         [SerializeField] private GameObject m_startFightUi;
         
-        private List<EnemyData> m_likedProfiles = new();
+        private List<RuntimeEnemyInformation> m_likedProfiles = new();
         
         private void Awake()
         {
@@ -28,7 +28,7 @@ namespace Nidavellir.UI.Draft
             this.m_profileCardUI ??= this.GetComponentInChildren<ProfileCardUI>();
         }
 
-        public void DisplayProfile(EnemyData enemyData)
+        public void DisplayProfile(RuntimeEnemyInformation enemyData)
         {
             this.m_profileCardUI.DisplayEnemy(enemyData);
         }
@@ -40,7 +40,7 @@ namespace Nidavellir.UI.Draft
             this.m_startFightUi.SetActive(false);
         }
 
-        public void ShowStartFight(List<EnemyData> likedProfiles)
+        public void ShowStartFight(List<RuntimeEnemyInformation> likedProfiles)
         {
             this.m_likedProfiles = likedProfiles;
             this.m_profilesUi.SetActive(false);

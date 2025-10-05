@@ -11,6 +11,7 @@ using Nidavellir.GameEventBus.Events.Draft;
 using Nidavellir.GameEventBus.Events.Fight;
 using Nidavellir.Player;
 using Nidavellir.Scriptables;
+using Nidavellir.UI.Draft;
 using Nidavellir.UI.Fight;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -25,13 +26,13 @@ namespace Nidavellir.Fight
         [SerializeField] private FightUI m_fightUI;
         [SerializeField] private BountyRequirementController m_bountyRequirementController;
         
-        private List<EnemyData> m_likedEnemies;
-        private List<EnemyData> m_defeatedEnemies = new List<EnemyData>();
+        private List<RuntimeEnemyInformation> m_likedEnemies;
+        private List<RuntimeEnemyInformation> m_defeatedEnemies = new();
         
-        private Queue<EnemyData> m_enemyQueue = new Queue<EnemyData>();
+        private Queue<RuntimeEnemyInformation> m_enemyQueue = new();
 
         private EntityInformation m_currentEnemyInformation;
-        private EnemyData m_currentEnemyData;
+        private RuntimeEnemyInformation m_currentEnemyData;
         private EntityAttacker m_currentEnemyAttacker;
         
         private IEventBinding<StartFightEvent> m_startFightEventBinding;
@@ -61,10 +62,10 @@ namespace Nidavellir.Fight
             this.m_fightUI.ShowFightUI();
         }
         
-        private void StartFight(List<EnemyData> likedEnemies)
+        private void StartFight(List<RuntimeEnemyInformation> likedEnemies)
         {
             this.m_likedEnemies = likedEnemies;
-            var shuffledList = this.m_likedEnemies.OrderBy(x => Random.value).ToList();
+            var shuffledList = this.m_likedEnemies.OrderBy(x => x.Stats[this.m_characterStatFacade.Distance]).ToList();
             foreach (var enemy in shuffledList)
             {
                 this.m_enemyQueue.Enqueue(enemy);
@@ -76,13 +77,13 @@ namespace Nidavellir.Fight
             this.m_currentEnemyAttacker.CanAttack = true;
         }
 
-        private void CreateEnemy(EnemyData enemyData)
+        private void CreateEnemy(RuntimeEnemyInformation enemyData)
         {
             this.ResetEnemy();
             this.m_currentEnemyData = enemyData;
             var currentEnemyGameObject = new GameObject();
             var entityStats = currentEnemyGameObject.AddComponent<EntityStats>();
-            entityStats.Init(enemyData.InitialStats);
+            entityStats.Init(enemyData);
             var entityInformation = currentEnemyGameObject.AddComponent<EntityInformation>();
             entityInformation.Init(enemyData, entityStats);
             this.m_currentEnemyInformation = entityInformation;

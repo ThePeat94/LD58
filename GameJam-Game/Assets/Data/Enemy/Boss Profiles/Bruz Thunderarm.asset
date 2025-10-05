@@ -18,6 +18,6 @@ MonoBehaviour:
   m_icon: {fileID: 21300000, guid: bdbe178411598e043a0f6f496b05242e, type: 3}
   m_profileDescription: "Flex responsibly. Applaud loudly. I\u2019ll bring the thunder;
     you bring the camera."
-  m_initialStats: {fileID: 11400000, guid: 3c7bc466cff6f934283aad725ca7d32b, type: 2}
   m_possibleBackgrounds:
   - {fileID: 21300000, guid: d11afb7aa205c494ab0580ab4d9ecd6c, type: 3}
+  m_scalableStats: {fileID: 11400000, guid: 4aece7ea49736fb4e9dcbee5ed97fc3b, type: 2}

@@ -18,6 +18,6 @@ MonoBehaviour:
   m_icon: {fileID: 21300000, guid: 0e977391f823e284f89a5e976530e564, type: 3}
   m_profileDescription: "Bring flowers, not excuses. I lead, you keep pace. If you
     can\u2019t, I\u2019ll still look fabulous leaving."
-  m_initialStats: {fileID: 11400000, guid: 3c7bc466cff6f934283aad725ca7d32b, type: 2}
   m_possibleBackgrounds:
   - {fileID: 21300000, guid: d11afb7aa205c494ab0580ab4d9ecd6c, type: 3}
+  m_scalableStats: {fileID: 11400000, guid: 4aece7ea49736fb4e9dcbee5ed97fc3b, type: 2}

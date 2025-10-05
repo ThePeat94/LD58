@@ -20,6 +20,12 @@ namespace Nidavellir.Entity
             this.MaxValue = initialStatValue.MaxValue;
         }
         
+        public StatController(int initialValue)
+        {
+            this.CurrentValue = initialValue;
+            this.MaxValue = initialValue;
+        }
+        
         public void Add(int value)
         {
             if (value < 0)

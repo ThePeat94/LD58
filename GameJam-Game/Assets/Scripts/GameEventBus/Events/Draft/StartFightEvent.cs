@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
 using Nidavellir.Scriptables;
+using Nidavellir.UI.Draft;
 
 namespace Nidavellir.GameEventBus.Events.Draft
 {
     public class StartFightEvent : IEvent
     {
-        public StartFightEvent(List<EnemyData> likedProfiles)
+        public StartFightEvent(List<RuntimeEnemyInformation> likedProfiles)
         {
             this.LikedProfiles = likedProfiles;
         }
         
-        public List<EnemyData> LikedProfiles { get; }
+        public List<RuntimeEnemyInformation> LikedProfiles { get; }
     }
 }

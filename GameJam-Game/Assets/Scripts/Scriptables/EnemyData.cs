@@ -14,7 +14,7 @@ namespace Nidavellir.Scriptables
         [SerializeField] private Sprite m_icon;
         [SerializeField] private string m_profileDescription;
         [SerializeField] private List<Sprite> m_possibleBackgrounds;
-        [SerializeField] private List<ScalableStatData> m_scalableStats;
+        [SerializeField] private ScalableStatData m_scalableStats;
         
         public int ID => this.m_id;
         public string Name => this.m_name;
@@ -22,6 +22,6 @@ namespace Nidavellir.Scriptables
         public Sprite Icon => this.m_icon;
         public string ProfileDescription => this.m_profileDescription;
         public List<Sprite> PossibleBackgrounds => this.m_possibleBackgrounds;
-        public List<ScalableStatData> ScalableStats => this.m_scalableStats;
+        public ScalableStatData ScalableStats => this.m_scalableStats;
     }
 }

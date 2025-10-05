@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Nidavellir.Scriptables;
+using Nidavellir.UI.Draft;
 using UnityEngine;
 
 namespace Nidavellir.Entity
@@ -45,6 +46,11 @@ namespace Nidavellir.Entity
                 initialStatData
                     .InitialStats
                     .ToDictionary(kvp => kvp.CharacterStat, kvp => new StatController(kvp));
+        }
+
+        public void Init(RuntimeEnemyInformation enemyInformation)
+        {
+            this.m_currentCharacterStats = enemyInformation.Stats.ToDictionary(kvp => kvp.Key, kvp => new StatController(kvp.Value));
         }
     }
 }

@@ -27,27 +27,25 @@ namespace Nidavellir.UI.Draft
         [SerializeField] private Sprite m_defaultBackground;
         [SerializeField] private CharacterStatFacade m_characterStatFacade;
         
-        public void DisplayEnemy(EnemyData enemyData)
+        public void DisplayEnemy(RuntimeEnemyInformation enemyData)
         {
-            this.m_name.text = String.Format(NAME_FORMAT, enemyData.Name, enemyData.Age);
-            this.m_description.text = enemyData.ProfileDescription;
-            this.m_profilePicture.sprite = enemyData.Icon;
+            this.m_name.text = String.Format(NAME_FORMAT, enemyData.BaseData.Name, enemyData.BaseData.Age);
+            this.m_description.text = enemyData.BaseData.ProfileDescription;
+            this.m_profilePicture.sprite = enemyData.BaseData.Icon;
             
-            if (enemyData.PossibleBackgrounds is null or { Count: 0 })
+            if (enemyData.BaseData.PossibleBackgrounds is null or { Count: 0 })
             {
                 this.m_profileBackground.sprite = this.m_defaultBackground;
             }
             else
             {
-                this.m_profileBackground.sprite = enemyData.PossibleBackgrounds[UnityEngine.Random.Range(0, enemyData.PossibleBackgrounds.Count)];
+                this.m_profileBackground.sprite = enemyData.BaseData.PossibleBackgrounds[UnityEngine.Random.Range(0, enemyData.BaseData.PossibleBackgrounds.Count)];
             }
             
-            var rewardStat = enemyData.InitialStats.InitialStats.FirstOrDefault(stat => stat.CharacterStat == this.m_characterStatFacade.Money);
-            var rewardAmount = rewardStat?.Value ?? 0;
+            var rewardAmount = enemyData.Stats[this.m_characterStatFacade.Money];
             this.m_reward.text = String.Format(REWARD_FORMAT, rewardAmount);
             
-            var distanceStat = enemyData.InitialStats.InitialStats.FirstOrDefault(stat => stat.CharacterStat == this.m_characterStatFacade.Distance);
-            var distanceAmount = distanceStat?.Value ?? 0;
+            var distanceAmount = enemyData.Stats[this.m_characterStatFacade.Distance];
             this.m_distance.text = String.Format(DISTANCE_FORMAT, distanceAmount);
         }
     }

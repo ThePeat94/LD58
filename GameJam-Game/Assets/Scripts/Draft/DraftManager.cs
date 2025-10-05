@@ -10,6 +10,7 @@ using Nidavellir.GameState;
 using Nidavellir.Scriptables;
 using Nidavellir.UI.Draft;
 using UnityEngine;
+using Random = System.Random;
 
 namespace Nidavellir.Draft
 {
@@ -20,7 +21,7 @@ namespace Nidavellir.Draft
         [SerializeField] private CharacterStatFacade m_characterStatFacade;
         [SerializeField] private List<ProfilePoolData> m_poolsPerRizzLevel;
         
-        private EnemyData m_currentProfile;
+        private RuntimeEnemyInformation m_currentProfile;
 
         private IEventBinding<ProfileDislikedEvent> m_dislikedEventBinding;
         private IEventBinding<ProfileLikedEvent> m_likedEventBinding;
@@ -28,19 +29,17 @@ namespace Nidavellir.Draft
         private IEventBinding<StartFightEvent> m_startFightEventBinding;
         private IEventBinding<StartDraftEvent> m_startDraftEventBinding;
 
-        private List<EnemyData> m_likedProfiles = new();
-        private List<EnemyData> m_dislikedProfiles = new();
-        private List<EnemyData> m_superLikedProfiles = new();
+        private List<RuntimeEnemyInformation> m_likedProfiles = new();
+        private List<RuntimeEnemyInformation> m_dislikedProfiles = new();
+        private List<RuntimeEnemyInformation> m_superLikedProfiles = new();
         
         private List<EnemyData> m_availableNonBossProfiles;
         private List<EnemyData> m_availableBossProfiles;
 
         private List<EnemyData> m_profilePool;
         
-        public EnemyData CurrentProfile => this.m_currentProfile;
+        public RuntimeEnemyInformation CurrentProfile => this.m_currentProfile;
         
-        public IReadOnlyList<EnemyData> LikedProfiles => this.m_likedProfiles;
-
         private void Awake()
         {
             this.m_draftUI ??= FindFirstObjectByType<DraftUI>();
@@ -89,9 +88,19 @@ namespace Nidavellir.Draft
             {
                 anchorProfiles = this.m_availableNonBossProfiles;
             }
-            this.m_currentProfile = anchorProfiles[UnityEngine.Random.Range(0, anchorProfiles.Count)];
+
+            var selectedProfile = anchorProfiles[UnityEngine.Random.Range(0, anchorProfiles.Count)];
+            this.m_currentProfile = this.CreateRuntimeEnemyInformation(selectedProfile);
             this.m_draftUI.DisplayProfile(this.m_currentProfile);
-            anchorProfiles.Remove(this.m_currentProfile);
+            anchorProfiles.Remove(selectedProfile);
+        }
+        
+        private RuntimeEnemyInformation CreateRuntimeEnemyInformation(EnemyData enemyData)
+        {
+            var stats = enemyData.ScalableStats.ScalableStats.ToDictionary(stat => stat.Stat, stat => stat.BaseValue);
+            stats.Add(this.m_characterStatFacade.Distance, UnityEngine.Random.Range(4, 20));
+            stats.Add(this.m_characterStatFacade.Money, UnityEngine.Random.Range(4, 12));
+            return new RuntimeEnemyInformation(enemyData, stats, 100);
         }
 
         private void StartDraft()

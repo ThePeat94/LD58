@@ -1,16 +1,17 @@
 using Nidavellir.Scriptables;
+using Nidavellir.UI.Draft;
 
 namespace Nidavellir.GameEventBus.Events.Draft
 {
     public class ProfileSuperLikedEvent : IEvent
     {
-        public EnemyData EnemyData
+        public RuntimeEnemyInformation EnemyData
         {
             get;
             private set;
         }
 
-        public ProfileSuperLikedEvent(EnemyData enemy)
+        public ProfileSuperLikedEvent(RuntimeEnemyInformation enemy)
         {
             this.EnemyData = enemy;
         }

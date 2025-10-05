@@ -18,6 +18,6 @@ MonoBehaviour:
   m_icon: {fileID: 21300000, guid: 00c2a3f1292a6d041bbec23ee0f83746, type: 3}
   m_profileDescription: I ride waves, you carry towels. Flirt boldly, hydrate often,
     and try to keep up.
-  m_initialStats: {fileID: 11400000, guid: 3c7bc466cff6f934283aad725ca7d32b, type: 2}
   m_possibleBackgrounds:
   - {fileID: 21300000, guid: d11afb7aa205c494ab0580ab4d9ecd6c, type: 3}
+  m_scalableStats: {fileID: 11400000, guid: 4aece7ea49736fb4e9dcbee5ed97fc3b, type: 2}
