@@ -20,6 +20,8 @@ namespace Nidavellir.UI.Draft
         
         [SerializeField] private TextMeshProUGUI m_name;
         [SerializeField] private TextMeshProUGUI m_description;
+        [SerializeField] private TextMeshProUGUI m_tags;
+        
         [SerializeField] private Image m_profilePicture;
         [SerializeField] private Image m_profileBackground;
         [SerializeField] private Sprite m_defaultBackground;
@@ -46,6 +48,14 @@ namespace Nidavellir.UI.Draft
             else
             {
                 this.m_profileBackground.sprite = enemyData.BaseData.PossibleBackgrounds[UnityEngine.Random.Range(0, enemyData.BaseData.PossibleBackgrounds.Count)];
+            }
+            if (enemyData.BaseData.Tags is null || enemyData.BaseData.Tags.Count == 0)
+            {
+                this.m_tags.text = "No Tags";
+            }
+            else
+            {
+                this.m_tags.text = String.Join(", ", enemyData.BaseData.Tags.Select(t => t.Name).ToList());
             }
             
             var attackSpeedStat = enemyData.Stats[this.m_characterStatFacade.AtkSpeed];

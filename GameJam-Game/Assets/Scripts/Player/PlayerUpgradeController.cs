@@ -1,7 +1,9 @@
-﻿using Nidavellir.Entity;
+﻿using System.Collections.Generic;
+using Nidavellir.Entity;
 using Nidavellir.GameEventBus;
 using Nidavellir.GameEventBus.EventBindings;
 using Nidavellir.GameEventBus.Events.Shop;
+using Nidavellir.Scriptables;
 using UnityEngine;
 
 namespace Nidavellir.Player
@@ -11,6 +13,10 @@ namespace Nidavellir.Player
         [SerializeField] private EntityStats m_playerStats;
         
         private IEventBinding<PurchaseUpgradeEvent> m_purchaseUpgradeEventBinding;
+        
+        private List<UpgradeData> m_purchasedUpgrades = new List<UpgradeData>();
+        
+        public IReadOnlyList<UpgradeData> PurchasedUpgrades => this.m_purchasedUpgrades.AsReadOnly();
         
         private void Awake()
         {
@@ -28,8 +34,19 @@ namespace Nidavellir.Player
             foreach (var upgradeDataAffectedStat in e.UpgradeData.AffectedStats)
             {
                 var stat = this.m_playerStats[upgradeDataAffectedStat.AffectedStat];
-                stat.ApplyStatIncrease(upgradeDataAffectedStat.IncreaseAmount);
+
+                if (upgradeDataAffectedStat.IncreaseAmount > 0)
+                {
+                    stat.ApplyAbsoluteStatIncrease(upgradeDataAffectedStat.IncreaseAmount);
+                }
+                
+                if (upgradeDataAffectedStat.RelativeIncreaseAmount > 0)
+                {
+                    stat.ApplyRelativeStatIncrease(upgradeDataAffectedStat.RelativeIncreaseAmount);
+                }
             }
+
+            this.m_purchasedUpgrades.Add(e.UpgradeData);
         }
     }
 }

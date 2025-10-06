@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Nidavellir.Scriptables.CharacterStat
   m_id: ROUND
   m_name: Round
-  m_icon: {fileID: 0}
+  m_icon: {fileID: 21300000, guid: 95b53f64630043042bf42db80eddf043, type: 3}

@@ -1,4 +1,5 @@
-﻿using Nidavellir.Entity;
+﻿using System.Collections.Generic;
+using Nidavellir.Entity;
 using Nidavellir.Scriptables;
 using Nidavellir.UI.Draft;
 using UnityEngine;
@@ -11,17 +12,21 @@ namespace Nidavellir.Player
         [SerializeField] private Sprite m_profilePicture;
         [SerializeField] private Sprite m_backgroundImage;
         [SerializeField] private EntityStats m_entityStats;
+
+        private List<TagData> m_tags = new();
         
         public string Name => this.m_name;
         public Sprite ProfilePicture => this.m_profilePicture;
         public Sprite BackgroundImage => this.m_backgroundImage;
         public EntityStats EntityStats => this.m_entityStats;
+        public IReadOnlyList<TagData> Tags => this.m_tags;
 
         public void Init(RuntimeEnemyInformation enemyData, EntityStats entityStats)
         {
             this.m_entityStats = entityStats;
             this.m_name = enemyData.BaseData.Name;
             this.m_profilePicture = enemyData.BaseData.Icon;
+            this.m_tags = enemyData.BaseData.Tags;
             if (enemyData.BaseData.PossibleBackgrounds is null or { Count: 0 })
             {
                 this.m_backgroundImage = null;

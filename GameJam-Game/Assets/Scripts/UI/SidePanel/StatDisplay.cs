@@ -4,6 +4,7 @@ using Nidavellir.EventArgs;
 using Nidavellir.Scriptables;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Nidavellir.UI.SidePanel
 {
@@ -14,6 +15,8 @@ namespace Nidavellir.UI.SidePanel
         [SerializeField] private CharacterStat m_statToDisplay;
         [SerializeField] private TextMeshProUGUI m_statName;
         [SerializeField] private TextMeshProUGUI m_statValue;
+        [SerializeField] private Image m_icon;
+        
 
         private void Awake()
         {
@@ -24,6 +27,12 @@ namespace Nidavellir.UI.SidePanel
         {
             var statController = this.m_playerStats[this.m_statToDisplay];
             statController.OnValueChanged += this.OnStatValueChanged;
+            
+            if (this.m_icon is not null && this.m_statToDisplay.Icon is not null)
+            {
+                this.m_icon.sprite = this.m_statToDisplay.Icon;
+            }
+            
             if (this.m_characterStatFacade is not null && this.m_statName is not null)
             {
                 this.m_statName.text = this.m_statToDisplay.Name;

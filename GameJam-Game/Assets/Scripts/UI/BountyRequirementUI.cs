@@ -15,7 +15,6 @@ namespace Nidavellir.UI
         [SerializeField] private CharacterStatFacade m_characterStatFacade;
         [SerializeField] private EntityStats m_playerStats;
         [SerializeField] private BountyRequirementController m_bountyRequirementController;
-        [SerializeField] private Image m_fulfillmentIndicator;
 
         private void Awake()
         {
@@ -43,7 +42,6 @@ namespace Nidavellir.UI
         {
             var color = e.NewValue < this.m_bountyRequirementController.CurrentBountyRequirement ? Color.indianRed : Color.forestGreen;
             this.m_currentAccumulatedBounty.color = color;
-            this.m_fulfillmentIndicator.color = color;
         }
         
         

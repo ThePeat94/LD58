@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_id: LIKE
   m_name: Like
-  m_icon: {fileID: 0}
+  m_icon: {fileID: 21300000, guid: 7c186e0069bfba24ab5258843cf5d293, type: 3}

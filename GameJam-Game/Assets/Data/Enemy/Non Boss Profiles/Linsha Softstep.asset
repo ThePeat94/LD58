@@ -22,3 +22,5 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d11afb7aa205c494ab0580ab4d9ecd6c, type: 3}
   - {fileID: 21300000, guid: 3a55885041d8ed541965e4b1edd37833, type: 3}
   m_scalableStats: {fileID: 11400000, guid: de4e524a95b354247bdf0911dcfab8b9, type: 2}
+  m_tags:
+  - {fileID: 11400000, guid: 4e09e7d8d58728c47a9ea4d4a94667e4, type: 2}

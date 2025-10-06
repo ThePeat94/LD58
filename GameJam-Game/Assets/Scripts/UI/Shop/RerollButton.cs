@@ -15,7 +15,7 @@ namespace Nidavellir.UI.Shop
 {
     public class RerollButton : MonoBehaviour
     {
-        private const string REROLL_COST_FORMAT = "Reroll ({0}g)";
+        private const string REROLL_COST_FORMAT = "{0}g";
         
         [SerializeField] private Button m_button;
         [SerializeField] private EntityStats m_playerStats;

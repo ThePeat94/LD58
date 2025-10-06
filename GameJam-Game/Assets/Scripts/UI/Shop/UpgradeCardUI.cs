@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Nidavellir.Entity;
 using Nidavellir.EventArgs;
 using Nidavellir.Scriptables;
@@ -29,13 +30,14 @@ namespace Nidavellir.UI.Shop
             this.m_playerStats = playerStats;
             this.m_data = data;
             var upgradeText = "";
+            var affectedTags = $"against {String.Join(", ", data.AffectedTags.Select(t => t.Name).ToList())}";
             foreach(var statIncrease in data.AffectedStats)
             {
-                upgradeText += $"+{statIncrease.IncreaseAmount} {statIncrease.AffectedStat.Name}\n";
+                upgradeText += $"+{statIncrease.IncreaseAmount} {statIncrease.AffectedStat.Name} {(data.AffectedTags.Count > 0 ? affectedTags : string.Empty)}\n";
             }
             if (upgradeText.Length > 0)
             {
-                upgradeText = upgradeText[..^1]; // Remove last newline
+                upgradeText = upgradeText.Trim();
             }
             this.m_upgradeText.text = upgradeText;
             this.m_costText.text = String.Format(COST_FORMAT, data.Cost);

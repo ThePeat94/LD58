@@ -74,13 +74,28 @@ namespace Nidavellir.Entity
             this.m_resourceValueChanged?.Invoke(this, new CharacterStatValueChangeEventArgs(this.CurrentValue, oldCurrent));
         }
 
-        public void ApplyStatIncrease(int amount)
+        public void ApplyAbsoluteStatIncrease(int amount)
         {
             var oldMax = this.MaxValue;
             var oldCurrent = this.CurrentValue;
             this.MaxValue += amount;
             this.MaxValue = this.MaxValue = Math.Max(0, this.MaxValue);
             this.CurrentValue = Mathf.Min(this.CurrentValue + amount, this.MaxValue);
+            this.m_maximumValueChanged?.Invoke(this, new CharacterStatValueChangeEventArgs(this.MaxValue, oldMax));
+            this.m_resourceValueChanged?.Invoke(this, new CharacterStatValueChangeEventArgs(this.CurrentValue, oldCurrent));
+        }
+        
+        public void ApplyRelativeStatIncrease(float percentage)
+        {
+            if (percentage < 0)
+                throw new ArgumentException($"{percentage} is less than 0");
+
+            var oldMax = this.MaxValue;
+            var oldCurrent = this.CurrentValue;
+            var increase = Mathf.FloorToInt(this.MaxValue * percentage);
+            this.MaxValue += increase;
+            this.MaxValue = Math.Max(0, this.MaxValue);
+            this.CurrentValue = Mathf.Min(this.CurrentValue + increase, this.MaxValue);
             this.m_maximumValueChanged?.Invoke(this, new CharacterStatValueChangeEventArgs(this.MaxValue, oldMax));
             this.m_resourceValueChanged?.Invoke(this, new CharacterStatValueChangeEventArgs(this.CurrentValue, oldCurrent));
         }
