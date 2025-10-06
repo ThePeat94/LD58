@@ -36,18 +36,16 @@ namespace Nidavellir
                 var varianceAmp = this.SafeEvaluate(scalableStat.VarianceFactor, UnityEngine.Random.value, 0f);
                 var variance = UnityEngine.Random.Range(-varianceAmp, varianceAmp);
                 var value = Mathf.RoundToInt(Mathf.Max(scalableStat.MinValue, scalableStat.BaseValue * mult * (1f + variance)));
+                
                 calculatedStats.Add(scalableStat.Stat, value);
             }
 
             var power = this.CalculatePower(calculatedStats);
-
-            var jitter = this.m_powerCalculationData.BountyJitter.Evaluate(UnityEngine.Random.value);
-            var rndJitter = UnityEngine.Random.Range(-jitter, jitter);
-            var bounty = this.m_powerCalculationData.BountyPerPower * power * (1f + rndJitter);
+            var bounty = this.CalculateBounty(power);
             
             Debug.Log($"Created enemy {enemyData.Name} with power {power} and bounty {bounty}");
 
-            calculatedStats.Add(this.m_characterStatFacade.Money, Mathf.FloorToInt(bounty));
+            calculatedStats.Add(this.m_characterStatFacade.Money, Mathf.RoundToInt(bounty));
             calculatedStats.Add(this.m_characterStatFacade.Distance, UnityEngine.Random.Range(4, 20));
             
             return new RuntimeEnemyInformation(
@@ -55,6 +53,45 @@ namespace Nidavellir
                 calculatedStats, 
                 Mathf.FloorToInt(power)
             );
+        }
+        
+        public void AmplifyEnemyForSuperlike(RuntimeEnemyInformation enemy)
+        {
+            var amplifier = this.m_powerCalculationData.SuperlikeAmplifier;
+            var amplifiedStats = new Dictionary<CharacterStat, int>();
+            foreach (var (stat, value) in enemy.Stats)
+            {
+                if (stat == this.m_characterStatFacade.Money || stat == this.m_characterStatFacade.Distance)
+                {
+                    amplifiedStats[stat] = value;
+                    continue;
+                }
+
+                // atk speed is in frames, amplifying it would make the enemy attack slower, so we reduce it instead
+                if (stat == this.m_characterStatFacade.AtkSpeed)
+                {
+                    var reducedValue = Mathf.RoundToInt(value / amplifier);
+                    amplifiedStats[stat] = Mathf.Max(1, reducedValue);
+                    continue;
+                    
+                }
+                
+                var amplifiedValue = Mathf.RoundToInt(value * amplifier);
+                amplifiedStats[stat] = amplifiedValue;
+            }
+
+            var amplifiedPower = this.CalculatePower(amplifiedStats);
+            var amplifiedBounty = this.CalculateBounty(amplifiedPower);
+            amplifiedStats[this.m_characterStatFacade.Money] = Mathf.RoundToInt(amplifiedBounty);
+            Debug.Log($"Amplified enemy {enemy.BaseData.Name} to power {amplifiedPower} with bounty {amplifiedBounty}");
+            
+            enemy.Stats.Clear();
+            foreach (var (stat, value) in amplifiedStats)
+            {
+                enemy.Stats[stat] = value;
+            }
+            enemy.Power = Mathf.FloorToInt(amplifiedPower);
+            enemy.SuperLiked = true;
         }
 
         private float GetDifficultyFactor()
@@ -75,6 +112,14 @@ namespace Nidavellir
             }
             
             return animationCurve.Evaluate(x);
+        }
+
+        private float CalculateBounty(float power)
+        {
+            
+            var jitter = this.m_powerCalculationData.BountyJitter.Evaluate(UnityEngine.Random.value);
+            var rndJitter = UnityEngine.Random.Range(-jitter, jitter);
+            return this.m_powerCalculationData.BountyPerPower * power * (1f + rndJitter);
         }
         
         private float CalculatePower(Dictionary<CharacterStat, int> stats)

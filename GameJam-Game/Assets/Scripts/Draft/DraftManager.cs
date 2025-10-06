@@ -147,12 +147,14 @@ namespace Nidavellir.Draft
             }
             else
             {
-                this.m_draftUI.ShowStartFight(this.m_likedProfiles);
+                var allProfiles = this.m_likedProfiles.Concat(this.m_superLikedProfiles).ToList();
+                this.m_draftUI.ShowStartFight(allProfiles);
             }
         }
 
         private void OnSuperLikeEvent(object sender, ProfileSuperLikedEvent e)
         {
+            this.m_enemyFactory.AmplifyEnemyForSuperlike(e.EnemyData);
             this.m_superLikedProfiles.Add(e.EnemyData);
             var playerSuperlikes = this.m_playerStats[this.m_characterStatFacade.SuperLike];
             playerSuperlikes.UseResource(1);

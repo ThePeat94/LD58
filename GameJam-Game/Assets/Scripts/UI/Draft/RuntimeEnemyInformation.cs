@@ -7,7 +7,8 @@ namespace Nidavellir.UI.Draft
     {
         public EnemyData BaseData { get; }
         public Dictionary<CharacterStat, int> Stats { get; }
-        public int Power { get; }
+        public int Power { get; set; }
+        public bool SuperLiked { get; set; }
         
         public RuntimeEnemyInformation(EnemyData baseData, Dictionary<CharacterStat, int> stats, int power)
         {
