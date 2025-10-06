@@ -13,6 +13,8 @@ namespace Nidavellir.Shop
     {
         [SerializeField] private EntityStats m_playerStats;
         [SerializeField] private CharacterStatFacade m_characterStatFacade;
+
+        private EventHandler m_rerollCostsChanged;
         
         private IEventBinding<RerollUpgradesEvent> m_rerollUpgradesEventBinding;
         private IEventBinding<VisitShopEvent> m_visitShopEventBinding;
@@ -21,6 +23,12 @@ namespace Nidavellir.Shop
         private int m_rerollCost = 2;
         
         public int RerollCost => this.m_rerollCost;
+        
+        public event EventHandler RerollCostsChanged
+        {
+            add => this.m_rerollCostsChanged += value;
+            remove => this.m_rerollCostsChanged -= value;
+        }
 
         private void Awake()
         {
@@ -40,12 +48,14 @@ namespace Nidavellir.Shop
         private void OnVisitShop(object sender, VisitShopEvent e)
         {
             this.m_rerollCost = this.m_initialRerollCost;
+            this.m_rerollCostsChanged?.Invoke(this, System.EventArgs.Empty);
         }
 
         private void OnRerollUpgrades(object sender, RerollUpgradesEvent e)
         {
             this.m_playerStats[this.m_characterStatFacade.Money].UseResource(this.m_rerollCost);
             this.m_rerollCost++;
+            this.m_rerollCostsChanged?.Invoke(this, System.EventArgs.Empty);
         }
     }
 }
