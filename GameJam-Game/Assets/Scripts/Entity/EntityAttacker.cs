@@ -153,11 +153,11 @@ namespace Nidavellir.Entity
             foreach (var tag in upgrades)
             {
                 absoluteExtra += tag.AffectedStats
-                    .Where(s => s.AffectedStat == this.m_characterStatFacade.Defense)
+                    .Where(s => s.AffectedStat == targetStat)
                     .Sum(s => s.IncreaseAmount);
                     
                 relativeIncrease += tag.AffectedStats
-                    .Where(s => s.AffectedStat == this.m_characterStatFacade.Defense && s.RelativeIncreaseAmount > 1)
+                    .Where(s => s.AffectedStat == targetStat && s.RelativeIncreaseAmount > 1)
                     .Sum(s => 1 - s.RelativeIncreaseAmount);
             }
             
