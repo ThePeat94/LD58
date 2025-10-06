@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_id: BOUNTY
   m_name: Bounty
-  m_icon: {fileID: 0}
+  m_icon: {fileID: 21300000, guid: 10a589324d50baf468316568a72f9d87, type: 3}

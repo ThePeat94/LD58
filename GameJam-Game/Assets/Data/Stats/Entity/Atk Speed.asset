@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Nidavellir.Scriptables.CharacterStat
   m_id: ATKSPEED
   m_name: Atk Speed
-  m_icon: {fileID: 0}
+  m_icon: {fileID: 21300000, guid: 5c27bc47ef5d9c7428bcb55d0bafea55, type: 3}

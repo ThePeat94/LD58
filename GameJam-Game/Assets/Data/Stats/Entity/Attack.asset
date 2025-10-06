@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_id: ATK
   m_name: Attack
-  m_icon: {fileID: 0}
+  m_icon: {fileID: 21300000, guid: 8cb0c689b9afa3c47893959d21e1e7ff, type: 3}
