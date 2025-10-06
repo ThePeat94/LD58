@@ -25,6 +25,9 @@ namespace Nidavellir.Entity
             set;
         }
         
+        public int AttackFrames => this.m_attackFrames;
+        public int CurrentAttackFrame => this.m_currentAttackFrame;
+        
         private void FixedUpdate()
         {
             if (!this.CanAttack)

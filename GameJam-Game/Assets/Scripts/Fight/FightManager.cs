@@ -48,7 +48,7 @@ namespace Nidavellir.Fight
 
         private void Start()
         {
-            this.m_fightUI.InitPlayerCard(this.m_playerInformation);
+            this.m_fightUI.InitPlayerCard(this.m_playerInformation, this.m_playerAttacker);
         }
 
         private void OnDestroy()
@@ -88,9 +88,9 @@ namespace Nidavellir.Fight
             entityInformation.Init(enemyData, entityStats);
             this.m_currentEnemyInformation = entityInformation;
             this.RegisterToEnemyHealth(entityInformation);
-            this.m_fightUI.ShowEnemy(entityInformation);
 
             this.m_currentEnemyAttacker = currentEnemyGameObject.AddComponent<EntityAttacker>();
+            this.m_fightUI.ShowEnemy(entityInformation, this.m_currentEnemyAttacker);
             this.m_currentEnemyAttacker.Initialize(entityInformation, this.m_playerInformation, this.m_characterStatFacade);
             this.m_playerAttacker.SetTarget(this.m_currentEnemyInformation);
         }

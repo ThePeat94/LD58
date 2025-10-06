@@ -1,4 +1,5 @@
-﻿using Nidavellir.GameEventBus;
+﻿using Nidavellir.Entity;
+using Nidavellir.GameEventBus;
 using Nidavellir.GameEventBus.Events.Fight;
 using Nidavellir.Player;
 using UnityEngine;
@@ -42,14 +43,14 @@ namespace Nidavellir.UI.Fight
             this.m_afterFightPanelUi.SetActive(true);
         }
 
-        public void InitPlayerCard(EntityInformation playerInformation)
+        public void InitPlayerCard(EntityInformation playerInformation, EntityAttacker attacker)
         {
-            this.m_playerProfileFightCard.DisplayProfile(playerInformation);
+            this.m_playerProfileFightCard.DisplayProfile(playerInformation, attacker);
         }
         
-        public void ShowEnemy(EntityInformation enemyInformation)
+        public void ShowEnemy(EntityInformation enemyInformation, EntityAttacker attacker)
         {
-            this.m_enemyProfileFightCards.DisplayProfile(enemyInformation);
+            this.m_enemyProfileFightCards.DisplayProfile(enemyInformation, attacker);
         }
     }
 }
