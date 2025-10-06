@@ -32,11 +32,11 @@ namespace Nidavellir.UI.Shop
             this.m_rerollManager ??= FindFirstObjectByType<RerollManager>();
             
             this.m_visitShopEventBinding = new EventBinding<VisitShopEvent>(this.OnVisitShopEvent);
-            GameEventBus<VisitShopEvent>.Register(this.m_visitShopEventBinding);
         }
 
         private void Start()
         {
+            GameEventBus<VisitShopEvent>.Register(this.m_visitShopEventBinding);
             this.m_playerStats[this.m_characterStatFacade.Money].OnValueChanged += this.OnMoneyChanged;
             this.m_rerollCostText.text = String.Format(REROLL_COST_FORMAT, this.m_rerollManager.RerollCost);
             this.m_button.interactable = this.m_playerStats[this.m_characterStatFacade.Money].CurrentValue >= this.m_rerollManager.RerollCost;
@@ -62,6 +62,7 @@ namespace Nidavellir.UI.Shop
         
         private void OnVisitShopEvent(object sender, VisitShopEvent e)
         {
+            this.m_button.interactable = this.m_playerStats[this.m_characterStatFacade.Money].CurrentValue >= this.m_rerollManager.RerollCost;
             this.m_rerollCostText.text = String.Format(REROLL_COST_FORMAT, this.m_rerollManager.RerollCost);
         }
     }
