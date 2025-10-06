@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96f8b0545310497090ce16d306461f52, type: 3}
+  m_Name: Theron Duskmire
+  m_EditorClassIdentifier: 
+  m_id: 2
+  m_name: Theron Duskmire
+  m_age: 140
+  m_icon: {fileID: 21300000, guid: 65f0021a0363c7c469c0fa03436cdddf, type: 3}
+  m_profileDescription: "I don\u2019t chase stars\u2014I rearrange them. Bring moonlight
+    manners and midnight energy."
+  m_possibleBackgrounds:
+  - {fileID: 21300000, guid: 090355b6d5deac34a82caaefb12d1e74, type: 3}
+  - {fileID: 21300000, guid: 39cc489e2eb75c2489d80e4e96c9591b, type: 3}
+  m_scalableStats: {fileID: 11400000, guid: bbd7b83f650c79d428ddefa78dfa9439, type: 2}
+  m_tags:
+  - {fileID: 11400000, guid: 443ca353fc92a334386cd7b7d64cbfa8, type: 2}

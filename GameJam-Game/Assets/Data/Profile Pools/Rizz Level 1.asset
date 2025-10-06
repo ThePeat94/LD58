@@ -13,31 +13,55 @@ MonoBehaviour:
   m_Name: Rizz Level 1
   m_EditorClassIdentifier: Assembly-CSharp::Nidavellir.Scriptables.ProfilePoolData
   m_nonBossProfiles:
+  - {fileID: 11400000, guid: 8336df7d787593047b95165132915944, type: 2}
+  - {fileID: 11400000, guid: a9d590c4f25fe3d4b859cb85f16520dd, type: 2}
   - {fileID: 11400000, guid: 23f4c3b5f992ac644a7c3cf74e0fd904, type: 2}
   - {fileID: 11400000, guid: 8519148058cd9d74db2dff02919e2f37, type: 2}
   - {fileID: 11400000, guid: 598d0b0ae3cbb5f4284c6455d332d705, type: 2}
   - {fileID: 11400000, guid: 27e21ab7219ed1049933c847b3007f4f, type: 2}
+  - {fileID: 11400000, guid: d363d5b98747bf14fa5d6a5a094f26ed, type: 2}
   - {fileID: 11400000, guid: 99e52083b7735a04aade1114f93bda87, type: 2}
+  - {fileID: 11400000, guid: 96c9e05925da31f4f9c182a630a9e601, type: 2}
   - {fileID: 11400000, guid: 9b8993c7cedc108478188c1a5fb5a2f8, type: 2}
   - {fileID: 11400000, guid: c3b2057c6f6ca7c4ca2b69ae96c752ec, type: 2}
   - {fileID: 11400000, guid: 1c3f959318e319441961d2df7bd75b7a, type: 2}
+  - {fileID: 11400000, guid: 7b865931a4917144b90ad327751720f6, type: 2}
   - {fileID: 11400000, guid: 8f0f67485e1929f48be10f5d5f8545ff, type: 2}
+  - {fileID: 11400000, guid: 3bedb43f1c1b2d64d8f65c1aca553e8a, type: 2}
+  - {fileID: 11400000, guid: f08832a9c1faf3a46bfda099bc00610e, type: 2}
   - {fileID: 11400000, guid: 72e85c74541b0da4f8b9fd2825a84ade, type: 2}
+  - {fileID: 11400000, guid: 8bbf94fcbeb794745a5cd481beac7e30, type: 2}
+  - {fileID: 11400000, guid: 68c8e6d5e05f85640a916596dcef852e, type: 2}
   - {fileID: 11400000, guid: 566264ae69ead2a46aef4c6e7c7133e2, type: 2}
   - {fileID: 11400000, guid: b5cd51e5970936142b4859ba65822479, type: 2}
+  - {fileID: 11400000, guid: ba7bcdd6915dab54e9102af3d46157d3, type: 2}
+  - {fileID: 11400000, guid: 4d6a814b3425c79478419d27b54b8329, type: 2}
+  - {fileID: 11400000, guid: d67b0c1fe859cf34194bf386efc28a7c, type: 2}
+  - {fileID: 11400000, guid: d208738b465325742a2508ee60831a18, type: 2}
   - {fileID: 11400000, guid: 4c3cb5dd79905ac4fa26b04b88cad64f, type: 2}
   - {fileID: 11400000, guid: e6a17b75d04ddd24db201c6d5805f7cc, type: 2}
+  - {fileID: 11400000, guid: 8e317d2d5c6b56f4db37f336131b3530, type: 2}
   - {fileID: 11400000, guid: ccf8cd44e5604c540bc34693ffecf307, type: 2}
   - {fileID: 11400000, guid: a523228eca12bd3419d5a43534149e37, type: 2}
+  - {fileID: 11400000, guid: c4b262e7d97d8d6488aef5bda57c9c42, type: 2}
   - {fileID: 11400000, guid: 0b2d7af6d799fca42b2dde23ac9b4c31, type: 2}
   m_bossProfiles:
+  - {fileID: 11400000, guid: 8de05b70ef870064ea36d4e6ee35f756, type: 2}
   - {fileID: 11400000, guid: 42552f57e5be4a94790d993800c9307a, type: 2}
   - {fileID: 11400000, guid: b915d2e95a2afb040aba5870eb31a99d, type: 2}
   - {fileID: 11400000, guid: 24965a1046469ca4fbb7bce8817e0225, type: 2}
+  - {fileID: 11400000, guid: 15018e4b77d41a648b7d6ad7293e8184, type: 2}
   - {fileID: 11400000, guid: 66e2b0bf511d06f4aa0ea47cdabe2d42, type: 2}
+  - {fileID: 11400000, guid: 069a80b55be5df7499c5e159af83f6bd, type: 2}
+  - {fileID: 11400000, guid: e363a96335533a34c88c367517351a01, type: 2}
   - {fileID: 11400000, guid: 5474b3439e07eb04281de0983608badc, type: 2}
-  - {fileID: 11400000, guid: 2a7e8b8276040f245ada73b1ecdd1e9b, type: 2}
+  - {fileID: 11400000, guid: 69471190a2e4b4347b493f74783f138e, type: 2}
   - {fileID: 11400000, guid: 7fe96c8d07b650f479a4b0e2a9f1f0f2, type: 2}
+  - {fileID: 11400000, guid: 0ded2f2860b7cc94891ac363542cd590, type: 2}
   - {fileID: 11400000, guid: 90b68544519be5e42a6151d970566414, type: 2}
+  - {fileID: 11400000, guid: 6b87b3a289accf046b846081011de77d, type: 2}
+  - {fileID: 11400000, guid: bdaea51c07274c0449e3b064244d5818, type: 2}
+  - {fileID: 11400000, guid: 4a62856c1e258e94d9449480fba7655d, type: 2}
   - {fileID: 11400000, guid: c26fa1d966842014ea0601716ae07ebe, type: 2}
+  - {fileID: 11400000, guid: 2a7e8b8276040f245ada73b1ecdd1e9b, type: 2}
   - {fileID: 11400000, guid: 8722bacbbd57e494bb1a5e99ad536bd8, type: 2}
