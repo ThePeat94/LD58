@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_id: MON
   m_name: Money
-  m_icon: {fileID: 21300000, guid: 10a589324d50baf468316568a72f9d87, type: 3}
+  m_icon: {fileID: 21300000, guid: cd99481e17285854ba2234ae96af06bc, type: 3}

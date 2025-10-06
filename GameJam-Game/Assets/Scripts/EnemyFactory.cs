@@ -100,7 +100,6 @@ namespace Nidavellir
             var round = 1f + 0.12f * t + 0.04f * t * t;
             var rizz = 1f + 0.25f * this.m_rizzController.CurrentValue;
             var d = round * rizz;
-            Debug.Log($"Difficulty: {d}");
             return d;
         }
 

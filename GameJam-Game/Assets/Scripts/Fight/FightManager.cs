@@ -90,7 +90,7 @@ namespace Nidavellir.Fight
             this.RegisterToEnemyHealth(entityInformation);
 
             this.m_currentEnemyAttacker = currentEnemyGameObject.AddComponent<EntityAttacker>();
-            this.m_currentEnemyAttacker.Initialize(entityInformation, this.m_playerInformation, this.m_characterStatFacade);
+            this.m_currentEnemyAttacker.Initialize(entityInformation, this.m_playerInformation, this.m_characterStatFacade, EntityAttacker.EntityMode.Enemy);
             this.m_fightUI.ShowEnemy(entityInformation, this.m_currentEnemyAttacker);
             this.m_playerAttacker.SetTarget(this.m_currentEnemyInformation);
         }

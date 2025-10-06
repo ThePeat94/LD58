@@ -33,6 +33,7 @@ namespace Nidavellir.GameState
 
         private void Awake()
         {
+            this.m_currentState = State.Draft;
             this.m_draftUi ??= FindFirstObjectByType<DraftUI>(FindObjectsInactive.Include);
             this.m_gameOverUI ??= FindFirstObjectByType<GameOverUI>(FindObjectsInactive.Include);
             this.m_gameWonUI ??= FindFirstObjectByType<GameWonUI>(FindObjectsInactive.Include);
@@ -54,14 +55,6 @@ namespace Nidavellir.GameState
             
             this.m_gameWonEventBinding = new EventBinding<GameWonEvent>(this.OnGameWon);
             GameEventBus<GameWonEvent>.Register(this.m_gameWonEventBinding);
-            
-            this.m_currentState = State.Draft;
-            this.m_draftUi?.gameObject.SetActive(true);
-            this.m_shopUi?.SetActive(false);
-            this.m_fightUi?.SetActive(false);
-            this.m_draftUi?.ShowProfiles();
-            this.m_gameWonUI.Hide();
-            this.m_gameOverUI.Hide();
         }
 
         private void OnGameWon(object sender, GameWonEvent e)
@@ -75,6 +68,13 @@ namespace Nidavellir.GameState
         private void Start()
         {
             GameEventBus<GameStateChangedEvent>.Invoke(this, new GameStateChangedEvent(this.CurrentState));
+            
+            this.m_draftUi?.gameObject.SetActive(true);
+            this.m_shopUi?.SetActive(false);
+            this.m_fightUi?.SetActive(false);
+            this.m_draftUi?.ShowProfiles();
+            this.m_gameWonUI.Hide();
+            this.m_gameOverUI.Hide();
         }
         
         private void OnDestroy()

@@ -358,6 +358,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 29de56be58dc6834db811bd7fefc7bd9, type: 2}
   - {fileID: 11400000, guid: c31b9014b018f6d449c3eab238889615, type: 2}
   - {fileID: 11400000, guid: 4dcebd4be7d60764fb0853b414603243, type: 2}
+  - {fileID: 11400000, guid: cea524b3d24094a4093557108b91e682, type: 2}
   m_shopUI: {fileID: 6819668715244526198}
   m_entityStats: {fileID: 897911648}
   m_characterStatFacade: {fileID: 11400000, guid: a2a1da657de052b4da4fb551a730056a, type: 2}
@@ -2673,6 +2674,10 @@ PrefabInstance:
     - target: {fileID: 7033627556220866055, guid: 278b09b3d5a7449429cefe91a8134d8c, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7183839725132169142, guid: 278b09b3d5a7449429cefe91a8134d8c, type: 3}
+      propertyPath: m_playerStats
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7191539429671582922, guid: 278b09b3d5a7449429cefe91a8134d8c, type: 3}
       propertyPath: m_hasFontAssetChanged
