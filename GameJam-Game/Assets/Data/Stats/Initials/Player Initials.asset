@@ -32,7 +32,7 @@ MonoBehaviour:
     m_value: 3
     m_maxValue: 3
   - m_characterStat: {fileID: 11400000, guid: c860b7721fbb7434da1f834efadc5cb7, type: 2}
-    m_value: 4
+    m_value: 10
     m_maxValue: 5000
   - m_characterStat: {fileID: 11400000, guid: 6769d592877a71549976df596e9e740e, type: 2}
     m_value: 1

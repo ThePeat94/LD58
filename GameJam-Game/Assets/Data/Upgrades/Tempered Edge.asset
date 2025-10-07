@@ -10,15 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 847bbf3fb62e4f00b644cc989a4eb3da, type: 3}
-  m_Name: Orc Slayer
+  m_Name: Tempered Edge
   m_EditorClassIdentifier: Assembly-CSharp::Nidavellir.Scriptables.UpgradeData
   m_id: 1
-  m_name: Orc Slayer
+  m_name: Tempered Edge
   m_affectedStats:
   - m_affectedStat: {fileID: 11400000, guid: 66f649dbe1ee3b9418ad58127e50de64, type: 2}
-    m_increaseAmount: 5
+    m_increaseAmount: 2
     m_relativeIncreaseAmount: 0
-  m_cost: 3
+  m_cost: 10
   m_cardImage: {fileID: 0}
-  m_affectedTags:
-  - {fileID: 11400000, guid: 4e09e7d8d58728c47a9ea4d4a94667e4, type: 2}
+  m_affectedTags: []

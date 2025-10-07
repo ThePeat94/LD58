@@ -13,9 +13,14 @@ MonoBehaviour:
   m_Name: AttackUpgrade
   m_EditorClassIdentifier: Assembly-CSharp::Nidavellir.Scriptables.UpgradeData
   m_id: 1
-  m_name: Basic Attack Upgrade
+  m_name: Hardnened Plates
   m_affectedStats:
-  - m_affectedStat: {fileID: 11400000, guid: 66f649dbe1ee3b9418ad58127e50de64, type: 2}
-    m_increaseAmount: 2
-  m_cost: 2
+  - m_affectedStat: {fileID: 11400000, guid: 65c3f7b45bbcfa349b3c0ddc3e3e4756, type: 2}
+    m_increaseAmount: 1
+    m_relativeIncreaseAmount: 0
+  - m_affectedStat: {fileID: 11400000, guid: 0de6cd014dd489244a339cada70df215, type: 2}
+    m_increaseAmount: 10
+    m_relativeIncreaseAmount: 0
+  m_cost: 17
   m_cardImage: {fileID: 0}
+  m_affectedTags: []

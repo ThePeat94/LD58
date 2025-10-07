@@ -1,10 +1,13 @@
 ﻿using System;
+using Nidavellir.Audio;
 using Nidavellir.Draft;
 using Nidavellir.Entity;
 using Nidavellir.EventArgs;
 using Nidavellir.GameEventBus;
 using Nidavellir.GameEventBus.Events.Draft;
 using Nidavellir.Scriptables;
+using Nidavellir.Scriptables.Audio;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,9 +19,13 @@ namespace Nidavellir.UI.Draft
         [SerializeField] private EntityStats m_playerStats;
         [SerializeField] private CharacterStatFacade m_characterStatFacade;
         [SerializeField] private DraftManager m_draftManager;
+        [SerializeField] private SfxData m_dislikeSfxData;
+        
+        private SfxPlayer m_sfxPlayer;
 
         private void Awake()
         {
+            this.m_sfxPlayer = this.GetOrAddComponent<SfxPlayer>();
             this.m_playerStats ??= FindFirstObjectByType<EntityStats>(FindObjectsInactive.Include);
             this.m_draftManager ??= FindFirstObjectByType<DraftManager>();
             this.m_button.onClick.AddListener(this.OnButtonClick);
@@ -33,10 +40,19 @@ namespace Nidavellir.UI.Draft
         {
             this.m_button.interactable = e.NewValue > 0;
         }
+        
+        private void OnDisable()
+        {
+            if (this.m_sfxPlayer is null)
+                return;
+            
+            this.m_sfxPlayer.StopPlaying();
+        }
 
         private void OnButtonClick()
         {
             GameEventBus<ProfileDislikedEvent>.Invoke(this, new ProfileDislikedEvent(this.m_draftManager.CurrentProfile));
+            this.m_sfxPlayer.PlayOneShot(this.m_dislikeSfxData);
         }
     }
 }

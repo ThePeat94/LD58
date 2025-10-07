@@ -18,7 +18,7 @@ MonoBehaviour:
   - m_affectedStat: {fileID: 11400000, guid: 65c3f7b45bbcfa349b3c0ddc3e3e4756, type: 2}
     m_increaseAmount: 3
     m_relativeIncreaseAmount: 0
-  m_cost: 10
+  m_cost: 14
   m_cardImage: {fileID: 0}
   m_affectedTags:
   - {fileID: 11400000, guid: 4e09e7d8d58728c47a9ea4d4a94667e4, type: 2}

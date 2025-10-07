@@ -1,4 +1,9 @@
 ﻿using System.Collections.Generic;
+using Nidavellir.GameEventBus;
+using Nidavellir.GameEventBus.EventBindings;
+using Nidavellir.GameEventBus.Events.Draft;
+using Nidavellir.GameEventBus.Events.Fight;
+using Nidavellir.GameEventBus.Events.Shop;
 using Nidavellir.Scriptables.Audio;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -14,6 +19,10 @@ namespace Nidavellir.Audio
     {
         [SerializeField] private MusicData m_titleTheme;
         [SerializeField] private MusicData m_gameTheme;
+
+        [SerializeField] private MusicData m_draftTheme;
+        [SerializeField] private MusicData m_shopTheme;
+        [SerializeField] private MusicData m_fightTheme;
         
         private List<AudioSource> m_audioSources;
         private MusicData m_currentMusicData;
@@ -21,6 +30,10 @@ namespace Nidavellir.Audio
         private int m_audioSourceToggle = 0;
         private double m_nextStartTime;
         private double m_latestQueueTime;
+        
+        private IEventBinding<VisitShopEvent> m_visitShopEventBinding;
+        private IEventBinding<StartDraftEvent> m_startDraftEventBinding;
+        private IEventBinding<StartFightEvent> m_startFightEventBinding;
 
         private static MusicPlayer s_instance;
 
@@ -58,6 +71,15 @@ namespace Nidavellir.Audio
             {
                 audioSource.playOnAwake = false;
             }
+            
+            this.m_visitShopEventBinding = new EventBinding<VisitShopEvent>(this.OnVisitShop);
+            GameEventBus<VisitShopEvent>.Register(this.m_visitShopEventBinding);
+            
+            this.m_startDraftEventBinding = new EventBinding<StartDraftEvent>(this.OnStartDraft);
+            GameEventBus<StartDraftEvent>.Register(this.m_startDraftEventBinding);
+            
+            this.m_startFightEventBinding = new EventBinding<StartFightEvent>(this.OnStartFight);
+            GameEventBus<StartFightEvent>.Register(this.m_startFightEventBinding);
             
             GlobalSettings.Instance.MusicVolumeChanged += this.OnMusicVolumeChanged;
             SceneManager.sceneLoaded += this.SceneChanged;
@@ -136,6 +158,21 @@ namespace Nidavellir.Audio
                 this.PlayClipList(this.m_titleTheme);
             else if (loadedScene.buildIndex == 1)
                 this.PlayClipList(this.m_gameTheme);
+        }
+
+        private void OnVisitShop(object sender, VisitShopEvent e)
+        {
+            this.PlayClipList(this.m_shopTheme);
+        }
+        
+        private void OnStartDraft(object sender, StartDraftEvent e)
+        {
+            this.PlayClipList(this.m_draftTheme);
+        }
+        
+        private void OnStartFight(object sender, StartFightEvent e)
+        {
+            this.PlayClipList(this.m_fightTheme);
         }
     }
 }

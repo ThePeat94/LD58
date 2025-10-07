@@ -11,6 +11,8 @@ namespace Nidavellir.Audio
     public class SfxPlayer : MonoBehaviour
     {
         private AudioSource m_loopingAudioSource;
+
+        private AudioSource m_tmpAudioSource;
         
         public void PlayLoopingSfx(SfxData sfxData)
         {
@@ -27,6 +29,14 @@ namespace Nidavellir.Audio
         {
             this.m_loopingAudioSource.Stop();
         }
+
+        public void StopPlaying()
+        {
+            if (this.m_tmpAudioSource is null)
+                return;
+            
+            this.m_tmpAudioSource.Stop();
+        }
         
         public void PlayOneShot(SfxData sfxData)
         {
@@ -35,10 +45,11 @@ namespace Nidavellir.Audio
 
         private IEnumerator PlayClipAndDestroySource(SfxData data)
         {
-            var audioSource = this.AddComponent<AudioSource>();
-            this.PlayClipOnAudioSource(data, audioSource);
+            this.m_tmpAudioSource = this.AddComponent<AudioSource>();
+            this.PlayClipOnAudioSource(data, this.m_tmpAudioSource);
             yield return new WaitForSeconds(data.AudioClip.length);
-            Destroy(audioSource);
+            Destroy(this.m_tmpAudioSource);
+            this.m_tmpAudioSource = null;
         }
 
         private void PlayClipOnAudioSource(SfxData sfxData, AudioSource audioSource)

@@ -10,12 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 847bbf3fb62e4f00b644cc989a4eb3da, type: 3}
-  m_Name: Basic HP Upgrade
+  m_Name: Battlefield Conditioning
   m_EditorClassIdentifier: Assembly-CSharp::Nidavellir.Scriptables.UpgradeData
   m_id: 1
-  m_name: Basic Health Upgrade
+  m_name: Vitality Draught
   m_affectedStats:
+  - m_affectedStat: {fileID: 11400000, guid: 65c3f7b45bbcfa349b3c0ddc3e3e4756, type: 2}
+    m_increaseAmount: 1
+    m_relativeIncreaseAmount: 0
+  - m_affectedStat: {fileID: 11400000, guid: 66f649dbe1ee3b9418ad58127e50de64, type: 2}
+    m_increaseAmount: 1
+    m_relativeIncreaseAmount: 0
   - m_affectedStat: {fileID: 11400000, guid: 0de6cd014dd489244a339cada70df215, type: 2}
-    m_increaseAmount: 5
-  m_cost: 5
+    m_increaseAmount: 7
+    m_relativeIncreaseAmount: 0
+  m_cost: 17
   m_cardImage: {fileID: 0}
+  m_affectedTags: []

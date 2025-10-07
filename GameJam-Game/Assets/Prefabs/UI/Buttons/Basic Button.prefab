@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 183413867653047280}
   - component: {fileID: 163833189718581990}
   - component: {fileID: 8054872304741692647}
+  - component: {fileID: 8218151915146992831}
   m_Layer: 5
   m_Name: Basic Button
   m_TagString: Untagged
@@ -120,3 +121,17 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8218151915146992831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7825924242608756612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07d6f6f66eec4638aa4a9ca1dff88e77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Nidavellir.UI.ButtonSfxPlayer
+  m_button: {fileID: 8054872304741692647}
+  m_sfxData: {fileID: 11400000, guid: aa3a9fa5994d45a499b7ef54a46bad2f, type: 2}

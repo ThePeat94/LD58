@@ -1,9 +1,12 @@
-﻿using Nidavellir.Draft;
+﻿using Nidavellir.Audio;
+using Nidavellir.Draft;
 using Nidavellir.Entity;
 using Nidavellir.EventArgs;
 using Nidavellir.GameEventBus;
 using Nidavellir.GameEventBus.Events.Draft;
 using Nidavellir.Scriptables;
+using Nidavellir.Scriptables.Audio;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,9 +18,13 @@ namespace Nidavellir.UI.Draft
         [SerializeField] private EntityStats m_playerStats;
         [SerializeField] private CharacterStatFacade m_characterStatFacade;
         [SerializeField] private DraftManager m_draftManager;
-
+        [SerializeField] private SfxData m_superlikeSfx;
+        
+        private SfxPlayer m_superlikeSfxPlayer;
+        
         private void Awake()
         {
+            this.m_superlikeSfxPlayer = this.GetOrAddComponent<SfxPlayer>();
             this.m_playerStats ??= FindFirstObjectByType<EntityStats>(FindObjectsInactive.Include);
             this.m_draftManager ??= FindFirstObjectByType<DraftManager>();
             this.m_button.onClick.AddListener(this.OnButtonClick);
@@ -33,9 +40,18 @@ namespace Nidavellir.UI.Draft
             this.m_button.interactable = e.NewValue > 0;
         }
         
+        private void OnDisable()
+        {
+            if (this.m_superlikeSfxPlayer is null)
+                return;
+            
+            this.m_superlikeSfxPlayer.StopPlaying();
+        }
+        
         private void OnButtonClick()
         {
             GameEventBus<ProfileSuperLikedEvent>.Invoke(this, new ProfileSuperLikedEvent(this.m_draftManager.CurrentProfile));
+            this.m_superlikeSfxPlayer.PlayOneShot(this.m_superlikeSfx);
         }
     }
 }

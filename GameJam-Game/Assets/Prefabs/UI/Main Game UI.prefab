@@ -336,6 +336,7 @@ GameObject:
   - component: {fileID: 3559646577542221996}
   - component: {fileID: 2124921496752438536}
   - component: {fileID: 5718587413084629507}
+  - component: {fileID: 4010622370202885789}
   m_Layer: 5
   m_Name: Button (1)
   m_TagString: Untagged
@@ -443,7 +444,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2124921496752438536}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4010622370202885789}
+        m_TargetAssemblyTypeName: Nidavellir.UI.SidePanel.QuitButton, Assembly-CSharp
+        m_MethodName: QuitApplication
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &4010622370202885789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176378784754420935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac0872162e2141fbae4baaaf1e34b33b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Nidavellir.UI.SidePanel.QuitButton
 --- !u!1 &301054151268406999
 GameObject:
   m_ObjectHideFlags: 0
@@ -2385,6 +2410,7 @@ MonoBehaviour:
   m_playerStats: {fileID: 0}
   m_characterStatFacade: {fileID: 11400000, guid: a2a1da657de052b4da4fb551a730056a, type: 2}
   m_draftManager: {fileID: 0}
+  m_dislikeSfxData: {fileID: 11400000, guid: 1ae2b14d22da6354cbf31b7406b057c0, type: 2}
 --- !u!1 &1616855710110469143
 GameObject:
   m_ObjectHideFlags: 0
@@ -2516,6 +2542,7 @@ GameObject:
   - component: {fileID: 3641015466067961015}
   - component: {fileID: 1223009789535597027}
   - component: {fileID: 8607530259283382255}
+  - component: {fileID: 207158772853048166}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -2624,6 +2651,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &207158772853048166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811142660302162017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07d6f6f66eec4638aa4a9ca1dff88e77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Nidavellir.UI.ButtonSfxPlayer
+  m_button: {fileID: 8607530259283382255}
+  m_sfxData: {fileID: 11400000, guid: 368597b902c5563429b77b28cad0d8f2, type: 2}
 --- !u!1 &1827161554842722714
 GameObject:
   m_ObjectHideFlags: 0
@@ -4404,7 +4445,6 @@ RectTransform:
   - {fileID: 8205137070860123664}
   - {fileID: 7867135583293666805}
   - {fileID: 3650271278065988435}
-  - {fileID: 1529085784256799412}
   - {fileID: 4936433811370994378}
   m_Father: {fileID: 5810211430595738403}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5562,6 +5602,7 @@ MonoBehaviour:
   m_playerStats: {fileID: 0}
   m_characterStatFacade: {fileID: 11400000, guid: a2a1da657de052b4da4fb551a730056a, type: 2}
   m_draftManager: {fileID: 0}
+  m_likeSfxData: {fileID: 11400000, guid: 9d772bbc58dcc0541b4e1f41e4d1714c, type: 2}
 --- !u!1 &3911006222556510531
 GameObject:
   m_ObjectHideFlags: 0
@@ -5993,6 +6034,7 @@ MonoBehaviour:
   m_playerStats: {fileID: 0}
   m_characterStatFacade: {fileID: 11400000, guid: a2a1da657de052b4da4fb551a730056a, type: 2}
   m_draftManager: {fileID: 0}
+  m_superlikeSfx: {fileID: 11400000, guid: 65d339ce9d2e0fc4bbbe2efab7178b2d, type: 2}
 --- !u!1 &4238968084402781963
 GameObject:
   m_ObjectHideFlags: 0
@@ -6405,6 +6447,7 @@ GameObject:
   - component: {fileID: 3622254069233030731}
   - component: {fileID: 3270523956232901318}
   - component: {fileID: 5904863225438320637}
+  - component: {fileID: 5258661221520345688}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -6530,6 +6573,20 @@ MonoBehaviour:
   m_characterStatFacade: {fileID: 11400000, guid: a2a1da657de052b4da4fb551a730056a, type: 2}
   m_rerollManager: {fileID: 0}
   m_rerollCostText: {fileID: 8930669538607866986}
+--- !u!114 &5258661221520345688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4719609934730879058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07d6f6f66eec4638aa4a9ca1dff88e77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Nidavellir.UI.ButtonSfxPlayer
+  m_button: {fileID: 0}
+  m_sfxData: {fileID: 11400000, guid: cb689b75fe973694c9e5bf034adc11f9, type: 2}
 --- !u!1 &4926357404680245883
 GameObject:
   m_ObjectHideFlags: 0
@@ -8657,126 +8714,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1 &6376975965224596140
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1529085784256799412}
-  - component: {fileID: 9037696514562767627}
-  - component: {fileID: 8365879507162456931}
-  - component: {fileID: 9050074327252937469}
-  m_Layer: 5
-  m_Name: Button
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1529085784256799412
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6376975965224596140}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2875038952276074036}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 195.91461, y: -993.3777}
-  m_SizeDelta: {x: 300, y: 300}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &9037696514562767627
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6376975965224596140}
-  m_CullTransparentMesh: 1
---- !u!114 &8365879507162456931
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6376975965224596140}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4783bbc8510a55f409d9aea2117baed1, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 1
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!114 &9050074327252937469
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6376975965224596140}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 8365879507162456931}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &6386072620332763374
 GameObject:
   m_ObjectHideFlags: 0
