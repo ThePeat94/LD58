@@ -11,7 +11,7 @@ namespace Nidavellir.UI
         [SerializeField] private Slider m_musicVolumeSlider;
         [SerializeField] private Slider m_sfxVolumeSlider;
         [SerializeField] private GameObject m_optionsPanel;
-
+        [SerializeField] private GameObject m_introPanel;
 
         private void Awake()
         {
@@ -69,6 +69,12 @@ namespace Nidavellir.UI
             this.m_startMenu.SetActive(false);
         }
 
+        public void ShowIntroPanel()
+        {
+            this.m_introPanel.SetActive(true);
+            this.m_startMenu.SetActive(false);
+        }
+        
         public void StartGame()
         {
             SceneManager.LoadScene(1);

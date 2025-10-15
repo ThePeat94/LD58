@@ -45,7 +45,14 @@ namespace Nidavellir.Audio
 
         private IEnumerator PlayClipAndDestroySource(SfxData data)
         {
+            if (this.m_tmpAudioSource != null)
+            {
+                Destroy(this.m_tmpAudioSource);
+                this.m_tmpAudioSource = null;
+            }
+            
             this.m_tmpAudioSource = this.AddComponent<AudioSource>();
+            this.m_tmpAudioSource.playOnAwake = false;
             this.PlayClipOnAudioSource(data, this.m_tmpAudioSource);
             yield return new WaitForSeconds(data.AudioClip.length);
             Destroy(this.m_tmpAudioSource);

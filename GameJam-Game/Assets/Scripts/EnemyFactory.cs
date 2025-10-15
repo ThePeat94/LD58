@@ -105,7 +105,7 @@ namespace Nidavellir
 
         private float SafeEvaluate(AnimationCurve animationCurve, float x, float fallback)
         {
-            if (animationCurve is null || animationCurve.keys == null || animationCurve.keys.Length == 0)
+            if (animationCurve?.keys == null || animationCurve.keys.Length == 0)
             {
                 return fallback;
             }
