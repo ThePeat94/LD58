@@ -22,7 +22,7 @@ namespace Nidavellir.GameState
         
         private IEventBinding<StartFightEvent> m_startFightEventBinding;
         private IEventBinding<VisitShopEvent> m_visitShopEventBinding;
-        private IEventBinding<StartDraftEvent> m_startDraftEventBinding;
+        private IEventBinding<StartEnemyDraftEvent> m_startDraftEventBinding;
         private IEventBinding<BountyRequirementNotFulfilled> m_bountyRequirementNotFulfilledEventBinding;
         private IEventBinding<PlayerDiedEvent> m_playerDiedEventBinding;
         private IEventBinding<GameWonEvent> m_gameWonEventBinding;
@@ -33,7 +33,7 @@ namespace Nidavellir.GameState
 
         private void Awake()
         {
-            this.m_currentState = State.Draft;
+            this.m_currentState = State.EnemyDraft;
             this.m_draftUi ??= FindFirstObjectByType<DraftUI>(FindObjectsInactive.Include);
             this.m_gameOverUI ??= FindFirstObjectByType<GameOverUI>(FindObjectsInactive.Include);
             this.m_gameWonUI ??= FindFirstObjectByType<GameWonUI>(FindObjectsInactive.Include);
@@ -44,8 +44,8 @@ namespace Nidavellir.GameState
             this.m_visitShopEventBinding = new EventBinding<VisitShopEvent>(this.OnVisitShop);
             GameEventBus<VisitShopEvent>.Register(this.m_visitShopEventBinding);
             
-            this.m_startDraftEventBinding = new EventBinding<StartDraftEvent>(this.OnStartDraft);
-            GameEventBus<StartDraftEvent>.Register(this.m_startDraftEventBinding);
+            this.m_startDraftEventBinding = new EventBinding<StartEnemyDraftEvent>(this.OnStartDraft);
+            GameEventBus<StartEnemyDraftEvent>.Register(this.m_startDraftEventBinding);
             
             this.m_bountyRequirementNotFulfilledEventBinding = new EventBinding<BountyRequirementNotFulfilled>(this.OnBountyRequirementNotFulfilled);
             GameEventBus<BountyRequirementNotFulfilled>.Register(this.m_bountyRequirementNotFulfilledEventBinding);
@@ -81,7 +81,7 @@ namespace Nidavellir.GameState
         {
             GameEventBus<StartFightEvent>.Unregister(this.m_startFightEventBinding);
             GameEventBus<VisitShopEvent>.Unregister(this.m_visitShopEventBinding);
-            GameEventBus<StartDraftEvent>.Unregister(this.m_startDraftEventBinding);
+            GameEventBus<StartEnemyDraftEvent>.Unregister(this.m_startDraftEventBinding);
             GameEventBus<BountyRequirementNotFulfilled>.Unregister(this.m_bountyRequirementNotFulfilledEventBinding);
             GameEventBus<PlayerDiedEvent>.Unregister(this.m_playerDiedEventBinding);
             GameEventBus<GameWonEvent>.Unregister(this.m_gameWonEventBinding);
@@ -105,9 +105,9 @@ namespace Nidavellir.GameState
             GameEventBus<GameStateChangedEvent>.Invoke(this, new GameStateChangedEvent(this.m_currentState));
         }
         
-        private void OnStartDraft(object sender, StartDraftEvent evt)
+        private void OnStartDraft(object sender, StartEnemyDraftEvent evt)
         {
-            this.m_currentState = State.Draft;
+            this.m_currentState = State.EnemyDraft;
             this.m_draftUi?.gameObject.SetActive(true);
             this.m_shopUi?.SetActive(false);
             this.m_fightUi?.SetActive(false);

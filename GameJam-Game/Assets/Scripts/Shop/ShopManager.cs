@@ -22,7 +22,7 @@ namespace Nidavellir.Shop
         
         private IEventBinding<RerollUpgradesEvent> m_rerollUpgradesEventBinding;
         private IEventBinding<PurchaseUpgradeEvent> m_purchaseUpgradeEventBinding;
-        private IEventBinding<StartDraftEvent> m_startDraftEventBinding;
+        private IEventBinding<StartEnemyDraftEvent> m_startDraftEventBinding;
         private IEventBinding<VisitShopEvent> m_visitShopEventBinding;
         
         private void Start()
@@ -33,8 +33,8 @@ namespace Nidavellir.Shop
             this.m_purchaseUpgradeEventBinding = new EventBinding<PurchaseUpgradeEvent>(this.OnPurchaseUpgrade);
             GameEventBus<PurchaseUpgradeEvent>.Register(this.m_purchaseUpgradeEventBinding);
             
-            this.m_startDraftEventBinding = new EventBinding<StartDraftEvent>(this.OnStartDraft);
-            GameEventBus<StartDraftEvent>.Register(this.m_startDraftEventBinding);
+            this.m_startDraftEventBinding = new EventBinding<StartEnemyDraftEvent>(this.OnStartDraft);
+            GameEventBus<StartEnemyDraftEvent>.Register(this.m_startDraftEventBinding);
             
             this.m_visitShopEventBinding = new EventBinding<VisitShopEvent>(this.OnVisitShop);
             GameEventBus<VisitShopEvent>.Register(this.m_visitShopEventBinding);
@@ -44,7 +44,7 @@ namespace Nidavellir.Shop
         {
             GameEventBus<RerollUpgradesEvent>.Unregister(this.m_rerollUpgradesEventBinding);
             GameEventBus<PurchaseUpgradeEvent>.Unregister(this.m_purchaseUpgradeEventBinding);
-            GameEventBus<StartDraftEvent>.Unregister(this.m_startDraftEventBinding);
+            GameEventBus<StartEnemyDraftEvent>.Unregister(this.m_startDraftEventBinding);
             GameEventBus<VisitShopEvent>.Unregister(this.m_visitShopEventBinding);
         }
 
@@ -63,7 +63,7 @@ namespace Nidavellir.Shop
             this.m_shopUI.Show(this.GetRandomUpgrades(this.m_upgradeAmount));
         }
         
-        private void OnStartDraft(object sender, StartDraftEvent e)
+        private void OnStartDraft(object sender, StartEnemyDraftEvent e)
         {
         }
         

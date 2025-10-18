@@ -2,8 +2,9 @@
 {
     public enum State
     {
-        Paused, 
-        Draft, 
+        Paused,
+        LocationDraft,
+        EnemyDraft, 
         Fight, 
         Shop, 
         Gameover

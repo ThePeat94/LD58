@@ -29,7 +29,7 @@ namespace Nidavellir.Draft
         private IEventBinding<ProfileLikedEvent> m_likedEventBinding;
         private IEventBinding<ProfileSuperLikedEvent> m_superLikedEventBinding;
         private IEventBinding<StartFightEvent> m_startFightEventBinding;
-        private IEventBinding<StartDraftEvent> m_startDraftEventBinding;
+        private IEventBinding<StartEnemyDraftEvent> m_startDraftEventBinding;
 
         private List<RuntimeEnemyInformation> m_likedProfiles = new();
         private List<RuntimeEnemyInformation> m_dislikedProfiles = new();
@@ -62,8 +62,8 @@ namespace Nidavellir.Draft
             this.m_startFightEventBinding = new EventBinding<StartFightEvent>(this.OnStartFightEvent);
             GameEventBus<StartFightEvent>.Register(this.m_startFightEventBinding);
             
-            this.m_startDraftEventBinding = new EventBinding<StartDraftEvent>(this.OnStartDraftEvent);
-            GameEventBus<StartDraftEvent>.Register(this.m_startDraftEventBinding);
+            this.m_startDraftEventBinding = new EventBinding<StartEnemyDraftEvent>(this.OnStartDraftEvent);
+            GameEventBus<StartEnemyDraftEvent>.Register(this.m_startDraftEventBinding);
             
             var rizzIndex = Math.Min(this.m_playerStats[this.m_characterStatFacade.Rizz].CurrentValue - 1, this.m_poolsPerRizzLevel.Count - 1);
             this.m_availableNonBossProfiles = new List<EnemyData>(this.m_poolsPerRizzLevel[rizzIndex].NonBossProfiles);
@@ -78,7 +78,7 @@ namespace Nidavellir.Draft
             GameEventBus<ProfileLikedEvent>.Unregister(this.m_likedEventBinding);
             GameEventBus<ProfileSuperLikedEvent>.Unregister(this.m_superLikedEventBinding);
             GameEventBus<StartFightEvent>.Unregister(this.m_startFightEventBinding);
-            GameEventBus<StartDraftEvent>.Unregister(this.m_startDraftEventBinding);
+            GameEventBus<StartEnemyDraftEvent>.Unregister(this.m_startDraftEventBinding);
         }
         
         private void ChooseNewProfile()
@@ -110,7 +110,7 @@ namespace Nidavellir.Draft
             this.m_draftUI.ShowProfiles();
         }
         
-        private void OnStartDraftEvent(object sender, StartDraftEvent e)
+        private void OnStartDraftEvent(object sender, StartEnemyDraftEvent e)
         {
             var roundStatController = this.m_playerStats[this.m_characterStatFacade.Round];
             roundStatController.Add(1);

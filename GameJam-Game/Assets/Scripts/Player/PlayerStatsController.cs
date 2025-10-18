@@ -13,15 +13,15 @@ namespace Nidavellir.Player
         [SerializeField] private EntityStats m_entityStats;
         [SerializeField] private CharacterStatFacade m_characterStatFacade;
 
-        private IEventBinding<StartDraftEvent> m_startDraftEventBinding;
+        private IEventBinding<StartEnemyDraftEvent> m_startDraftEventBinding;
         
         private void Awake()
         {
-            this.m_startDraftEventBinding = new EventBinding<StartDraftEvent>(this.OnStartDraftEvent);
-            GameEventBus<StartDraftEvent>.Register(this.m_startDraftEventBinding);
+            this.m_startDraftEventBinding = new EventBinding<StartEnemyDraftEvent>(this.OnStartDraftEvent);
+            GameEventBus<StartEnemyDraftEvent>.Register(this.m_startDraftEventBinding);
         }
 
-        private void OnStartDraftEvent(object sender, StartDraftEvent e)
+        private void OnStartDraftEvent(object sender, StartEnemyDraftEvent e)
         {
             this.m_entityStats[this.m_characterStatFacade.Likes].ResetToMax();
             this.m_entityStats[this.m_characterStatFacade.Dislikes].ResetToMax();
@@ -31,7 +31,7 @@ namespace Nidavellir.Player
         
         private void OnDestroy()
         {
-            GameEventBus<StartDraftEvent>.Unregister(this.m_startDraftEventBinding);
+            GameEventBus<StartEnemyDraftEvent>.Unregister(this.m_startDraftEventBinding);
         }
     }
 }

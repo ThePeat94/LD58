@@ -42,7 +42,7 @@ namespace Nidavellir.UI
             this.m_currentPhaseText.text = state.ToString().ToUpper();
             this.m_description.text = state switch
             {
-                State.Draft => "Choose your enemies wisely!",
+                State.EnemyDraft => "Choose your enemies wisely!",
                 State.Fight => "Defeat all your enemies!",
                 State.Shop => "Buy upgrades to become stronger!",
                 State.Gameover => "You have been defeated!",

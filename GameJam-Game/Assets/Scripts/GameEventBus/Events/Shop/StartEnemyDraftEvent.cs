@@ -1,6 +1,6 @@
 ﻿namespace Nidavellir.GameEventBus.Events.Shop
 {
-    public class StartDraftEvent : IEvent
+    public class StartEnemyDraftEvent : IEvent
     {
         
     }

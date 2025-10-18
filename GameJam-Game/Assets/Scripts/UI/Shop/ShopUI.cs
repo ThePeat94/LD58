@@ -56,7 +56,7 @@ namespace Nidavellir.UI.Shop
         
         private void OnStartDraftClick()
         {
-            GameEventBus<StartDraftEvent>.Invoke(this, new StartDraftEvent());
+            GameEventBus<StartEnemyDraftEvent>.Invoke(this, new StartEnemyDraftEvent());
         }
     }
 }
