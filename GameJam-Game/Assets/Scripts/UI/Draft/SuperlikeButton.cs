@@ -2,8 +2,8 @@
 using Nidavellir.Draft;
 using Nidavellir.Entity;
 using Nidavellir.EventArgs;
-using Nidavellir.GameEventBus;
-using Nidavellir.GameEventBus.Events.Draft;
+using Nidavellir.EventBus;
+using Nidavellir.EventBus.Events.Draft;
 using Nidavellir.Scriptables;
 using Nidavellir.Scriptables.Audio;
 using Unity.VisualScripting;

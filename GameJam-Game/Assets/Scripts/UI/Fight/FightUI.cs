@@ -1,6 +1,6 @@
 ﻿using Nidavellir.Entity;
-using Nidavellir.GameEventBus;
-using Nidavellir.GameEventBus.Events.Fight;
+using Nidavellir.EventBus;
+using Nidavellir.EventBus.Events.Fight;
 using Nidavellir.Player;
 using UnityEngine;
 using UnityEngine.UI;

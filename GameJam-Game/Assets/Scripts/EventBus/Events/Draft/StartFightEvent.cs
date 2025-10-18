@@ -2,7 +2,7 @@
 using Nidavellir.Scriptables;
 using Nidavellir.UI.Draft;
 
-namespace Nidavellir.GameEventBus.Events.Draft
+namespace Nidavellir.EventBus.Events.Draft
 {
     public class StartFightEvent : IEvent
     {

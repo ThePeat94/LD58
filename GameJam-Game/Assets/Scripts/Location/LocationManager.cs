@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
-using Nidavellir.Entity;
-using Nidavellir.Scriptables;
+using Nidavellir.EventBus;
+using Nidavellir.EventBus.EventBindings;
+using Nidavellir.EventBus.Events.Location;
 using Nidavellir.Scriptables.Location;
 using Nidavellir.UI.Location;
 using UnityEngine;
@@ -19,6 +20,17 @@ namespace Nidavellir.Location
         [SerializeField] private LocationsDisplay m_locationsDisplay;
         
         private List<BaseLocationData> m_selectedLocations = new();
+        
+        private IEventBinding<LocationSelectedEvent> m_locationSelectedEventBinding;
+        private IEventBinding<StartLocationDraftEvent> m_startLocationDraftEventBinding;
+        
+        private void Awake()
+        {
+            this.m_locationsDisplay ??= FindFirstObjectByType<LocationsDisplay>(FindObjectsInactive.Include);
+            
+            this.m_startLocationDraftEventBinding = new EventBinding<StartLocationDraftEvent>(this.OnStartLocationDraft);
+            GameEventBus<StartLocationDraftEvent>.Register(this.m_startLocationDraftEventBinding);
+        }
         
         private void SelectLocations()
         {
@@ -55,7 +67,7 @@ namespace Nidavellir.Location
             this.m_locationsDisplay.ShowLocations(this.m_selectedLocations);
         }
 
-        private void OnStartLocationDraft()
+        private void OnStartLocationDraft(object sender, StartLocationDraftEvent e)
         {
             this.SelectLocations();
         }

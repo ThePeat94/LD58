@@ -1,9 +1,9 @@
 using Nidavellir.Scriptables;
 using Nidavellir.UI.Draft;
 
-namespace Nidavellir.GameEventBus.Events.Draft
+namespace Nidavellir.EventBus.Events.Draft
 {
-    public class ProfileDislikedEvent : IEvent
+    public class ProfileLikedEvent : IEvent
     {
         public RuntimeEnemyInformation EnemyData
         {
@@ -11,7 +11,7 @@ namespace Nidavellir.GameEventBus.Events.Draft
             private set;
         }
 
-        public ProfileDislikedEvent(RuntimeEnemyInformation enemy)
+        public ProfileLikedEvent(RuntimeEnemyInformation enemy)
         {
             this.EnemyData = enemy;
         }

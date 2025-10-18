@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Nidavellir.Entity;
-using Nidavellir.GameEventBus;
-using Nidavellir.GameEventBus.EventBindings;
-using Nidavellir.GameEventBus.Events.Draft;
-using Nidavellir.GameEventBus.Events.Shop;
+using Nidavellir.EventBus;
+using Nidavellir.EventBus.EventBindings;
+using Nidavellir.EventBus.Events.Draft;
+using Nidavellir.EventBus.Events.Shop;
 using Nidavellir.GameState;
 using Nidavellir.Scriptables;
 using Nidavellir.UI.Draft;

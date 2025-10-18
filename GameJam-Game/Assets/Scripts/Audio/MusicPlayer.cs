@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Nidavellir.GameEventBus;
-using Nidavellir.GameEventBus.EventBindings;
-using Nidavellir.GameEventBus.Events.Draft;
-using Nidavellir.GameEventBus.Events.Fight;
-using Nidavellir.GameEventBus.Events.Shop;
+using Nidavellir.EventBus;
+using Nidavellir.EventBus.EventBindings;
+using Nidavellir.EventBus.Events.Draft;
+using Nidavellir.EventBus.Events.Fight;
+using Nidavellir.EventBus.Events.Shop;
 using Nidavellir.Scriptables.Audio;
 using Unity.VisualScripting;
 using UnityEngine;

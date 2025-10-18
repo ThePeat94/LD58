@@ -1,7 +1,7 @@
 ﻿using System;
-using Nidavellir.GameEventBus;
-using Nidavellir.GameEventBus.EventBindings;
-using Nidavellir.GameEventBus.Events;
+using Nidavellir.EventBus;
+using Nidavellir.EventBus.EventBindings;
+using Nidavellir.EventBus.Events;
 using Nidavellir.GameState;
 using TMPro;
 using UnityEngine;

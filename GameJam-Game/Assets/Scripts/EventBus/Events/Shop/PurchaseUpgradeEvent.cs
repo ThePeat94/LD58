@@ -1,6 +1,6 @@
 ﻿using Nidavellir.Scriptables;
 
-namespace Nidavellir.GameEventBus.Events.Shop
+namespace Nidavellir.EventBus.Events.Shop
 {
     public class PurchaseUpgradeEvent : IEvent
     {

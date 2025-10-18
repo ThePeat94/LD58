@@ -1,7 +1,7 @@
 using System;
-using Nidavellir.GameEventBus.Events;
+using Nidavellir.EventBus.Events;
 
-namespace Nidavellir.GameEventBus.EventBindings
+namespace Nidavellir.EventBus.EventBindings
 {
     public class EventBinding<T> : IEventBinding<T> where T : IEvent
     {

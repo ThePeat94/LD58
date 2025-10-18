@@ -1,4 +1,4 @@
-﻿namespace Nidavellir.GameEventBus.Events
+﻿namespace Nidavellir.EventBus.Events
 {
     public class GameWonEvent : IEvent
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace Nidavellir.GameEventBus.EventBindings
+namespace Nidavellir.EventBus.EventBindings
 {
     public interface IEventBinding<T>
     {

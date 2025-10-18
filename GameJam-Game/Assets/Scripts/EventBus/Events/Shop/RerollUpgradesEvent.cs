@@ -1,4 +1,4 @@
-﻿namespace Nidavellir.GameEventBus.Events.Shop
+﻿namespace Nidavellir.EventBus.Events.Shop
 {
     public class RerollUpgradesEvent : IEvent
     {

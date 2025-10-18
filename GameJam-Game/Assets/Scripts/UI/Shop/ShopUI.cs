@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Nidavellir.Entity;
-using Nidavellir.GameEventBus;
-using Nidavellir.GameEventBus.Events.Shop;
+using Nidavellir.EventBus;
+using Nidavellir.EventBus.Events.Shop;
 using Nidavellir.Scriptables;
 using UnityEngine;
 using UnityEngine.UI;

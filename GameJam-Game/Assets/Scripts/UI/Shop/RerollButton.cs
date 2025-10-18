@@ -1,10 +1,10 @@
 ﻿using System;
 using Nidavellir.Entity;
 using Nidavellir.EventArgs;
-using Nidavellir.GameEventBus;
-using Nidavellir.GameEventBus.EventBindings;
-using Nidavellir.GameEventBus.Events.Fight;
-using Nidavellir.GameEventBus.Events.Shop;
+using Nidavellir.EventBus;
+using Nidavellir.EventBus.EventBindings;
+using Nidavellir.EventBus.Events.Fight;
+using Nidavellir.EventBus.Events.Shop;
 using Nidavellir.Scriptables;
 using Nidavellir.Shop;
 using TMPro;

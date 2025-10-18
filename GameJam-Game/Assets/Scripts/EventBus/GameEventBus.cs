@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using Nidavellir.GameEventBus.EventBindings;
-using Nidavellir.GameEventBus.Events;
+using Nidavellir.EventBus.EventBindings;
+using Nidavellir.EventBus.Events;
 
-namespace Nidavellir.GameEventBus
+namespace Nidavellir.EventBus
 {
     public static class GameEventBus<T> where T : IEvent
     {

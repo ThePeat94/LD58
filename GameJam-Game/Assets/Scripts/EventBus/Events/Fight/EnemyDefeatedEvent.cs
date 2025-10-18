@@ -1,7 +1,7 @@
 ﻿using Nidavellir.Player;
 using Nidavellir.Scriptables;
 
-namespace Nidavellir.GameEventBus.Events.Fight
+namespace Nidavellir.EventBus.Events.Fight
 {
     public class EnemyDefeatedEvent : IEvent
     {

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using Nidavellir.Draft;
 using Nidavellir.Entity;
-using Nidavellir.GameEventBus;
-using Nidavellir.GameEventBus.EventBindings;
-using Nidavellir.GameEventBus.Events;
+using Nidavellir.EventBus;
+using Nidavellir.EventBus.EventBindings;
+using Nidavellir.EventBus.Events;
 using Nidavellir.Scriptables;
 using UnityEngine;
 

@@ -1,6 +1,6 @@
 ﻿using Nidavellir.GameState;
 
-namespace Nidavellir.GameEventBus.Events
+namespace Nidavellir.EventBus.Events
 {
     public class GameStateChangedEvent : IEvent
     {

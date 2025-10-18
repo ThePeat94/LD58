@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Nidavellir.GameEventBus;
-using Nidavellir.GameEventBus.Events;
-using Nidavellir.GameEventBus.Events.Draft;
+using Nidavellir.EventBus;
+using Nidavellir.EventBus.Events;
+using Nidavellir.EventBus.Events.Draft;
 using Nidavellir.Scriptables;
 using UnityEngine;
 using UnityEngine.UI;

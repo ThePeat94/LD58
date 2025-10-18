@@ -1,10 +1,10 @@
 ﻿using System;
-using Nidavellir.GameEventBus;
-using Nidavellir.GameEventBus.EventBindings;
-using Nidavellir.GameEventBus.Events;
-using Nidavellir.GameEventBus.Events.Draft;
-using Nidavellir.GameEventBus.Events.Fight;
-using Nidavellir.GameEventBus.Events.Shop;
+using Nidavellir.EventBus;
+using Nidavellir.EventBus.EventBindings;
+using Nidavellir.EventBus.Events;
+using Nidavellir.EventBus.Events.Draft;
+using Nidavellir.EventBus.Events.Fight;
+using Nidavellir.EventBus.Events.Shop;
 using Nidavellir.UI.Draft;
 using Nidavellir.UI.GameOver;
 using Nidavellir.UI.GameWon;

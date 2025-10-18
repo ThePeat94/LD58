@@ -1,4 +1,6 @@
-﻿using Nidavellir.Scriptables.Location;
+﻿using Nidavellir.EventBus;
+using Nidavellir.EventBus.Events.Location;
+using Nidavellir.Scriptables.Location;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -22,7 +24,7 @@ namespace Nidavellir.UI.Location
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            Debug.Log($"Location {this.m_locationData.Name} clicked.");
+            GameEventBus<LocationSelectedEvent>.Invoke(this, new (this.m_locationData));
         }
     }
 }
