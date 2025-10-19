@@ -1,11 +1,9 @@
-﻿using System;
-using Nidavellir.EventBus;
+﻿using Nidavellir.EventBus;
 using Nidavellir.EventBus.EventBindings;
 using Nidavellir.EventBus.Events;
 using Nidavellir.EventBus.Events.Draft;
 using Nidavellir.EventBus.Events.Fight;
 using Nidavellir.EventBus.Events.Location;
-using Nidavellir.EventBus.Events.Shop;
 using Nidavellir.UI;
 using Nidavellir.UI.Draft;
 using Nidavellir.UI.GameOver;
@@ -24,7 +22,6 @@ namespace Nidavellir.GameState
         [SerializeField] private GameWonUI m_gameWonUI;
         [SerializeField] private LocationSelectionUI m_locationSelectionUI;
         [SerializeField] private EnemySelectionUI m_enemySelectionUI;
-        
         
         private IEventBinding<StartFightEvent> m_startFightEventBinding;
         private IEventBinding<VisitShopEvent> m_visitShopEventBinding;
@@ -118,8 +115,9 @@ namespace Nidavellir.GameState
         {
             this.m_currentState = State.Shop;
             this.m_draftUi?.gameObject.SetActive(false);
-            this.m_shopUi?.SetActive(true);
             this.m_fightUi?.SetActive(false);
+            this.m_locationSelectionUI?.gameObject.SetActive(false);
+            this.m_shopUi?.SetActive(true);
             GameEventBus<GameStateChangedEvent>.Invoke(this, new GameStateChangedEvent(this.m_currentState));
         }
 

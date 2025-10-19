@@ -98,6 +98,7 @@ namespace Nidavellir.Location
                     return;
                 case EventLocationData eventLocation:
                     GameEventBus<EventLocationSelectedEvent>.Invoke(this, new(eventLocation));
+                    eventLocation.TriggerEvent();
                     return;
             }
         }

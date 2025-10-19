@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e9bed35ba584d548ca418e9f86cc406, type: 3}
-  m_Name: Tavern Location
-  m_EditorClassIdentifier: Assembly-CSharp::Nidavellir.Scriptables.Location.EventLocationData
+  m_Script: {fileID: 11500000, guid: 398859710f8b4ebdb29f0f1c286843ac, type: 3}
+  m_Name: Tavern
+  m_EditorClassIdentifier: Assembly-CSharp::Nidavellir.Scriptables.Location.VisitTavernEventData
   m_name: Tavern
-  m_description: Back to tavern
+  m_description: Go to Tavern and pay your bounty
   m_backgroundImage: {fileID: 21300000, guid: 371167c4a3229534a9969b385bbb21a7, type: 3}

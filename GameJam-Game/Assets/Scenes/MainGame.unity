@@ -1128,7 +1128,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e27770789b1e75a40a1e089605319678, type: 2}
   m_availableEventLocations: []
   m_locationSelectionConfigurationData: {fileID: 11400000, guid: 96b39842bcb1fbd4286cba25fb026494, type: 2}
-  m_returnToShopEventLocation: {fileID: 11400000, guid: 0c987c11bcbc86c47af757130828e78e, type: 2}
+  m_returnToShopEventLocation: {fileID: 11400000, guid: b275ea7d5d344234890ae6341b64b91b, type: 2}
   m_bountyRequirementController: {fileID: 1579172576}
   m_locationSelectionUI: {fileID: 6819668715244526199}
 --- !u!4 &1997395869
