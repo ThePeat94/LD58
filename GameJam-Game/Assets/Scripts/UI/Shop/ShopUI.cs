@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Nidavellir.Entity;
 using Nidavellir.EventBus;
 using Nidavellir.EventBus.Events.Shop;
@@ -56,7 +55,7 @@ namespace Nidavellir.UI.Shop
         
         private void OnStartDraftClick()
         {
-            GameEventBus<StartEnemyDraftEvent>.Invoke(this, new StartEnemyDraftEvent());
+            GameEventBus<StartEnemyDraftEvent>.Invoke(this, new StartEnemyDraftEvent(null));
         }
     }
 }

@@ -2,13 +2,15 @@
 using Nidavellir.EventBus;
 using Nidavellir.EventBus.EventBindings;
 using Nidavellir.EventBus.Events.Location;
+using Nidavellir.EventBus.Events.Shop;
 using Nidavellir.Scriptables.Location;
 using Nidavellir.UI.Location;
+using Nidavellir.Util;
 using UnityEngine;
 
 namespace Nidavellir.Location
 {
-    public class LocationManager : MonoBehaviour
+    public class LocationDraftManager : MonoBehaviour
     {
         [SerializeField] private List<EnemyLocationData> m_availableEnemyLocations;
         [SerializeField] private List<EventLocationData> m_availableEventLocations;
@@ -19,7 +21,8 @@ namespace Nidavellir.Location
 
         [SerializeField] private LocationsDisplay m_locationsDisplay;
         
-        private List<BaseLocationData> m_selectedLocations = new();
+        private readonly List<BaseLocationData> m_selectedLocations = new();
+        private BaseLocationData m_lastSelectedLocation;
         
         private IEventBinding<LocationSelectedEvent> m_locationSelectedEventBinding;
         private IEventBinding<StartLocationDraftEvent> m_startLocationDraftEventBinding;
@@ -27,9 +30,13 @@ namespace Nidavellir.Location
         private void Awake()
         {
             this.m_locationsDisplay ??= FindFirstObjectByType<LocationsDisplay>(FindObjectsInactive.Include);
+            this.m_bountyRequirementController ??= FindFirstObjectByType<BountyRequirementController>(FindObjectsInactive.Include);
             
             this.m_startLocationDraftEventBinding = new EventBinding<StartLocationDraftEvent>(this.OnStartLocationDraft);
             GameEventBus<StartLocationDraftEvent>.Register(this.m_startLocationDraftEventBinding);
+            
+            this.m_locationSelectedEventBinding = new EventBinding<LocationSelectedEvent>(this.OnLocationSelected);
+            GameEventBus<LocationSelectedEvent>.Register(this.m_locationSelectedEventBinding);
         }
         
         private void SelectLocations()
@@ -64,12 +71,25 @@ namespace Nidavellir.Location
                 this.m_selectedLocations.Add(this.m_returnToShopEventLocation);
             }
             
-            this.m_locationsDisplay.ShowLocations(this.m_selectedLocations);
+            this.m_locationsDisplay.ShowLocations(this.m_selectedLocations.Shuffle());
         }
 
         private void OnStartLocationDraft(object sender, StartLocationDraftEvent e)
         {
             this.SelectLocations();
+        }
+        
+        private void OnLocationSelected(object sender, LocationSelectedEvent e)
+        {
+            this.m_selectedLocations.Clear();
+            this.m_lastSelectedLocation = e.SelectedLocation;
+            
+            if (e.SelectedLocation is EnemyLocationData enemyLocation)
+            {
+                GameEventBus<StartEnemyDraftEvent>.Invoke(this, new(enemyLocation));
+                return;
+            }
+            
         }
     }
 }

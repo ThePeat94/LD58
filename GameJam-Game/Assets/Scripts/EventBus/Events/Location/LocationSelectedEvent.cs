@@ -4,11 +4,11 @@ namespace Nidavellir.EventBus.Events.Location
 {
     public class LocationSelectedEvent : IEvent
     {
-        public LocationSelectedEvent(BaseLocationData locationData)
+        public LocationSelectedEvent(BaseLocationData selectedLocation)
         {
-            this.LocationData = locationData;
+            this.SelectedLocation = selectedLocation;
         }
         
-        public BaseLocationData LocationData { get; }
+        public BaseLocationData SelectedLocation { get; }
     }
 }
