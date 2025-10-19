@@ -22,7 +22,6 @@ namespace Nidavellir.EventBus
         {
             foreach (var eventBinding in s_eventBindings)
             {
-                eventBinding.Invoke(sender);
                 eventBinding.Invoke(sender, args);
             }
         }
