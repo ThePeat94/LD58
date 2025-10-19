@@ -2292,7 +2292,7 @@ GameObject:
   - component: {fileID: 478595606090359503}
   - component: {fileID: 5409510042281647691}
   m_Layer: 5
-  m_Name: Profile Stat Card
+  m_Name: Orifginal Profile Stat Card
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

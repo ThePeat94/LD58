@@ -1,29 +1,18 @@
 ﻿using System;
 using System.Linq;
 using Nidavellir.Scriptables;
+using Nidavellir.UI.Draft;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace Nidavellir.UI.Draft
+namespace Nidavellir.UI.Profile
 {
-    public class ProfileCardUI : MonoBehaviour
+    public class ProfileStatsCardUI : MonoBehaviour
     {
-        private const string NAME_FORMAT = "{0}, {1}";
-        
         private const string REWARD_FORMAT = "{0:D}g";
         
         private const string DISTANCE_FORMAT = "{0:D}km";
         
-        [SerializeField] private TextMeshProUGUI m_name;
-        [SerializeField] private TextMeshProUGUI m_description;
-        [SerializeField] private TextMeshProUGUI m_tags;
-        
-        [SerializeField] private Image m_profilePicture;
-        [SerializeField] private Image m_profileBackground;
-        [SerializeField] private Sprite m_defaultBackground;
-        [SerializeField] private CharacterStatFacade m_characterStatFacade;
-
         [SerializeField] private ProfileStatUI m_hpStatUi;
         [SerializeField] private ProfileStatUI m_attackStatUi;
         [SerializeField] private ProfileStatUI m_defenseStatUi;
@@ -31,24 +20,17 @@ namespace Nidavellir.UI.Draft
         [SerializeField] private ProfileStatUI m_bountyStatUi;
         [SerializeField] private ProfileStatUI m_distanceStatUi;
         [SerializeField] private ProfileStatUI m_powerStatUi;
+        [SerializeField] private TextMeshProUGUI m_tags;
         
-        public void DisplayEnemy(RuntimeEnemyInformation enemyData)
+        [SerializeField] private CharacterStatFacade m_characterStatFacade;
+
+
+        public void SetupEnemyStats(RuntimeEnemyInformation enemyData)
         {
-            this.m_name.text = String.Format(NAME_FORMAT, enemyData.BaseData.Name, enemyData.BaseData.Age);
-            this.m_description.text = enemyData.BaseData.ProfileDescription;
-            this.m_profilePicture.sprite = enemyData.BaseData.Icon;
             
-            if (enemyData.BaseData.PossibleBackgrounds is null or { Count: 0 })
-            {
-                this.m_profileBackground.sprite = this.m_defaultBackground;
-            }
-            else
-            {
-                this.m_profileBackground.sprite = enemyData.BaseData.PossibleBackgrounds[UnityEngine.Random.Range(0, enemyData.BaseData.PossibleBackgrounds.Count)];
-            }
             if (enemyData.BaseData.Tags is null || enemyData.BaseData.Tags.Count == 0)
             {
-                this.m_tags.text = "No Tags";
+                this.m_tags.text = string.Empty;
             }
             else
             {
