@@ -5,7 +5,7 @@ namespace Nidavellir.EventBus.Events.Draft
 {
     public class ProfileSuperLikedEvent : IEvent
     {
-        public RuntimeEnemyInformation EnemyData
+        public RuntimeEnemyInformation Enemy
         {
             get;
             private set;
@@ -13,7 +13,7 @@ namespace Nidavellir.EventBus.Events.Draft
 
         public ProfileSuperLikedEvent(RuntimeEnemyInformation enemy)
         {
-            this.EnemyData = enemy;
+            this.Enemy = enemy;
         }
     }
 

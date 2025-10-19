@@ -4818,13 +4818,14 @@ GameObject:
   - component: {fileID: 9155179749304277676}
   - component: {fileID: 1703489661010524181}
   - component: {fileID: 2977330692098457857}
+  - component: {fileID: 7296256495181853786}
   m_Layer: 5
   m_Name: Location Enemies Selection Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &9155179749304277676
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4883,6 +4884,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7296256495181853786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4639683591745635590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f381605912c449bf958e1da9f4bf8706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Nidavellir.UI.EnemySelectionUI
+  m_enemyDisplayRow: {fileID: 7602089017997845015}
+  m_baseProfileCardPrefab: {fileID: 1062797656034098557, guid: 72f7550f6a7f3e7468acfb4befcd9af3, type: 3}
+  m_enemySelectionPanel: {fileID: 4639683591745635590}
 --- !u!1 &4719609934730879058
 GameObject:
   m_ObjectHideFlags: 0
@@ -7124,7 +7140,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 1
-  m_Spacing: 0
+  m_Spacing: 20
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0

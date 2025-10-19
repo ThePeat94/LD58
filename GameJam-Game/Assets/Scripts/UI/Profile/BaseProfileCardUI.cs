@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using Nidavellir.EventBus;
+using Nidavellir.EventBus.Events.Draft;
 using Nidavellir.Scriptables;
 using Nidavellir.UI.Draft;
 using TMPro;
@@ -10,7 +12,7 @@ using Image = UnityEngine.UI.Image;
 
 namespace Nidavellir.UI.Profile
 {
-    public class BaseProfileCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    public class BaseProfileCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
     {
         private const string NAME_FORMAT = "{0}, {1}";
         
@@ -22,6 +24,8 @@ namespace Nidavellir.UI.Profile
         [SerializeField] private Sprite m_defaultBackground;
 
         [SerializeField] private ProfileStatsCardUI m_profileStatsCardUI;
+        
+        private RuntimeEnemyInformation m_displayedEnemy;
 
         private void Awake()
         {
@@ -32,6 +36,7 @@ namespace Nidavellir.UI.Profile
 
         public void DisplayEnemy(RuntimeEnemyInformation enemyData)
         {
+            this.m_displayedEnemy = enemyData;
             this.m_name.text = String.Format(NAME_FORMAT, enemyData.BaseData.Name, enemyData.BaseData.Age);
             this.m_description.text = enemyData.BaseData.ProfileDescription;
             this.m_profilePicture.sprite = enemyData.BaseData.Icon;
@@ -40,7 +45,7 @@ namespace Nidavellir.UI.Profile
                 this.m_defaultBackground : 
                 enemyData.BaseData.PossibleBackgrounds[UnityEngine.Random.Range(0, enemyData.BaseData.PossibleBackgrounds.Count)];
             
-            this.m_profileStatsCardUI.SetupEnemyStats(enemyData);
+            // this.m_profileStatsCardUI.SetupEnemyStats(enemyData);
         }
 
         public void OnPointerEnter(PointerEventData eventData)
@@ -51,6 +56,12 @@ namespace Nidavellir.UI.Profile
         public void OnPointerExit(PointerEventData eventData)
         {
             // this.m_profileStatsCardUI.gameObject.SetActive(false);
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            Debug.Log($"Selected profile: {this.m_displayedEnemy.BaseData.Name}");
+            GameEventBus<ProfileLikedEvent>.Invoke(this, new(this.m_displayedEnemy));
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Nidavellir.Entity;
 using Nidavellir.EventBus;
 using Nidavellir.EventBus.Events.Fight;
+using Nidavellir.EventBus.Events.Location;
 using Nidavellir.Player;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,7 +28,7 @@ namespace Nidavellir.UI.Fight
             this.m_duringFightPanelUi.SetActive(false);
             this.m_afterFightPanelUi.SetActive(false);
             this.m_fightPanelUi.SetActive(false);
-            GameEventBus<VisitShopEvent>.Invoke(this, new VisitShopEvent());
+            GameEventBus<StartLocationDraftEvent>.Invoke(this, new());
         }
 
         public void ShowFightUI()

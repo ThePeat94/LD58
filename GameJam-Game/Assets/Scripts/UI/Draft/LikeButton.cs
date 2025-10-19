@@ -51,7 +51,7 @@ namespace Nidavellir.UI.Draft
 
         private void OnButtonClick()
         {
-            GameEventBus<ProfileLikedEvent>.Invoke(this, new ProfileLikedEvent(this.m_draftManager.CurrentProfile));
+            // GameEventBus<ProfileLikedEvent>.Invoke(this, new ProfileLikedEvent(this.m_draftManager.CurrentProfile));
             this.m_sfxPlayer.PlayOneShot(this.m_likeSfxData);
         }
     }

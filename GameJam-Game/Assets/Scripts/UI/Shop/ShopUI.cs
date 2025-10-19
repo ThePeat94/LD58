@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Nidavellir.Entity;
 using Nidavellir.EventBus;
+using Nidavellir.EventBus.Events.Location;
 using Nidavellir.EventBus.Events.Shop;
 using Nidavellir.Scriptables;
 using UnityEngine;
@@ -55,7 +56,7 @@ namespace Nidavellir.UI.Shop
         
         private void OnStartDraftClick()
         {
-            GameEventBus<StartEnemyDraftEvent>.Invoke(this, new StartEnemyDraftEvent(null));
+            GameEventBus<StartLocationDraftEvent>.Invoke(this, new());
         }
     }
 }

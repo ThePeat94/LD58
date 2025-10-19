@@ -28,7 +28,7 @@ namespace Nidavellir.UI
 
         private void OnButtonClick()
         {
-            this.m_sfxPlayer?.PlayOneShot(this.m_sfxData);
+            // this.m_sfxPlayer?.PlayOneShot(this.m_sfxData);
         }
     }
 }

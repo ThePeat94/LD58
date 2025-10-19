@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Nidavellir.EventBus;
 using Nidavellir.EventBus.EventBindings;
 using Nidavellir.EventBus.Events.Location;
@@ -7,6 +8,7 @@ using Nidavellir.Scriptables.Location;
 using Nidavellir.UI.Location;
 using Nidavellir.Util;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Nidavellir.Location
 {
@@ -19,7 +21,7 @@ namespace Nidavellir.Location
         [SerializeField] private EventLocationData m_returnToShopEventLocation;
         [SerializeField] private BountyRequirementController m_bountyRequirementController;
 
-        [SerializeField] private LocationsDisplay m_locationsDisplay;
+        [SerializeField] private LocationSelectionUI m_locationSelectionUI;
         
         private readonly List<BaseLocationData> m_selectedLocations = new();
         private BaseLocationData m_lastSelectedLocation;
@@ -29,7 +31,7 @@ namespace Nidavellir.Location
         
         private void Awake()
         {
-            this.m_locationsDisplay ??= FindFirstObjectByType<LocationsDisplay>(FindObjectsInactive.Include);
+            this.m_locationSelectionUI ??= FindFirstObjectByType<LocationSelectionUI>(FindObjectsInactive.Include);
             this.m_bountyRequirementController ??= FindFirstObjectByType<BountyRequirementController>(FindObjectsInactive.Include);
             
             this.m_startLocationDraftEventBinding = new EventBinding<StartLocationDraftEvent>(this.OnStartLocationDraft);
@@ -38,7 +40,12 @@ namespace Nidavellir.Location
             this.m_locationSelectedEventBinding = new EventBinding<LocationSelectedEvent>(this.OnLocationSelected);
             GameEventBus<LocationSelectedEvent>.Register(this.m_locationSelectedEventBinding);
         }
-        
+
+        private void Start()
+        {
+            this.SelectLocations();
+        }
+
         private void SelectLocations()
         {
             var shouldSelectShopLocation = this.m_bountyRequirementController.HasFulfilledBountyRequirement();
@@ -71,7 +78,7 @@ namespace Nidavellir.Location
                 this.m_selectedLocations.Add(this.m_returnToShopEventLocation);
             }
             
-            this.m_locationsDisplay.ShowLocations(this.m_selectedLocations.Shuffle());
+            this.m_locationSelectionUI.ShowLocations(this.m_selectedLocations.Shuffle());
         }
 
         private void OnStartLocationDraft(object sender, StartLocationDraftEvent e)
@@ -84,12 +91,15 @@ namespace Nidavellir.Location
             this.m_selectedLocations.Clear();
             this.m_lastSelectedLocation = e.SelectedLocation;
             
-            if (e.SelectedLocation is EnemyLocationData enemyLocation)
+            switch (e.SelectedLocation)
             {
-                GameEventBus<StartEnemyDraftEvent>.Invoke(this, new(enemyLocation));
-                return;
+                case EnemyLocationData enemyLocation:
+                    GameEventBus<EnemyLocationSelectedEvent>.Invoke(this, new(enemyLocation));
+                    return;
+                case EventLocationData eventLocation:
+                    GameEventBus<EventLocationSelectedEvent>.Invoke(this, new(eventLocation));
+                    return;
             }
-            
         }
     }
 }

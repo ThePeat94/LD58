@@ -120,13 +120,6 @@ namespace Nidavellir.Fight
         {
             if (this.m_enemyQueue.Count == 0)
             {
-
-                if (!this.m_bountyRequirementController.HasFulfilledBountyRequirement())
-                {
-                    GameEventBus<BountyRequirementNotFulfilled>.Invoke(this, new());
-                    return;
-                }
-                
                 this.StartCoroutine(this.QueueAfterFight());
                 return;
             }
@@ -147,7 +140,6 @@ namespace Nidavellir.Fight
         private IEnumerator QueueAfterFight()
         {
             yield return new WaitForSeconds(1f);
-            GameEventBus<BountyRequirementFulfilled>.Invoke(this, new());
             this.m_fightUI.ShowAfterFightUI();
         }
 

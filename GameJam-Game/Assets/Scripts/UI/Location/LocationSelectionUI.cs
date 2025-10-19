@@ -4,13 +4,12 @@ using UnityEngine;
 
 namespace Nidavellir.UI.Location
 {
-    public class LocationsDisplay : MonoBehaviour
+    public class LocationSelectionUI : MonoBehaviour
     {
         [SerializeField] private GameObject m_locationsCardParent;
         [SerializeField] private LocationCardUI m_locationCardUiPrefab;
         
-
-        private List<LocationCardUI> m_currentlyDisplayed = new();
+        private readonly List<LocationCardUI> m_currentlyDisplayed = new();
         
         public void ShowLocations(List<BaseLocationData> locationCards)
         {

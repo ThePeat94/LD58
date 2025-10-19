@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40caac78cd94fb7b13c4229bf854e5a, type: 3}
+  m_Name: Orc Camp
+  m_EditorClassIdentifier: Assembly-CSharp::Nidavellir.Scriptables.Location.EnemyLocationData
+  m_name: Orc Camp
+  m_description: Something something
+  m_backgroundImage: {fileID: 21300000, guid: b6e5a39f172822c4dbfd5b528c12c086, type: 3}
+  m_availableNonBossProfiles:
+  - {fileID: 11400000, guid: 23f4c3b5f992ac644a7c3cf74e0fd904, type: 2}
+  - {fileID: 11400000, guid: 8519148058cd9d74db2dff02919e2f37, type: 2}
+  - {fileID: 11400000, guid: 598d0b0ae3cbb5f4284c6455d332d705, type: 2}
+  - {fileID: 11400000, guid: 27e21ab7219ed1049933c847b3007f4f, type: 2}
+  - {fileID: 11400000, guid: 99e52083b7735a04aade1114f93bda87, type: 2}
+  - {fileID: 11400000, guid: 9b8993c7cedc108478188c1a5fb5a2f8, type: 2}
+  - {fileID: 11400000, guid: c3b2057c6f6ca7c4ca2b69ae96c752ec, type: 2}
+  - {fileID: 11400000, guid: 1c3f959318e319441961d2df7bd75b7a, type: 2}
+  - {fileID: 11400000, guid: 8f0f67485e1929f48be10f5d5f8545ff, type: 2}
+  - {fileID: 11400000, guid: 72e85c74541b0da4f8b9fd2825a84ade, type: 2}
+  - {fileID: 11400000, guid: 566264ae69ead2a46aef4c6e7c7133e2, type: 2}
+  - {fileID: 11400000, guid: b5cd51e5970936142b4859ba65822479, type: 2}
+  - {fileID: 11400000, guid: 4c3cb5dd79905ac4fa26b04b88cad64f, type: 2}
+  - {fileID: 11400000, guid: e6a17b75d04ddd24db201c6d5805f7cc, type: 2}
+  - {fileID: 11400000, guid: 6ba12a68c032bd844a7bf17e856c03b5, type: 2}
+  - {fileID: 11400000, guid: ccf8cd44e5604c540bc34693ffecf307, type: 2}
+  - {fileID: 11400000, guid: a523228eca12bd3419d5a43534149e37, type: 2}
+  - {fileID: 11400000, guid: 0b2d7af6d799fca42b2dde23ac9b4c31, type: 2}
+  m_availableBossProfiles: []

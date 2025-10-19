@@ -50,7 +50,7 @@ namespace Nidavellir.UI.Draft
         
         private void OnButtonClick()
         {
-            GameEventBus<ProfileSuperLikedEvent>.Invoke(this, new ProfileSuperLikedEvent(this.m_draftManager.CurrentProfile));
+            // GameEventBus<ProfileSuperLikedEvent>.Invoke(this, new ProfileSuperLikedEvent(this.m_draftManager.CurrentProfile));
             this.m_superlikeSfxPlayer.PlayOneShot(this.m_superlikeSfx);
         }
     }
