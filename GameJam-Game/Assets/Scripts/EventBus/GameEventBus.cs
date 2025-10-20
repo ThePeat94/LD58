@@ -33,7 +33,7 @@ namespace Nidavellir.EventBus
     
         public static void Invoke(object sender, T args)
         {
-            var bindingsCopy = new SortedDictionary<int, HashSet<IEventBinding<T>>>(s_sortedEventBindings);
+            var bindingsCopy = DeepCopyEventBindings(s_sortedEventBindings);
             foreach (var (prio, eventBindings) in bindingsCopy)
             {
                 Debug.Log($"Invoking event bindings with priority {prio} for event {typeof(T).Name}");
@@ -50,6 +50,16 @@ namespace Nidavellir.EventBus
                 }
 
             }
+        }
+        
+        private static SortedList<int, HashSet<IEventBinding<T>>> DeepCopyEventBindings(SortedList<int, HashSet<IEventBinding<T>>> original)
+        {
+            var copy = new SortedList<int, HashSet<IEventBinding<T>>>();
+            foreach (var (priority, bindingsSet) in original)
+            {
+                copy[priority] = new HashSet<IEventBinding<T>>(bindingsSet);
+            }
+            return copy;
         }
     }
 }
