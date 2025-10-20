@@ -51,7 +51,7 @@ namespace Nidavellir.UI.Draft
         {
             this.m_profilesUi.SetActive(false);
             this.m_startFightUi.SetActive(false);
-            GameEventBus<StartFightEvent>.Invoke(this, new (this.m_likedProfiles));
+            GameEventBus<FightStartedEvent>.Invoke(this, new (this.m_likedProfiles));
         }
     }
 }

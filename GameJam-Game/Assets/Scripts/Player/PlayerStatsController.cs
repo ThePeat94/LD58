@@ -14,15 +14,16 @@ namespace Nidavellir.Player
         [SerializeField] private EntityStats m_entityStats;
         [SerializeField] private CharacterStatFacade m_characterStatFacade;
 
-        private IEventBinding<StartLocationDraftEvent> m_startDraftEventBinding;
+        private IEventBinding<LocationDraftStartedEvent> m_startDraftEventBinding;
         
         private void Awake()
         {
-            this.m_startDraftEventBinding = new EventBinding<StartLocationDraftEvent>(this.OnStartLocationDraft);
-            GameEventBus<StartLocationDraftEvent>.Register(this.m_startDraftEventBinding);
+            // TODO: This should also be executed in a more direct manner and not by some events thrown at several places. Oh man.
+            this.m_startDraftEventBinding = new EventBinding<LocationDraftStartedEvent>(this.OnStartLocationDraft);
+            GameEventBus<LocationDraftStartedEvent>.Register(this.m_startDraftEventBinding);
         }
 
-        private void OnStartLocationDraft(object sender, StartLocationDraftEvent e)
+        private void OnStartLocationDraft(object sender, LocationDraftStartedEvent e)
         {
             this.m_entityStats[this.m_characterStatFacade.Likes].ResetToMax();
             this.m_entityStats[this.m_characterStatFacade.Dislikes].ResetToMax();
@@ -32,7 +33,7 @@ namespace Nidavellir.Player
         
         private void OnDestroy()
         {
-            GameEventBus<StartLocationDraftEvent>.Unregister(this.m_startDraftEventBinding);
+            GameEventBus<LocationDraftStartedEvent>.Unregister(this.m_startDraftEventBinding);
         }
     }
 }

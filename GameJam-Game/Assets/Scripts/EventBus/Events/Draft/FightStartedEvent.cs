@@ -4,9 +4,9 @@ using Nidavellir.UI.Draft;
 
 namespace Nidavellir.EventBus.Events.Draft
 {
-    public class StartFightEvent : IEvent
+    public class FightStartedEvent : IEvent
     {
-        public StartFightEvent(List<RuntimeEnemyInformation> likedProfiles)
+        public FightStartedEvent(List<RuntimeEnemyInformation> likedProfiles)
         {
             this.LikedProfiles = likedProfiles;
         }

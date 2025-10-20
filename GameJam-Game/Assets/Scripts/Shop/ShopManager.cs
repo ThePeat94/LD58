@@ -1,13 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Nidavellir.Entity;
 using Nidavellir.EventBus;
 using Nidavellir.EventBus.EventBindings;
 using Nidavellir.EventBus.Events.Fight;
 using Nidavellir.EventBus.Events.Shop;
+using Nidavellir.Location;
 using Nidavellir.Scriptables;
 using Nidavellir.UI.Shop;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Nidavellir.Shop
 {
@@ -17,22 +20,35 @@ namespace Nidavellir.Shop
         [SerializeField] private ShopUI m_shopUI;
         [SerializeField] private EntityStats m_entityStats;
         [SerializeField] private CharacterStatFacade m_characterStatFacade;
+        [SerializeField] private LocationDraftManager m_locationDraftManager;
         
         private int m_upgradeAmount = 2;
         
         private IEventBinding<RerollUpgradesEvent> m_rerollUpgradesEventBinding;
         private IEventBinding<PurchaseUpgradeEvent> m_purchaseUpgradeEventBinding;
         private IEventBinding<VisitShopEvent> m_visitShopEventBinding;
-        
+
+
+        private void Awake()
+        {
+            this.m_locationDraftManager ??= FindFirstObjectByType<LocationDraftManager>(FindObjectsInactive.Include);
+            
+            this.m_rerollUpgradesEventBinding = new EventBinding<RerollUpgradesEvent>(this.OnRerollUpgrades);
+            this.m_purchaseUpgradeEventBinding = new EventBinding<PurchaseUpgradeEvent>(this.OnPurchaseUpgrade);
+            this.m_visitShopEventBinding = new EventBinding<VisitShopEvent>(this.OnVisitShop);
+            
+            this.m_shopUI.OnStartLocationDraftClicked += this.HandleStartLocationDraftClick;
+        }
+
+        private void HandleStartLocationDraftClick()
+        {
+            this.m_locationDraftManager.SelectLocations();
+        }
+
         private void Start()
         {
-            this.m_rerollUpgradesEventBinding = new EventBinding<RerollUpgradesEvent>(this.OnRerollUpgrades);
             GameEventBus<RerollUpgradesEvent>.Register(this.m_rerollUpgradesEventBinding);
-            
-            this.m_purchaseUpgradeEventBinding = new EventBinding<PurchaseUpgradeEvent>(this.OnPurchaseUpgrade);
             GameEventBus<PurchaseUpgradeEvent>.Register(this.m_purchaseUpgradeEventBinding);
-            
-            this.m_visitShopEventBinding = new EventBinding<VisitShopEvent>(this.OnVisitShop);
             GameEventBus<VisitShopEvent>.Register(this.m_visitShopEventBinding);
         }
         

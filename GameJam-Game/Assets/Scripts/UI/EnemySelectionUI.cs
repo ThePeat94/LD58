@@ -23,9 +23,8 @@ namespace Nidavellir.UI
             remove => this.m_onProfileCardClicked -= value;
         }
 
-        public void Show(List<RuntimeEnemyInformation> profile)
+        public void UpdateDisplayedProfiles(List<RuntimeEnemyInformation> profile)
         {
-            this.m_enemySelectionPanel.SetActive(true);
             this.Clear();
             foreach (var toDisplay in profile)
             {
@@ -34,6 +33,18 @@ namespace Nidavellir.UI
                 profileCard.OnProfileCardClicked += this.LikeEnemy;
                 this.m_displayedEnemies.Add(profileCard);
             }
+        }
+
+        public void Show()
+        {
+            this.gameObject.SetActive(true);
+            this.m_enemySelectionPanel.SetActive(true);
+        }
+        
+        public void Hide()
+        {
+            this.gameObject.SetActive(false);
+            this.m_enemySelectionPanel.SetActive(false);
         }
         
         private void Clear()

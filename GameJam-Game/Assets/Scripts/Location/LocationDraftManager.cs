@@ -27,15 +27,11 @@ namespace Nidavellir.Location
         private BaseLocationData m_lastSelectedLocation;
         
         private IEventBinding<LocationSelectedEvent> m_locationSelectedEventBinding;
-        private IEventBinding<StartLocationDraftEvent> m_startLocationDraftEventBinding;
-        
+
         private void Awake()
         {
             this.m_locationSelectionUI ??= FindFirstObjectByType<LocationSelectionUI>(FindObjectsInactive.Include);
             this.m_bountyRequirementController ??= FindFirstObjectByType<BountyRequirementController>(FindObjectsInactive.Include);
-            
-            this.m_startLocationDraftEventBinding = new EventBinding<StartLocationDraftEvent>(this.OnStartLocationDraft);
-            GameEventBus<StartLocationDraftEvent>.Register(this.m_startLocationDraftEventBinding);
             
             this.m_locationSelectedEventBinding = new EventBinding<LocationSelectedEvent>(this.OnLocationSelected);
             GameEventBus<LocationSelectedEvent>.Register(this.m_locationSelectedEventBinding);
@@ -46,7 +42,7 @@ namespace Nidavellir.Location
             this.SelectLocations();
         }
 
-        private void SelectLocations()
+        public void SelectLocations()
         {
             var shouldSelectShopLocation = this.m_bountyRequirementController.HasFulfilledBountyRequirement();
             
@@ -79,11 +75,7 @@ namespace Nidavellir.Location
             }
             
             this.m_locationSelectionUI.ShowLocations(this.m_selectedLocations.Shuffle());
-        }
-
-        private void OnStartLocationDraft(object sender, StartLocationDraftEvent e)
-        {
-            this.SelectLocations();
+            GameEventBus<LocationDraftStartedEvent>.Invoke(this, new());
         }
         
         private void OnLocationSelected(object sender, LocationSelectedEvent e)

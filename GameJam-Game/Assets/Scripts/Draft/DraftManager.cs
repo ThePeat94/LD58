@@ -5,6 +5,7 @@ using Nidavellir.EventBus;
 using Nidavellir.EventBus.EventBindings;
 using Nidavellir.EventBus.Events.Draft;
 using Nidavellir.EventBus.Events.Location;
+using Nidavellir.Fight;
 using Nidavellir.Location;
 using Nidavellir.Scriptables;
 using Nidavellir.Scriptables.Location;
@@ -22,8 +23,8 @@ namespace Nidavellir.Draft
         [SerializeField] private EnemyFactory m_enemyFactory;
         [SerializeField] private EnemySelectionUI m_enemySelectionUI;
         [SerializeField] private LocationDraftManager m_locationDraftManager;
-
-        private IEventBinding<StartFightEvent> m_startFightEventBinding;
+        [SerializeField] private FightManager m_fightManager;
+        
         private IEventBinding<EnemyLocationSelectedEvent> m_enemyLocationSelectedEventBinding;
 
         private readonly List<RuntimeEnemyInformation> m_likedProfiles = new();
@@ -42,15 +43,13 @@ namespace Nidavellir.Draft
         {
             this.m_enemyFactory ??= FindFirstObjectByType<EnemyFactory>(FindObjectsInactive.Include);
             this.m_enemySelectionUI ??= FindFirstObjectByType<EnemySelectionUI>(FindObjectsInactive.Include);
+            this.m_fightManager ??= FindFirstObjectByType<FightManager>(FindObjectsInactive.Include);
             
             this.m_enemySelectionUI.OnProfileLiked += this.HandleProfileLiked;
         }
 
         private void Start()
         {
-            this.m_startFightEventBinding = new EventBinding<StartFightEvent>(this.OnStartFightEvent);
-            GameEventBus<StartFightEvent>.Register(this.m_startFightEventBinding);
-            
             this.m_enemyLocationSelectedEventBinding = new EventBinding<EnemyLocationSelectedEvent>(this.OnEnemyLocationSelected);
             GameEventBus<EnemyLocationSelectedEvent>.Register(this.m_enemyLocationSelectedEventBinding);
         }
@@ -66,7 +65,6 @@ namespace Nidavellir.Draft
         private void OnDestroy()
         {
             this.m_enemySelectionUI.OnProfileLiked -= this.HandleProfileLiked;
-            GameEventBus<StartFightEvent>.Unregister(this.m_startFightEventBinding);
             GameEventBus<EnemyLocationSelectedEvent>.Unregister(this.m_enemyLocationSelectedEventBinding);
         }
         
@@ -89,7 +87,7 @@ namespace Nidavellir.Draft
             this.m_likedProfiles.Clear();
             this.m_superLikedProfiles.Clear();
             this.ChooseNewProfiles();
-            this.m_enemySelectionUI.Show(this.m_availableForSelection);
+            this.m_enemySelectionUI.UpdateDisplayedProfiles(this.m_availableForSelection);
         }
 
         public void HandleProfileLiked(RuntimeEnemyInformation enemy)
@@ -100,13 +98,12 @@ namespace Nidavellir.Draft
             if (playerLikes.CurrentValue > 0)
             {
                 this.ChooseNewProfiles();
-                this.m_enemySelectionUI.Show(this.m_availableForSelection);
+                this.m_enemySelectionUI.UpdateDisplayedProfiles(this.m_availableForSelection);
             }
             else
             {
                 this.m_allSelectedProfiles = this.m_likedProfiles.Concat(this.m_superLikedProfiles).ToList();
-                // TODO: Replace with proper logic instead of start fight event
-                GameEventBus<StartFightEvent>.Invoke(this, new StartFightEvent(this.m_allSelectedProfiles));
+                this.m_fightManager.StartFight(this.m_allSelectedProfiles);
             }
             GameEventBus<ProfileLikedEvent>.Invoke(this, new ProfileLikedEvent(enemy));
         }
@@ -119,12 +116,6 @@ namespace Nidavellir.Draft
             playerSuperlikes.UseResource(1);
             this.ChooseNewProfiles();
             GameEventBus<ProfileSuperLikedEvent>.Invoke(this, new ProfileSuperLikedEvent(e.Enemy));
-        }
-        
-        private void OnStartFightEvent(object sender, StartFightEvent e)
-        {
-            this.m_likedProfiles.Clear();
-            this.m_superLikedProfiles.Clear();
         }
     }
 }

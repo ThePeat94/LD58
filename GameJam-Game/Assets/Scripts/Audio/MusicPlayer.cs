@@ -33,7 +33,7 @@ namespace Nidavellir.Audio
         
         private IEventBinding<VisitShopEvent> m_visitShopEventBinding;
         private IEventBinding<StartEnemyDraftEvent> m_startDraftEventBinding;
-        private IEventBinding<StartFightEvent> m_startFightEventBinding;
+        private IEventBinding<FightStartedEvent> m_startFightEventBinding;
 
         private static MusicPlayer s_instance;
 
@@ -78,8 +78,8 @@ namespace Nidavellir.Audio
             this.m_startDraftEventBinding = new EventBinding<StartEnemyDraftEvent>(this.OnStartDraft);
             GameEventBus<StartEnemyDraftEvent>.Register(this.m_startDraftEventBinding);
             
-            this.m_startFightEventBinding = new EventBinding<StartFightEvent>(this.OnStartFight);
-            GameEventBus<StartFightEvent>.Register(this.m_startFightEventBinding);
+            this.m_startFightEventBinding = new EventBinding<FightStartedEvent>(this.OnStartFight);
+            GameEventBus<FightStartedEvent>.Register(this.m_startFightEventBinding);
             
             GlobalSettings.Instance.MusicVolumeChanged += this.OnMusicVolumeChanged;
             SceneManager.sceneLoaded += this.SceneChanged;
@@ -170,7 +170,7 @@ namespace Nidavellir.Audio
             this.PlayClipList(this.m_draftTheme);
         }
         
-        private void OnStartFight(object sender, StartFightEvent e)
+        private void OnStartFight(object sender, FightStartedEvent e)
         {
             this.PlayClipList(this.m_fightTheme);
         }
