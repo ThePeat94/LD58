@@ -20,7 +20,7 @@ namespace Nidavellir.UI.Shop
 
         private void Awake()
         {
-            this.m_startDraftButton.onClick.AddListener(this.OnStartDraftClick);
+            this.m_startDraftButton.onClick.AddListener(this.OnStartLocationDraftClick);
             this.m_playerStats ??= FindFirstObjectByType<EntityStats>(FindObjectsInactive.Include);
         }
 
@@ -54,7 +54,7 @@ namespace Nidavellir.UI.Shop
             Destroy(upgradeCardUI.gameObject);
         }
         
-        private void OnStartDraftClick()
+        private void OnStartLocationDraftClick()
         {
             GameEventBus<StartLocationDraftEvent>.Invoke(this, new());
         }

@@ -54,7 +54,7 @@ namespace Nidavellir.Location
             var enemyLocationsToSelect = (shouldSelectEventLocation || shouldSelectShopLocation) ? 2 : 3;
             
             // add rnd enemies (no duplicates)
-            for (int i = 0; i < enemyLocationsToSelect; i++)
+            for (var i = 0; i < enemyLocationsToSelect; i++)
             {
                 EnemyLocationData selectedEnemyLocation;
                 do

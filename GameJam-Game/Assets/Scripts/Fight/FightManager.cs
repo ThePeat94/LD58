@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Nidavellir.Entity;
 using Nidavellir.EventArgs;
 using Nidavellir.EventBus;
 using Nidavellir.EventBus.EventBindings;
-using Nidavellir.EventBus.Events;
 using Nidavellir.EventBus.Events.Draft;
 using Nidavellir.EventBus.Events.Fight;
 using Nidavellir.Player;
@@ -14,7 +12,6 @@ using Nidavellir.Scriptables;
 using Nidavellir.UI.Draft;
 using Nidavellir.UI.Fight;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Nidavellir.Fight
 {
