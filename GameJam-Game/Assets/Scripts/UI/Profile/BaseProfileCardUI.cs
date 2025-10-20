@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Nidavellir.Draft;
 using Nidavellir.EventBus;
 using Nidavellir.EventBus.Events.Draft;
 using Nidavellir.Scriptables;
@@ -14,6 +15,8 @@ namespace Nidavellir.UI.Profile
 {
     public class BaseProfileCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
     {
+        private Action<RuntimeEnemyInformation> m_onProfileCardClicked;
+        
         private const string NAME_FORMAT = "{0}, {1}";
         
         [SerializeField] private TextMeshProUGUI m_name;
@@ -26,13 +29,18 @@ namespace Nidavellir.UI.Profile
         [SerializeField] private ProfileStatsCardUI m_profileStatsCardUI;
         
         private RuntimeEnemyInformation m_displayedEnemy;
+        
+        public event Action<RuntimeEnemyInformation> OnProfileCardClicked
+        {
+            add => this.m_onProfileCardClicked += value;
+            remove => this.m_onProfileCardClicked -= value;
+        }
 
         private void Awake()
         {
             // this.m_profileStatsCardUI ??= this.GetComponentInChildren<ProfileStatsCardUI>();
             // this.m_profileStatsCardUI.gameObject.SetActive(false);
         }
-
 
         public void DisplayEnemy(RuntimeEnemyInformation enemyData)
         {
@@ -60,8 +68,7 @@ namespace Nidavellir.UI.Profile
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            Debug.Log($"Selected profile: {this.m_displayedEnemy.BaseData.Name}");
-            GameEventBus<ProfileLikedEvent>.Invoke(this, new(this.m_displayedEnemy));
+            this.m_onProfileCardClicked?.Invoke(this.m_displayedEnemy);
         }
     }
 }

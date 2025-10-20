@@ -23,8 +23,6 @@ namespace Nidavellir.Draft
         [SerializeField] private EnemySelectionUI m_enemySelectionUI;
         [SerializeField] private LocationDraftManager m_locationDraftManager;
 
-        private IEventBinding<ProfileLikedEvent> m_likedEventBinding;
-        private IEventBinding<ProfileSuperLikedEvent> m_superLikedEventBinding;
         private IEventBinding<StartFightEvent> m_startFightEventBinding;
         private IEventBinding<EnemyLocationSelectedEvent> m_enemyLocationSelectedEventBinding;
 
@@ -44,17 +42,12 @@ namespace Nidavellir.Draft
         {
             this.m_enemyFactory ??= FindFirstObjectByType<EnemyFactory>(FindObjectsInactive.Include);
             this.m_enemySelectionUI ??= FindFirstObjectByType<EnemySelectionUI>(FindObjectsInactive.Include);
+            
+            this.m_enemySelectionUI.OnProfileLiked += this.HandleProfileLiked;
         }
 
         private void Start()
         {
-
-            this.m_likedEventBinding = new EventBinding<ProfileLikedEvent>(this.OnLikeEvent);
-            GameEventBus<ProfileLikedEvent>.Register(this.m_likedEventBinding);
-
-            this.m_superLikedEventBinding = new EventBinding<ProfileSuperLikedEvent>(this.OnSuperLikeEvent);
-            GameEventBus<ProfileSuperLikedEvent>.Register(this.m_superLikedEventBinding);
-            
             this.m_startFightEventBinding = new EventBinding<StartFightEvent>(this.OnStartFightEvent);
             GameEventBus<StartFightEvent>.Register(this.m_startFightEventBinding);
             
@@ -72,8 +65,7 @@ namespace Nidavellir.Draft
 
         private void OnDestroy()
         {
-            GameEventBus<ProfileLikedEvent>.Unregister(this.m_likedEventBinding);
-            GameEventBus<ProfileSuperLikedEvent>.Unregister(this.m_superLikedEventBinding);
+            this.m_enemySelectionUI.OnProfileLiked -= this.HandleProfileLiked;
             GameEventBus<StartFightEvent>.Unregister(this.m_startFightEventBinding);
             GameEventBus<EnemyLocationSelectedEvent>.Unregister(this.m_enemyLocationSelectedEventBinding);
         }
@@ -100,9 +92,9 @@ namespace Nidavellir.Draft
             this.m_enemySelectionUI.Show(this.m_availableForSelection);
         }
 
-        private void OnLikeEvent(object sender, ProfileLikedEvent e)
+        public void HandleProfileLiked(RuntimeEnemyInformation enemy)
         {
-            this.m_likedProfiles.Add(e.EnemyData);
+            this.m_likedProfiles.Add(enemy);
             var playerLikes = this.m_playerStats[this.m_characterStatFacade.Likes];
             playerLikes.UseResource(1);
             if (playerLikes.CurrentValue > 0)
@@ -113,8 +105,10 @@ namespace Nidavellir.Draft
             else
             {
                 this.m_allSelectedProfiles = this.m_likedProfiles.Concat(this.m_superLikedProfiles).ToList();
+                // TODO: Replace with proper logic instead of start fight event
                 GameEventBus<StartFightEvent>.Invoke(this, new StartFightEvent(this.m_allSelectedProfiles));
             }
+            GameEventBus<ProfileLikedEvent>.Invoke(this, new ProfileLikedEvent(enemy));
         }
 
         private void OnSuperLikeEvent(object sender, ProfileSuperLikedEvent e)
@@ -124,6 +118,7 @@ namespace Nidavellir.Draft
             var playerSuperlikes = this.m_playerStats[this.m_characterStatFacade.SuperLike];
             playerSuperlikes.UseResource(1);
             this.ChooseNewProfiles();
+            GameEventBus<ProfileSuperLikedEvent>.Invoke(this, new ProfileSuperLikedEvent(e.Enemy));
         }
         
         private void OnStartFightEvent(object sender, StartFightEvent e)
