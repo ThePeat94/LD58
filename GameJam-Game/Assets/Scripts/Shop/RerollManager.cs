@@ -1,10 +1,12 @@
 ﻿using System;
 using Nidavellir.Entity;
+using Nidavellir.EventArgs;
 using Nidavellir.EventBus;
 using Nidavellir.EventBus.EventBindings;
 using Nidavellir.EventBus.Events.Fight;
 using Nidavellir.EventBus.Events.Shop;
 using Nidavellir.Scriptables;
+using Nidavellir.UI.Shop;
 using UnityEngine;
 
 namespace Nidavellir.Shop
@@ -13,49 +15,48 @@ namespace Nidavellir.Shop
     {
         [SerializeField] private EntityStats m_playerStats;
         [SerializeField] private CharacterStatFacade m_characterStatFacade;
+        [SerializeField] private RerollButton m_rerollButton;
 
-        private EventHandler m_rerollCostsChanged;
-        
-        private IEventBinding<RerollUpgradesEvent> m_rerollUpgradesEventBinding;
         private IEventBinding<VisitShopEvent> m_visitShopEventBinding;
         
         private int m_initialRerollCost = 2;
         private int m_rerollCost = 2;
         
-        public int RerollCost => this.m_rerollCost;
-        
-        public event EventHandler RerollCostsChanged
-        {
-            add => this.m_rerollCostsChanged += value;
-            remove => this.m_rerollCostsChanged -= value;
-        }
 
         private void Awake()
         {
-            this.m_rerollUpgradesEventBinding = new EventBinding<RerollUpgradesEvent>(this.OnRerollUpgrades);
-            GameEventBus<RerollUpgradesEvent>.Register(this.m_rerollUpgradesEventBinding);
-            
+            this.m_rerollButton ??= FindFirstObjectByType<RerollButton>(FindObjectsInactive.Include);
             this.m_visitShopEventBinding = new EventBinding<VisitShopEvent>(this.OnVisitShop);
+            
+            this.m_rerollButton.OnRerollClicked += this.HandleRerollClick;
+            this.m_playerStats[this.m_characterStatFacade.Money].OnValueChanged += this.HandlePlayerMoneyChange;
             GameEventBus<VisitShopEvent>.Register(this.m_visitShopEventBinding);
+        }
+        
+        private void HandlePlayerMoneyChange(object sender, CharacterStatValueChangeEventArgs e)
+        {
+            this.m_rerollButton.ShowRerollInformation(this.m_rerollCost, this.CanAfford());
         }
 
         private void OnDestroy()
         {
-            GameEventBus<RerollUpgradesEvent>.Unregister(this.m_rerollUpgradesEventBinding);
+            this.m_rerollButton.OnRerollClicked -= this.HandleRerollClick;
             GameEventBus<VisitShopEvent>.Unregister(this.m_visitShopEventBinding);
         }
 
         private void OnVisitShop(object sender, VisitShopEvent e)
         {
             this.m_rerollCost = this.m_initialRerollCost;
-            this.m_rerollCostsChanged?.Invoke(this, System.EventArgs.Empty);
+            this.m_rerollButton.ShowRerollInformation(this.m_rerollCost, this.CanAfford());
         }
 
-        private void OnRerollUpgrades(object sender, RerollUpgradesEvent e)
+        private void HandleRerollClick()
         {
             this.m_playerStats[this.m_characterStatFacade.Money].UseResource(this.m_rerollCost);
             this.m_rerollCost++;
-            this.m_rerollCostsChanged?.Invoke(this, System.EventArgs.Empty);
+            this.m_rerollButton.ShowRerollInformation(this.m_rerollCost, this.CanAfford());
         }
+
+        private bool CanAfford() => this.m_playerStats[this.m_characterStatFacade.Money].CurrentValue >= this.m_rerollCost;
     }
 }
