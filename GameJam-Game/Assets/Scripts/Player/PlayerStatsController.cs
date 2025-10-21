@@ -2,6 +2,7 @@
 using Nidavellir.Entity;
 using Nidavellir.EventBus;
 using Nidavellir.EventBus.EventBindings;
+using Nidavellir.EventBus.Events.Fight;
 using Nidavellir.EventBus.Events.Location;
 using Nidavellir.EventBus.Events.Shop;
 using Nidavellir.Scriptables;
@@ -14,26 +15,22 @@ namespace Nidavellir.Player
         [SerializeField] private EntityStats m_entityStats;
         [SerializeField] private CharacterStatFacade m_characterStatFacade;
 
-        private IEventBinding<LocationDraftStartedEvent> m_startDraftEventBinding;
-        
-        private void Awake()
+        private void OnExitShop(object sender, ShopExitedEvent e)
         {
-            // TODO: This should also be executed in a more direct manner and not by some events thrown at several places. Oh man.
-            this.m_startDraftEventBinding = new EventBinding<LocationDraftStartedEvent>(this.OnStartLocationDraft);
-            GameEventBus<LocationDraftStartedEvent>.Register(this.m_startDraftEventBinding);
+            this.m_entityStats[this.m_characterStatFacade.Hp].ResetToMax();
         }
 
-        private void OnStartLocationDraft(object sender, LocationDraftStartedEvent e)
+
+        public void ResetStatsAfterShop()
+        {
+            this.m_entityStats[this.m_characterStatFacade.Hp].ResetToMax();
+        }
+
+        public void ResetStatsBeforeLocations()
         {
             this.m_entityStats[this.m_characterStatFacade.Likes].ResetToMax();
             this.m_entityStats[this.m_characterStatFacade.Dislikes].ResetToMax();
             this.m_entityStats[this.m_characterStatFacade.SuperLike].ResetToMax();
-            this.m_entityStats[this.m_characterStatFacade.Hp].ResetToMax();
-        }
-        
-        private void OnDestroy()
-        {
-            GameEventBus<LocationDraftStartedEvent>.Unregister(this.m_startDraftEventBinding);
         }
     }
 }

@@ -7,6 +7,7 @@ using Nidavellir.EventBus.EventBindings;
 using Nidavellir.EventBus.Events.Fight;
 using Nidavellir.EventBus.Events.Shop;
 using Nidavellir.Location;
+using Nidavellir.Player;
 using Nidavellir.Scriptables;
 using Nidavellir.UI.Shop;
 using UnityEngine;
@@ -21,6 +22,7 @@ namespace Nidavellir.Shop
         [SerializeField] private EntityStats m_entityStats;
         [SerializeField] private CharacterStatFacade m_characterStatFacade;
         [SerializeField] private LocationDraftManager m_locationDraftManager;
+        [SerializeField] private PlayerStatsController m_playerStatsController;
         
         private int m_upgradeAmount = 2;
         
@@ -31,6 +33,7 @@ namespace Nidavellir.Shop
 
         private void Awake()
         {
+            this.m_playerStatsController = FindFirstObjectByType<PlayerStatsController>(FindObjectsInactive.Include);
             this.m_locationDraftManager ??= FindFirstObjectByType<LocationDraftManager>(FindObjectsInactive.Include);
             
             this.m_rerollUpgradesEventBinding = new EventBinding<RerollUpgradesEvent>(this.OnRerollUpgrades);
@@ -42,6 +45,8 @@ namespace Nidavellir.Shop
 
         private void HandleStartLocationDraftClick()
         {
+            GameEventBus<ShopExitedEvent>.Invoke(this, new());
+            this.m_playerStatsController.ResetStatsAfterShop();
             this.m_locationDraftManager.SelectLocations();
         }
 

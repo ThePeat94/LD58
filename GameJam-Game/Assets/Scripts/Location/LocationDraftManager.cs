@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Nidavellir.EventBus;
 using Nidavellir.EventBus.EventBindings;
 using Nidavellir.EventBus.Events.Location;
-using Nidavellir.EventBus.Events.Shop;
+using Nidavellir.Player;
+using Nidavellir.Scriptables;
 using Nidavellir.Scriptables.Location;
 using Nidavellir.UI.Location;
 using Nidavellir.Util;
@@ -17,6 +17,8 @@ namespace Nidavellir.Location
         [SerializeField] private List<EnemyLocationData> m_availableEnemyLocations;
         [SerializeField] private List<EventLocationData> m_availableEventLocations;
         [SerializeField] private LocationSelectionConfigurationData m_locationSelectionConfigurationData;
+        [SerializeField] private PlayerStatsController m_playerStatsController;
+        [SerializeField] private CharacterStatFacade m_characterStatFacade;
 
         [SerializeField] private EventLocationData m_returnToShopEventLocation;
         [SerializeField] private BountyRequirementController m_bountyRequirementController;
@@ -30,6 +32,7 @@ namespace Nidavellir.Location
 
         private void Awake()
         {
+            this.m_playerStatsController ??= FindFirstObjectByType<PlayerStatsController>();
             this.m_locationSelectionUI ??= FindFirstObjectByType<LocationSelectionUI>(FindObjectsInactive.Include);
             this.m_bountyRequirementController ??= FindFirstObjectByType<BountyRequirementController>(FindObjectsInactive.Include);
             
@@ -75,6 +78,7 @@ namespace Nidavellir.Location
             }
             
             this.m_locationSelectionUI.ShowLocations(this.m_selectedLocations.Shuffle());
+            this.m_playerStatsController.ResetStatsBeforeLocations();
             GameEventBus<LocationDraftStartedEvent>.Invoke(this, new());
         }
         
