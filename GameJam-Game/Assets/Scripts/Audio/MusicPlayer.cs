@@ -31,7 +31,7 @@ namespace Nidavellir.Audio
         private double m_nextStartTime;
         private double m_latestQueueTime;
         
-        private IEventBinding<VisitShopEvent> m_visitShopEventBinding;
+        private IEventBinding<ShopEnteredEvent> m_visitShopEventBinding;
         private IEventBinding<StartEnemyDraftEvent> m_startDraftEventBinding;
         private IEventBinding<FightStartedEvent> m_startFightEventBinding;
 
@@ -72,8 +72,8 @@ namespace Nidavellir.Audio
                 audioSource.playOnAwake = false;
             }
             
-            this.m_visitShopEventBinding = new EventBinding<VisitShopEvent>(this.OnVisitShop);
-            GameEventBus<VisitShopEvent>.Register(this.m_visitShopEventBinding);
+            this.m_visitShopEventBinding = new EventBinding<ShopEnteredEvent>(this.OnVisitShop);
+            GameEventBus<ShopEnteredEvent>.Register(this.m_visitShopEventBinding);
             
             this.m_startDraftEventBinding = new EventBinding<StartEnemyDraftEvent>(this.OnStartDraft);
             GameEventBus<StartEnemyDraftEvent>.Register(this.m_startDraftEventBinding);
@@ -160,7 +160,7 @@ namespace Nidavellir.Audio
                 this.PlayClipList(this.m_gameTheme);
         }
 
-        private void OnVisitShop(object sender, VisitShopEvent e)
+        private void OnVisitShop(object sender, ShopEnteredEvent e)
         {
             this.PlayClipList(this.m_shopTheme);
         }

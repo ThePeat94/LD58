@@ -28,7 +28,6 @@ namespace Nidavellir.Shop
         private int m_upgradeAmount = 2;
         
         private IEventBinding<PurchaseUpgradeEvent> m_purchaseUpgradeEventBinding;
-        private IEventBinding<VisitShopEvent> m_visitShopEventBinding;
 
 
         private void Awake()
@@ -38,12 +37,10 @@ namespace Nidavellir.Shop
             this.m_locationDraftManager ??= FindFirstObjectByType<LocationDraftManager>(FindObjectsInactive.Include);
             
             this.m_purchaseUpgradeEventBinding = new EventBinding<PurchaseUpgradeEvent>(this.OnPurchaseUpgrade);
-            this.m_visitShopEventBinding = new EventBinding<VisitShopEvent>(this.OnVisitShop);
             
             this.m_shopUI.OnStartLocationDraftClicked += this.HandleStartLocationDraftClick;
             this.m_rerollButton.OnRerollClicked += this.HandleRerollClick;
             GameEventBus<PurchaseUpgradeEvent>.Register(this.m_purchaseUpgradeEventBinding);
-            GameEventBus<VisitShopEvent>.Register(this.m_visitShopEventBinding);
         }
 
 
@@ -52,14 +49,14 @@ namespace Nidavellir.Shop
             this.m_shopUI.OnStartLocationDraftClicked -= this.HandleStartLocationDraftClick;
             this.m_rerollButton.OnRerollClicked -= this.HandleRerollClick;
             GameEventBus<PurchaseUpgradeEvent>.Unregister(this.m_purchaseUpgradeEventBinding);
-            GameEventBus<VisitShopEvent>.Unregister(this.m_visitShopEventBinding);
         }
 
-        private void OnVisitShop(object sender, VisitShopEvent e)
+        public void VisitShop()
         {
             this.m_shopUI.Show(this.GetRandomUpgrades(this.m_upgradeAmount));
+            
         }
-
+        
         private void OnPurchaseUpgrade(object sender, PurchaseUpgradeEvent e)
         {
             this.m_entityStats[this.m_characterStatFacade.Money].UseResource(e.UpgradeData.Cost);

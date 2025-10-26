@@ -427,6 +427,9 @@ MonoBehaviour:
   m_shopUI: {fileID: 6819668715244526198}
   m_entityStats: {fileID: 897911648}
   m_characterStatFacade: {fileID: 11400000, guid: a2a1da657de052b4da4fb551a730056a, type: 2}
+  m_locationDraftManager: {fileID: 0}
+  m_playerStatsController: {fileID: 0}
+  m_rerollButton: {fileID: 0}
 --- !u!4 &554223388
 Transform:
   m_ObjectHideFlags: 0
@@ -476,6 +479,7 @@ MonoBehaviour:
   m_enemyFactory: {fileID: 0}
   m_enemySelectionUI: {fileID: 0}
   m_locationDraftManager: {fileID: 0}
+  m_fightManager: {fileID: 0}
 --- !u!4 &588201802
 Transform:
   m_ObjectHideFlags: 0
@@ -787,6 +791,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1015373383
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1015373385}
+  - component: {fileID: 1015373384}
+  m_Layer: 0
+  m_Name: Event Location Handler Factory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1015373384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1015373383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79abc494300d4fd38df10d67daecc51d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Nidavellir.Location.EventLocationFactory
+  m_rerollManager: {fileID: 0}
+  m_shopManager: {fileID: 0}
+  m_gameStateManager: {fileID: 0}
+  m_bountyRequirementController: {fileID: 0}
+--- !u!4 &1015373385
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1015373383}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 248.60866, y: 165.83911, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1092989162
 GameObject:
   m_ObjectHideFlags: 0
@@ -880,6 +932,37 @@ MonoBehaviour:
   m_ownEntityInformation: {fileID: 2063331385}
   m_characterStatFacade: {fileID: 11400000, guid: a2a1da657de052b4da4fb551a730056a, type: 2}
   m_playerUpgradeController: {fileID: 412716686}
+--- !u!1 &1558763275
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1558763276}
+  m_Layer: 0
+  m_Name: --- FACTORIES ---
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1558763276
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1558763275}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 248.60866, y: 165.83911, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1579172575
 GameObject:
   m_ObjectHideFlags: 0
@@ -1077,6 +1160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Nidavellir.Shop.RerollManager
   m_playerStats: {fileID: 897911648}
   m_characterStatFacade: {fileID: 11400000, guid: a2a1da657de052b4da4fb551a730056a, type: 2}
+  m_rerollButton: {fileID: 0}
 --- !u!4 &1969184279
 Transform:
   m_ObjectHideFlags: 0
@@ -1128,6 +1212,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e27770789b1e75a40a1e089605319678, type: 2}
   m_availableEventLocations: []
   m_locationSelectionConfigurationData: {fileID: 11400000, guid: 96b39842bcb1fbd4286cba25fb026494, type: 2}
+  m_playerStatsController: {fileID: 631545339}
+  m_characterStatFacade: {fileID: 11400000, guid: a2a1da657de052b4da4fb551a730056a, type: 2}
+  m_eventLocationFactory: {fileID: 1015373384}
   m_returnToShopEventLocation: {fileID: 11400000, guid: b275ea7d5d344234890ae6341b64b91b, type: 2}
   m_bountyRequirementController: {fileID: 1579172576}
   m_locationSelectionUI: {fileID: 6819668715244526199}
@@ -1290,6 +1377,7 @@ MonoBehaviour:
   m_characterStatFacade: {fileID: 11400000, guid: a2a1da657de052b4da4fb551a730056a, type: 2}
   m_fightUI: {fileID: 627110547}
   m_bountyRequirementController: {fileID: 0}
+  m_locationDraftManager: {fileID: 0}
 --- !u!4 &2054876214
 Transform:
   m_ObjectHideFlags: 0
@@ -2420,8 +2508,10 @@ SceneRoots:
   - {fileID: 554223388}
   - {fileID: 1969184279}
   - {fileID: 1579172577}
-  - {fileID: 339137810}
   - {fileID: 1997395869}
   - {fileID: 2005840987}
   - {fileID: 6819668715244526197}
   - {fileID: 102930511}
+  - {fileID: 1558763276}
+  - {fileID: 1015373385}
+  - {fileID: 339137810}

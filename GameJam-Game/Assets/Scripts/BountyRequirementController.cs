@@ -17,24 +17,15 @@ namespace Nidavellir
         [SerializeField] private CharacterStatFacade m_characterStatFacade;
         [SerializeField] private DraftManager m_draftManager;
         
-        private IEventBinding<BountyRequirementFulfilled> m_bountyRequirementFulfilledEventBinding;
-        
         public List<int> BountyRequirementsPerRound => this.m_bountyRequirementsPerRound;
         public int CurrentBountyRequirement => this.m_bountyRequirementsPerRound[Mathf.Min(this.m_playerStats[this.m_characterStatFacade.Round]?.CurrentValue - 1 ?? 0, this.m_bountyRequirementsPerRound.Count - 1)];
 
         private void Awake()
         {
             this.m_draftManager ??= FindFirstObjectByType<DraftManager>();
-            this.m_bountyRequirementFulfilledEventBinding = new EventBinding<BountyRequirementFulfilled>(this.OnBountyRequirementFulfilled);
-            GameEventBus<BountyRequirementFulfilled>.Register(this.m_bountyRequirementFulfilledEventBinding);
-        }
-        
-        private void OnDestroy()
-        {
-            GameEventBus<BountyRequirementFulfilled>.Unregister(this.m_bountyRequirementFulfilledEventBinding);
         }
 
-        private void OnBountyRequirementFulfilled(object sender, BountyRequirementFulfilled e)
+        public void FulfillBounty()
         {
             var bountyStat = this.m_playerStats[this.m_characterStatFacade.Bounty];
             var excess = bountyStat.CurrentValue - this.CurrentBountyRequirement;

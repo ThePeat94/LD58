@@ -7,9 +7,5 @@ namespace Nidavellir.Scriptables.Location
     [CreateAssetMenu(fileName = "VisitTavernEventData", menuName = "Data/Location/Event/VisitTavernEventData")]
     public class VisitTavernEventData : EventLocationData
     {
-        public override void TriggerEvent()
-        {
-            GameEventBus<VisitShopEvent>.Invoke(this, new());
-        }
     }
 }

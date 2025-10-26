@@ -25,7 +25,6 @@ namespace Nidavellir.GameState
         [SerializeField] private EnemySelectionUI m_enemySelectionUI;
         
         private IEventBinding<FightStartedEvent> m_startFightEventBinding;
-        private IEventBinding<VisitShopEvent> m_visitShopEventBinding;
         private IEventBinding<BountyRequirementNotFulfilled> m_bountyRequirementNotFulfilledEventBinding;
         private IEventBinding<PlayerDiedEvent> m_playerDiedEventBinding;
         private IEventBinding<GameWonEvent> m_gameWonEventBinding;
@@ -49,9 +48,6 @@ namespace Nidavellir.GameState
 
             this.m_startFightEventBinding = new EventBinding<FightStartedEvent>(this.OnStartFight);
             GameEventBus<FightStartedEvent>.Register(this.m_startFightEventBinding);
-            
-            this.m_visitShopEventBinding = new EventBinding<VisitShopEvent>(this.OnVisitShop);
-            GameEventBus<VisitShopEvent>.Register(this.m_visitShopEventBinding);
             
             this.m_bountyRequirementNotFulfilledEventBinding = new EventBinding<BountyRequirementNotFulfilled>(this.OnBountyRequirementNotFulfilled);
             GameEventBus<BountyRequirementNotFulfilled>.Register(this.m_bountyRequirementNotFulfilledEventBinding);
@@ -96,7 +92,6 @@ namespace Nidavellir.GameState
         private void OnDestroy()
         {
             GameEventBus<FightStartedEvent>.Unregister(this.m_startFightEventBinding);
-            GameEventBus<VisitShopEvent>.Unregister(this.m_visitShopEventBinding);
             GameEventBus<BountyRequirementNotFulfilled>.Unregister(this.m_bountyRequirementNotFulfilledEventBinding);
             GameEventBus<PlayerDiedEvent>.Unregister(this.m_playerDiedEventBinding);
             GameEventBus<GameWonEvent>.Unregister(this.m_gameWonEventBinding);
@@ -113,7 +108,7 @@ namespace Nidavellir.GameState
             GameEventBus<GameStateChangedEvent>.Invoke(this, new GameStateChangedEvent(this.m_currentState));
         }
 
-        private void OnVisitShop(object sender, VisitShopEvent evt)
+        public void VisitShop()
         {
             this.m_currentState = State.Shop;
             this.m_draftUi?.gameObject.SetActive(false);

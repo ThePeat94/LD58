@@ -17,8 +17,6 @@ namespace Nidavellir.Shop
         [SerializeField] private CharacterStatFacade m_characterStatFacade;
         [SerializeField] private RerollButton m_rerollButton;
 
-        private IEventBinding<VisitShopEvent> m_visitShopEventBinding;
-        
         private int m_initialRerollCost = 2;
         private int m_rerollCost = 2;
         
@@ -26,11 +24,9 @@ namespace Nidavellir.Shop
         private void Awake()
         {
             this.m_rerollButton ??= FindFirstObjectByType<RerollButton>(FindObjectsInactive.Include);
-            this.m_visitShopEventBinding = new EventBinding<VisitShopEvent>(this.OnVisitShop);
             
             this.m_rerollButton.OnRerollClicked += this.HandleRerollClick;
             this.m_playerStats[this.m_characterStatFacade.Money].OnValueChanged += this.HandlePlayerMoneyChange;
-            GameEventBus<VisitShopEvent>.Register(this.m_visitShopEventBinding);
         }
         
         private void HandlePlayerMoneyChange(object sender, CharacterStatValueChangeEventArgs e)
@@ -41,10 +37,9 @@ namespace Nidavellir.Shop
         private void OnDestroy()
         {
             this.m_rerollButton.OnRerollClicked -= this.HandleRerollClick;
-            GameEventBus<VisitShopEvent>.Unregister(this.m_visitShopEventBinding);
         }
 
-        private void OnVisitShop(object sender, VisitShopEvent e)
+        public void ResetCost()
         {
             this.m_rerollCost = this.m_initialRerollCost;
             this.m_rerollButton.ShowRerollInformation(this.m_rerollCost, this.CanAfford());

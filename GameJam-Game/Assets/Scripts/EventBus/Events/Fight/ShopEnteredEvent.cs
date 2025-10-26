@@ -1,6 +1,6 @@
 ﻿namespace Nidavellir.EventBus.Events.Fight
 {
-    public class VisitShopEvent : IEvent
+    public class ShopEnteredEvent : IEvent
     {
     }
 }

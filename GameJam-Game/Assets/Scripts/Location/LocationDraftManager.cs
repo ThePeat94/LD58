@@ -19,6 +19,8 @@ namespace Nidavellir.Location
         [SerializeField] private LocationSelectionConfigurationData m_locationSelectionConfigurationData;
         [SerializeField] private PlayerStatsController m_playerStatsController;
         [SerializeField] private CharacterStatFacade m_characterStatFacade;
+        [SerializeField] private EventLocationFactory m_eventLocationFactory;
+        
 
         [SerializeField] private EventLocationData m_returnToShopEventLocation;
         [SerializeField] private BountyRequirementController m_bountyRequirementController;
@@ -35,6 +37,7 @@ namespace Nidavellir.Location
             this.m_playerStatsController ??= FindFirstObjectByType<PlayerStatsController>();
             this.m_locationSelectionUI ??= FindFirstObjectByType<LocationSelectionUI>(FindObjectsInactive.Include);
             this.m_bountyRequirementController ??= FindFirstObjectByType<BountyRequirementController>(FindObjectsInactive.Include);
+            this.m_eventLocationFactory ??= FindFirstObjectByType<EventLocationFactory>(FindObjectsInactive.Include);
             
             this.m_locationSelectedEventBinding = new EventBinding<LocationSelectedEvent>(this.OnLocationSelected);
             GameEventBus<LocationSelectedEvent>.Register(this.m_locationSelectedEventBinding);
@@ -93,8 +96,8 @@ namespace Nidavellir.Location
                     GameEventBus<EnemyLocationSelectedEvent>.Invoke(this, new(enemyLocation));
                     return;
                 case EventLocationData eventLocation:
-                    GameEventBus<EventLocationSelectedEvent>.Invoke(this, new(eventLocation));
-                    eventLocation.TriggerEvent();
+                    this.m_eventLocationFactory.CreateHandler(eventLocation)
+                        .Execute();
                     return;
             }
         }
