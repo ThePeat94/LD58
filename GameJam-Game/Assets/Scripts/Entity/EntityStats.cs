@@ -2,6 +2,7 @@
 using System.Linq;
 using Nidavellir.Scriptables;
 using Nidavellir.UI.Draft;
+using Nidavellir.Util;
 using UnityEngine;
 
 namespace Nidavellir.Entity
@@ -51,6 +52,24 @@ namespace Nidavellir.Entity
         public void Init(RuntimeEnemyInformation enemyInformation)
         {
             this.m_currentCharacterStats = enemyInformation.Stats.ToDictionary(kvp => kvp.Key, kvp => new StatController(kvp.Value));
+        }
+
+        public void ApplyStatIncreases(List<CharacterStatIncrease> statIncreases)
+        {
+            foreach (var upgradeDataAffectedStat in statIncreases)
+            {
+                var stat = this[upgradeDataAffectedStat.AffectedStat];
+
+                if (upgradeDataAffectedStat.IncreaseAmount > 0)
+                {
+                    stat.ApplyAbsoluteStatIncrease(upgradeDataAffectedStat.IncreaseAmount);
+                }
+                
+                if (upgradeDataAffectedStat.RelativeIncreaseAmount > 0)
+                {
+                    stat.ApplyRelativeStatIncrease(upgradeDataAffectedStat.RelativeIncreaseAmount);
+                }
+            }
         }
     }
 }

@@ -8,10 +8,10 @@ namespace Nidavellir.Location
 {
     public class TavernEventLocationHandler : IEventLocationHandler
     {
-        private ShopManager m_shopManager;
-        private RerollManager m_rerollManager;
-        private GameStateManager m_gameStateManager;
-        private BountyRequirementController m_bountyRequirementController;
+        private readonly ShopManager m_shopManager;
+        private readonly RerollManager m_rerollManager;
+        private readonly GameStateManager m_gameStateManager;
+        private readonly BountyRequirementController m_bountyRequirementController;
 
         public TavernEventLocationHandler(ShopManager shopManager, RerollManager rerollManager,  GameStateManager gameStateManager, BountyRequirementController bountyRequirementController)
         {

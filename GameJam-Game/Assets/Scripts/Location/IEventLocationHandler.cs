@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Nidavellir.Location
+﻿namespace Nidavellir.Location
 {
     public interface IEventLocationHandler
     {

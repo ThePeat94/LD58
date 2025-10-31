@@ -31,21 +31,7 @@ namespace Nidavellir.Player
 
         private void OnPurchaseUpgrade(object sender, PurchaseUpgradeEvent e)
         {
-            foreach (var upgradeDataAffectedStat in e.UpgradeData.AffectedStats)
-            {
-                var stat = this.m_playerStats[upgradeDataAffectedStat.AffectedStat];
-
-                if (upgradeDataAffectedStat.IncreaseAmount > 0)
-                {
-                    stat.ApplyAbsoluteStatIncrease(upgradeDataAffectedStat.IncreaseAmount);
-                }
-                
-                if (upgradeDataAffectedStat.RelativeIncreaseAmount > 0)
-                {
-                    stat.ApplyRelativeStatIncrease(upgradeDataAffectedStat.RelativeIncreaseAmount);
-                }
-            }
-
+            this.m_playerStats.ApplyStatIncreases(e.UpgradeData.AffectedStats);
             this.m_purchasedUpgrades.Add(e.UpgradeData);
         }
     }
