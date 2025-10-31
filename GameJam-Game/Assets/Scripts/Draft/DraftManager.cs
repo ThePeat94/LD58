@@ -11,6 +11,7 @@ using Nidavellir.Scriptables;
 using Nidavellir.Scriptables.Location;
 using Nidavellir.UI;
 using Nidavellir.UI.Draft;
+using Nidavellir.UI.EnemyDraft;
 using Nidavellir.Util;
 using UnityEngine;
 
@@ -25,8 +26,6 @@ namespace Nidavellir.Draft
         [SerializeField] private LocationDraftManager m_locationDraftManager;
         [SerializeField] private FightManager m_fightManager;
         
-        private IEventBinding<EnemyLocationSelectedEvent> m_enemyLocationSelectedEventBinding;
-
         private readonly List<RuntimeEnemyInformation> m_likedProfiles = new();
         private readonly List<RuntimeEnemyInformation> m_superLikedProfiles = new();
         
@@ -48,24 +47,10 @@ namespace Nidavellir.Draft
             this.m_enemySelectionUI.OnProfileLiked += this.HandleProfileLiked;
         }
 
-        private void Start()
-        {
-            this.m_enemyLocationSelectedEventBinding = new EventBinding<EnemyLocationSelectedEvent>(this.OnEnemyLocationSelected);
-            GameEventBus<EnemyLocationSelectedEvent>.Register(this.m_enemyLocationSelectedEventBinding);
-        }
-
-        private void OnEnemyLocationSelected(object sender, EnemyLocationSelectedEvent e)
-        {
-            this.m_availableNonBossProfiles = new List<EnemyData>(e.Location.AvailableNonBossProfiles);
-            this.m_availableBossProfiles = new List<EnemyData>(e.Location.AvailableBossProfiles);
-            
-            this.StartDraft();
-        }
 
         private void OnDestroy()
         {
             this.m_enemySelectionUI.OnProfileLiked -= this.HandleProfileLiked;
-            GameEventBus<EnemyLocationSelectedEvent>.Unregister(this.m_enemyLocationSelectedEventBinding);
         }
         
         private void ChooseNewProfiles()
@@ -82,8 +67,10 @@ namespace Nidavellir.Draft
         }
         
 
-        private void StartDraft()
+        public void StartDraft(List<EnemyData> availableNonBossProfiles, List<EnemyData>  availableBossProfiles)
         {
+            this.m_availableNonBossProfiles = new List<EnemyData>(availableNonBossProfiles);
+            this.m_availableBossProfiles = new List<EnemyData>(availableBossProfiles);
             this.m_likedProfiles.Clear();
             this.m_superLikedProfiles.Clear();
             this.ChooseNewProfiles();

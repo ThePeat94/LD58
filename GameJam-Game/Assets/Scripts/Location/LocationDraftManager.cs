@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Nidavellir.Draft;
 using Nidavellir.EventBus;
 using Nidavellir.EventBus.EventBindings;
 using Nidavellir.EventBus.Events.Location;
@@ -20,8 +21,8 @@ namespace Nidavellir.Location
         [SerializeField] private PlayerStatsController m_playerStatsController;
         [SerializeField] private CharacterStatFacade m_characterStatFacade;
         [SerializeField] private EventLocationFactory m_eventLocationFactory;
+        [SerializeField] private DraftManager m_draftManager;
         
-
         [SerializeField] private EventLocationData m_returnToShopEventLocation;
         [SerializeField] private BountyRequirementController m_bountyRequirementController;
 
@@ -34,6 +35,7 @@ namespace Nidavellir.Location
 
         private void Awake()
         {
+            this.m_draftManager ??= FindFirstObjectByType<DraftManager>(FindObjectsInactive.Include);
             this.m_playerStatsController ??= FindFirstObjectByType<PlayerStatsController>();
             this.m_locationSelectionUI ??= FindFirstObjectByType<LocationSelectionUI>(FindObjectsInactive.Include);
             this.m_bountyRequirementController ??= FindFirstObjectByType<BountyRequirementController>(FindObjectsInactive.Include);
@@ -93,6 +95,7 @@ namespace Nidavellir.Location
             switch (e.SelectedLocation)
             {
                 case EnemyLocationData enemyLocation:
+                    this.m_draftManager.StartDraft(enemyLocation.AvailableNonBossProfiles, enemyLocation.AvailableBossProfiles);
                     GameEventBus<EnemyLocationSelectedEvent>.Invoke(this, new(enemyLocation));
                     return;
                 case EventLocationData eventLocation:

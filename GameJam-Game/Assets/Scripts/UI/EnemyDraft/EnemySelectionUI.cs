@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Nidavellir.Draft;
 using Nidavellir.UI.Draft;
 using Nidavellir.UI.Profile;
 using UnityEngine;
 
-namespace Nidavellir.UI
+namespace Nidavellir.UI.EnemyDraft
 {
     public class EnemySelectionUI : MonoBehaviour
     {
