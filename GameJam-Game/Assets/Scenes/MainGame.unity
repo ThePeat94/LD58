@@ -860,6 +860,7 @@ MonoBehaviour:
   m_shopManager: {fileID: 0}
   m_gameStateManager: {fileID: 0}
   m_bountyRequirementController: {fileID: 0}
+  m_playerStats: {fileID: 897911648}
 --- !u!4 &1015373385
 Transform:
   m_ObjectHideFlags: 0
@@ -1246,7 +1247,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b15156fa9a8c3554cab0f5f7f215b154, type: 2}
   - {fileID: 11400000, guid: d52ae76253d75e642b3c97efcab5eb40, type: 2}
   - {fileID: 11400000, guid: e27770789b1e75a40a1e089605319678, type: 2}
-  m_availableEventLocations: []
+  m_availableEventLocations:
+  - {fileID: 11400000, guid: 439bd3084ef01f8469b266c3d866d33c, type: 2}
+  - {fileID: 11400000, guid: 7a5994e9809d34949a2cb87580080d40, type: 2}
   m_locationSelectionConfigurationData: {fileID: 11400000, guid: 96b39842bcb1fbd4286cba25fb026494, type: 2}
   m_playerStatsController: {fileID: 631545339}
   m_characterStatFacade: {fileID: 11400000, guid: a2a1da657de052b4da4fb551a730056a, type: 2}
