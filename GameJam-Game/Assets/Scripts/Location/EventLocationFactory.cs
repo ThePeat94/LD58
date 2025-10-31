@@ -14,6 +14,8 @@ namespace Nidavellir.Location
         [SerializeField] private GameStateManager m_gameStateManager;
         [SerializeField] private BountyRequirementController m_bountyRequirementController;
         [SerializeField] private EntityStats m_playerStats;
+        [SerializeField] private LocationDraftManager m_locationDraftManager;
+        
 
         private void Awake()
         {
@@ -21,6 +23,8 @@ namespace Nidavellir.Location
             this.m_shopManager ??= FindFirstObjectByType<ShopManager>(FindObjectsInactive.Include);
             this.m_gameStateManager ??= FindFirstObjectByType<GameStateManager>(FindObjectsInactive.Include);
             this.m_bountyRequirementController ??= FindFirstObjectByType<BountyRequirementController>(FindObjectsInactive.Include); 
+            this.m_playerStats ??= FindFirstObjectByType<EntityStats>(FindObjectsInactive.Include);
+            this.m_locationDraftManager  ??= FindFirstObjectByType<LocationDraftManager>(FindObjectsInactive.Include);
         }
 
         public IEventLocationHandler CreateHandler(EventLocationData eventLocation)
@@ -33,7 +37,7 @@ namespace Nidavellir.Location
                     this.m_gameStateManager,
                     this.m_bountyRequirementController
                 ),
-                StatBuffEventLocationData statBuffEventLocationData => new StatBuffEventLocationHandler(this.m_playerStats, statBuffEventLocationData),
+                StatBuffEventLocationData statBuffEventLocationData => new StatBuffEventLocationHandler(this.m_playerStats, statBuffEventLocationData, this.m_locationDraftManager),
                 _ => throw new ArgumentException($"Unknown event location type {eventLocation.GetType()}")
             };
         }

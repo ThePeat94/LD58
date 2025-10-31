@@ -56,6 +56,7 @@ namespace Nidavellir
         private void OnShopEnteredEvent(object sender, ShopEnteredEvent e)
         {
             this.m_potentialBounty = 0;
+            this.m_collectedBounty = 0;
             this.m_bountyTrackerUI.Show(this.m_potentialBounty, this.m_collectedBounty, this.m_bountyRequirementController.CurrentBountyRequirement);
         }
 

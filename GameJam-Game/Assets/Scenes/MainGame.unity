@@ -861,6 +861,7 @@ MonoBehaviour:
   m_gameStateManager: {fileID: 0}
   m_bountyRequirementController: {fileID: 0}
   m_playerStats: {fileID: 897911648}
+  m_locationDraftManager: {fileID: 0}
 --- !u!4 &1015373385
 Transform:
   m_ObjectHideFlags: 0
@@ -969,6 +970,7 @@ MonoBehaviour:
   m_ownEntityInformation: {fileID: 2063331385}
   m_characterStatFacade: {fileID: 11400000, guid: a2a1da657de052b4da4fb551a730056a, type: 2}
   m_playerUpgradeController: {fileID: 412716686}
+  m_entityMode: 1
 --- !u!1 &1558763275
 GameObject:
   m_ObjectHideFlags: 0

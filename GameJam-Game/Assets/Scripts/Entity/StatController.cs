@@ -1,6 +1,5 @@
 ﻿using System;
 using Nidavellir.EventArgs;
-using Nidavellir.Scriptables;
 using Nidavellir.Util;
 using UnityEngine;
 
@@ -92,10 +91,9 @@ namespace Nidavellir.Entity
 
             var oldMax = this.MaxValue;
             var oldCurrent = this.CurrentValue;
-            var increase = Mathf.FloorToInt(this.MaxValue * percentage);
-            this.MaxValue += increase;
+            this.MaxValue = Mathf.FloorToInt(this.MaxValue * percentage);
             this.MaxValue = Math.Max(0, this.MaxValue);
-            this.CurrentValue = Mathf.Min(this.CurrentValue + increase, this.MaxValue);
+            this.CurrentValue = Mathf.Min(Mathf.FloorToInt(this.CurrentValue * percentage), this.MaxValue);
             this.m_maximumValueChanged?.Invoke(this, new CharacterStatValueChangeEventArgs(this.MaxValue, oldMax));
             this.m_resourceValueChanged?.Invoke(this, new CharacterStatValueChangeEventArgs(this.CurrentValue, oldCurrent));
         }

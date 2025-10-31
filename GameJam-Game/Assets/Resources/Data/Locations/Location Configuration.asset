@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c78f6caa10894effadd947cf5fa4cd0a, type: 3}
   m_Name: Location Configuration
   m_EditorClassIdentifier: Assembly-CSharp::Nidavellir.Scriptables.Location.LocationSelectionConfigurationData
-  m_eventLocationChance: 0.2
+  m_eventLocationChance: 0.1
   m_numberOfLocationsToSelect: 3
