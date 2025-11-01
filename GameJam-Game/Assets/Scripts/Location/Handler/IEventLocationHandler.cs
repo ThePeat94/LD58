@@ -1,4 +1,4 @@
-﻿namespace Nidavellir.Location
+﻿namespace Nidavellir.Location.Handler
 {
     public interface IEventLocationHandler
     {

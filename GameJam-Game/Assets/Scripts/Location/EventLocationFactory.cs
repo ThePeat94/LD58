@@ -1,6 +1,8 @@
 ﻿using System;
 using Nidavellir.Entity;
 using Nidavellir.GameState;
+using Nidavellir.Location.Handler;
+using Nidavellir.Scriptables;
 using Nidavellir.Scriptables.Location;
 using Nidavellir.Shop;
 using UnityEngine;
@@ -15,8 +17,8 @@ namespace Nidavellir.Location
         [SerializeField] private BountyRequirementController m_bountyRequirementController;
         [SerializeField] private EntityStats m_playerStats;
         [SerializeField] private LocationDraftManager m_locationDraftManager;
+        [SerializeField] private CharacterStatFacade m_characterStatFacade;
         
-
         private void Awake()
         {
             this.m_rerollManager ??= FindFirstObjectByType<RerollManager>(FindObjectsInactive.Include);
@@ -37,7 +39,8 @@ namespace Nidavellir.Location
                     this.m_gameStateManager,
                     this.m_bountyRequirementController
                 ),
-                StatBuffEventLocationData statBuffEventLocationData => new StatBuffEventLocationHandler(this.m_playerStats, statBuffEventLocationData, this.m_locationDraftManager),
+                StatBuffEventLocationData statBuffEventLocationData => new StatBuffEventLocationHandler(this.m_playerStats, statBuffEventLocationData, this.m_locationDraftManager), 
+                HealFountainEventLocationData healFountainEventLocationData => new HealFountainLocationHandler(this.m_playerStats, this.m_characterStatFacade.Hp, healFountainEventLocationData, this.m_locationDraftManager),
                 _ => throw new ArgumentException($"Unknown event location type {eventLocation.GetType()}")
             };
         }

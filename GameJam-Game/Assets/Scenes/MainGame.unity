@@ -862,6 +862,7 @@ MonoBehaviour:
   m_bountyRequirementController: {fileID: 0}
   m_playerStats: {fileID: 897911648}
   m_locationDraftManager: {fileID: 0}
+  m_characterStatFacade: {fileID: 11400000, guid: a2a1da657de052b4da4fb551a730056a, type: 2}
 --- !u!4 &1015373385
 Transform:
   m_ObjectHideFlags: 0
@@ -1031,7 +1032,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8d9a2b91b48428196eb7a2d030a133a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Nidavellir.BountyRequirementController
-  m_bountyRequirementsPerRound: 1e000000230000002d000000320000003c00000041000000460000004b00000050000000
+  m_bountyRequirementsPerRound: f4010000230000002d000000320000003c00000041000000460000004b00000050000000
   m_playerStats: {fileID: 897911648}
   m_characterStatFacade: {fileID: 11400000, guid: a2a1da657de052b4da4fb551a730056a, type: 2}
   m_draftManager: {fileID: 588201801}
@@ -1252,6 +1253,7 @@ MonoBehaviour:
   m_availableEventLocations:
   - {fileID: 11400000, guid: 439bd3084ef01f8469b266c3d866d33c, type: 2}
   - {fileID: 11400000, guid: 7a5994e9809d34949a2cb87580080d40, type: 2}
+  - {fileID: 11400000, guid: 711aa7fc900a70a449057931f7cde5cc, type: 2}
   m_locationSelectionConfigurationData: {fileID: 11400000, guid: 96b39842bcb1fbd4286cba25fb026494, type: 2}
   m_playerStatsController: {fileID: 631545339}
   m_characterStatFacade: {fileID: 11400000, guid: a2a1da657de052b4da4fb551a730056a, type: 2}

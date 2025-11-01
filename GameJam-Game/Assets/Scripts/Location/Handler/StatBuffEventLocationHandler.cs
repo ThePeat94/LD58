@@ -1,7 +1,7 @@
 ﻿using Nidavellir.Entity;
 using Nidavellir.Scriptables.Location;
 
-namespace Nidavellir.Location
+namespace Nidavellir.Location.Handler
 {
     public class StatBuffEventLocationHandler : IEventLocationHandler
     {

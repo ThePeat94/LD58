@@ -2,9 +2,8 @@
 using Nidavellir.EventBus.Events.Fight;
 using Nidavellir.GameState;
 using Nidavellir.Shop;
-using Unity.VisualScripting;
 
-namespace Nidavellir.Location
+namespace Nidavellir.Location.Handler
 {
     public class TavernEventLocationHandler : IEventLocationHandler
     {
