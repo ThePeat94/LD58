@@ -1,8 +1,8 @@
 ﻿using System;
 using Nidavellir.Entity;
-using Nidavellir.GameEventBus;
-using Nidavellir.GameEventBus.EventBindings;
-using Nidavellir.GameEventBus.Events.Fight;
+using Nidavellir.EventBus;
+using Nidavellir.EventBus.EventBindings;
+using Nidavellir.EventBus.Events.Fight;
 using Nidavellir.Scriptables;
 using UnityEngine;
 

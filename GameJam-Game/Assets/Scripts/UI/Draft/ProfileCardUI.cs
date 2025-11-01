@@ -9,9 +9,6 @@ namespace Nidavellir.UI.Draft
 {
     public class ProfileCardUI : MonoBehaviour
     {
-        /// <summary>
-        /// Displays it as %NAME%, %LEVEL%
-        /// </summary>
         private const string NAME_FORMAT = "{0}, {1}";
         
         private const string REWARD_FORMAT = "{0:D}g";

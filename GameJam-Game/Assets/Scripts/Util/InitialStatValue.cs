@@ -1,5 +1,6 @@
 ﻿using System;
 using Nidavellir.Scriptables;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Nidavellir.Util
@@ -10,9 +11,12 @@ namespace Nidavellir.Util
         [SerializeField] private CharacterStat m_characterStat;
         [SerializeField] private int m_value;
         [SerializeField] private int m_maxValue;
+        [SerializeField] private int m_minValue;
+        
 
         public CharacterStat CharacterStat => this.m_characterStat;
         public int Value => this.m_value;
         public int MaxValue => this.m_maxValue;
+        public int MinValue => this.m_minValue;
     }
 }

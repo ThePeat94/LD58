@@ -1,6 +1,5 @@
 ﻿using System;
 using Nidavellir.EventArgs;
-using Nidavellir.Scriptables;
 using Nidavellir.Util;
 using UnityEngine;
 
@@ -12,11 +11,13 @@ namespace Nidavellir.Entity
         private EventHandler<CharacterStatValueChangeEventArgs> m_maximumValueChanged;
 
         public int CurrentValue { get; private set; }
+        public int MinValue { get; private set; }
         public int MaxValue { get; private set; }
 
         public StatController(InitialStatValue initialStatValue)
         {
             this.CurrentValue = initialStatValue.Value;
+            this.MinValue = initialStatValue.MinValue;
             this.MaxValue = initialStatValue.MaxValue;
         }
         
@@ -24,6 +25,7 @@ namespace Nidavellir.Entity
         {
             this.CurrentValue = initialValue;
             this.MaxValue = initialValue;
+            this.MinValue = 0;
         }
         
         public void Add(int value)
@@ -33,6 +35,7 @@ namespace Nidavellir.Entity
 
             var oldValue = this.CurrentValue;
             this.CurrentValue += value;
+            this.CurrentValue = Math.Clamp(this.CurrentValue, 0, this.MaxValue);
             this.m_resourceValueChanged?.Invoke(this, new CharacterStatValueChangeEventArgs(this.CurrentValue, oldValue));
         }
 
@@ -79,7 +82,7 @@ namespace Nidavellir.Entity
             var oldMax = this.MaxValue;
             var oldCurrent = this.CurrentValue;
             this.MaxValue += amount;
-            this.MaxValue = this.MaxValue = Math.Max(0, this.MaxValue);
+            this.MaxValue = Math.Max(0, this.MaxValue);
             this.CurrentValue = Mathf.Min(this.CurrentValue + amount, this.MaxValue);
             this.m_maximumValueChanged?.Invoke(this, new CharacterStatValueChangeEventArgs(this.MaxValue, oldMax));
             this.m_resourceValueChanged?.Invoke(this, new CharacterStatValueChangeEventArgs(this.CurrentValue, oldCurrent));
@@ -92,10 +95,9 @@ namespace Nidavellir.Entity
 
             var oldMax = this.MaxValue;
             var oldCurrent = this.CurrentValue;
-            var increase = Mathf.FloorToInt(this.MaxValue * percentage);
-            this.MaxValue += increase;
+            this.MaxValue = Mathf.FloorToInt(this.MaxValue * percentage);
             this.MaxValue = Math.Max(0, this.MaxValue);
-            this.CurrentValue = Mathf.Min(this.CurrentValue + increase, this.MaxValue);
+            this.CurrentValue = Mathf.Min(Mathf.FloorToInt(this.CurrentValue * percentage), this.MaxValue);
             this.m_maximumValueChanged?.Invoke(this, new CharacterStatValueChangeEventArgs(this.MaxValue, oldMax));
             this.m_resourceValueChanged?.Invoke(this, new CharacterStatValueChangeEventArgs(this.CurrentValue, oldCurrent));
         }

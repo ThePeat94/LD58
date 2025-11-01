@@ -1,13 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Nidavellir.Entity;
-using Nidavellir.GameEventBus;
-using Nidavellir.GameEventBus.EventBindings;
-using Nidavellir.GameEventBus.Events.Fight;
-using Nidavellir.GameEventBus.Events.Shop;
+using Nidavellir.EventBus;
+using Nidavellir.EventBus.EventBindings;
+using Nidavellir.EventBus.Events.Fight;
+using Nidavellir.EventBus.Events.Shop;
+using Nidavellir.Location;
+using Nidavellir.Player;
 using Nidavellir.Scriptables;
 using Nidavellir.UI.Shop;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Nidavellir.Shop
 {
@@ -17,56 +21,59 @@ namespace Nidavellir.Shop
         [SerializeField] private ShopUI m_shopUI;
         [SerializeField] private EntityStats m_entityStats;
         [SerializeField] private CharacterStatFacade m_characterStatFacade;
+        [SerializeField] private LocationDraftManager m_locationDraftManager;
+        [SerializeField] private PlayerStatsController m_playerStatsController;
+        [SerializeField] private RerollButton m_rerollButton;
         
         private int m_upgradeAmount = 2;
         
-        private IEventBinding<RerollUpgradesEvent> m_rerollUpgradesEventBinding;
         private IEventBinding<PurchaseUpgradeEvent> m_purchaseUpgradeEventBinding;
-        private IEventBinding<StartDraftEvent> m_startDraftEventBinding;
-        private IEventBinding<VisitShopEvent> m_visitShopEventBinding;
-        
-        private void Start()
+
+
+        private void Awake()
         {
-            this.m_rerollUpgradesEventBinding = new EventBinding<RerollUpgradesEvent>(this.OnRerollUpgrades);
-            GameEventBus<RerollUpgradesEvent>.Register(this.m_rerollUpgradesEventBinding);
+            this.m_rerollButton ??= FindFirstObjectByType<RerollButton>(FindObjectsInactive.Include);
+            this.m_playerStatsController = FindFirstObjectByType<PlayerStatsController>(FindObjectsInactive.Include);
+            this.m_locationDraftManager ??= FindFirstObjectByType<LocationDraftManager>(FindObjectsInactive.Include);
             
             this.m_purchaseUpgradeEventBinding = new EventBinding<PurchaseUpgradeEvent>(this.OnPurchaseUpgrade);
+            
+            this.m_shopUI.OnStartLocationDraftClicked += this.HandleStartLocationDraftClick;
+            this.m_rerollButton.OnRerollClicked += this.HandleRerollClick;
             GameEventBus<PurchaseUpgradeEvent>.Register(this.m_purchaseUpgradeEventBinding);
-            
-            this.m_startDraftEventBinding = new EventBinding<StartDraftEvent>(this.OnStartDraft);
-            GameEventBus<StartDraftEvent>.Register(this.m_startDraftEventBinding);
-            
-            this.m_visitShopEventBinding = new EventBinding<VisitShopEvent>(this.OnVisitShop);
-            GameEventBus<VisitShopEvent>.Register(this.m_visitShopEventBinding);
         }
-        
+
+
         private void OnDestroy()
         {
-            GameEventBus<RerollUpgradesEvent>.Unregister(this.m_rerollUpgradesEventBinding);
+            this.m_shopUI.OnStartLocationDraftClicked -= this.HandleStartLocationDraftClick;
+            this.m_rerollButton.OnRerollClicked -= this.HandleRerollClick;
             GameEventBus<PurchaseUpgradeEvent>.Unregister(this.m_purchaseUpgradeEventBinding);
-            GameEventBus<StartDraftEvent>.Unregister(this.m_startDraftEventBinding);
-            GameEventBus<VisitShopEvent>.Unregister(this.m_visitShopEventBinding);
         }
 
-        private void OnVisitShop(object sender, VisitShopEvent e)
+        public void VisitShop()
         {
             this.m_shopUI.Show(this.GetRandomUpgrades(this.m_upgradeAmount));
+            
         }
-
+        
         private void OnPurchaseUpgrade(object sender, PurchaseUpgradeEvent e)
         {
             this.m_entityStats[this.m_characterStatFacade.Money].UseResource(e.UpgradeData.Cost);
         }
 
-        private void OnRerollUpgrades(object sender, RerollUpgradesEvent e)
+        private void HandleRerollClick()
         {
             this.m_shopUI.Show(this.GetRandomUpgrades(this.m_upgradeAmount));
         }
-        
-        private void OnStartDraft(object sender, StartDraftEvent e)
+
+        private void HandleStartLocationDraftClick()
         {
+            GameEventBus<ShopExitedEvent>.Invoke(this, new());
+            this.m_playerStatsController.ResetStatsAfterShop();
+            this.m_locationDraftManager.SelectLocations();
         }
-        
+
         private List<UpgradeData> GetRandomUpgrades(int count)
         {
             return this.m_availableUpgrades.OrderBy(x => Random.value)

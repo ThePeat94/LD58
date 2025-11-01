@@ -17,7 +17,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 45126ef30f44cc9428df330c643ce67d, type: 2}
   - {fileID: 11400000, guid: 8a9100443e5a87e4583f5adfc3fee1bf, type: 2}
   - {fileID: 11400000, guid: a0cffda67fc19cf4fa1b99ebd27d3c98, type: 2}
-  m_bountyPerPower: 0.15
+  m_bountyPerPower: 0.065
   m_bountyJitter:
     serializedVersion: 2
     m_Curve:

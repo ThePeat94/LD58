@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Nidavellir.Util;
 using UnityEngine;
 
 namespace Nidavellir.Scriptables
@@ -19,17 +19,5 @@ namespace Nidavellir.Scriptables
         public int Cost => this.m_cost;
         public Sprite CardImage => this.m_cardImage;
         public List<TagData> AffectedTags => this.m_affectedTags;
-
-        [Serializable]
-        public class CharacterStatIncrease
-        {
-            [SerializeField] private CharacterStat m_affectedStat;
-            [SerializeField] private int m_increaseAmount;
-            [SerializeField] private float m_relativeIncreaseAmount;
-            
-            public CharacterStat AffectedStat => this.m_affectedStat;
-            public int IncreaseAmount => this.m_increaseAmount;
-            public float RelativeIncreaseAmount => this.m_relativeIncreaseAmount;
-        }
     }
 }

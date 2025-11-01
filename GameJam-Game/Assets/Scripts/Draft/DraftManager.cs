@@ -1,171 +1,109 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Nidavellir.Entity;
-using Nidavellir.GameEventBus;
-using Nidavellir.GameEventBus.EventBindings;
-using Nidavellir.GameEventBus.Events.Draft;
-using Nidavellir.GameEventBus.Events.Shop;
-using Nidavellir.GameState;
+using Nidavellir.EventBus;
+using Nidavellir.EventBus.Events.Draft;
+using Nidavellir.Fight;
+using Nidavellir.Location;
 using Nidavellir.Scriptables;
+using Nidavellir.Scriptables.Location;
 using Nidavellir.UI.Draft;
+using Nidavellir.UI.EnemyDraft;
+using Nidavellir.Util;
 using UnityEngine;
-using Random = System.Random;
 
 namespace Nidavellir.Draft
 {
     public class DraftManager : MonoBehaviour
     {
-        [SerializeField] private DraftUI m_draftUI;
         [SerializeField] private EntityStats m_playerStats;
         [SerializeField] private CharacterStatFacade m_characterStatFacade;
-        [SerializeField] private List<ProfilePoolData> m_poolsPerRizzLevel;
         [SerializeField] private EnemyFactory m_enemyFactory;
+        [SerializeField] private EnemySelectionUI m_enemySelectionUI;
+        [SerializeField] private LocationDraftManager m_locationDraftManager;
+        [SerializeField] private FightManager m_fightManager;
         
+        private readonly List<RuntimeEnemyInformation> m_likedProfiles = new();
+        private readonly List<RuntimeEnemyInformation> m_superLikedProfiles = new();
         
-        private RuntimeEnemyInformation m_currentProfile;
-
-        private IEventBinding<ProfileDislikedEvent> m_dislikedEventBinding;
-        private IEventBinding<ProfileLikedEvent> m_likedEventBinding;
-        private IEventBinding<ProfileSuperLikedEvent> m_superLikedEventBinding;
-        private IEventBinding<StartFightEvent> m_startFightEventBinding;
-        private IEventBinding<StartDraftEvent> m_startDraftEventBinding;
-
-        private List<RuntimeEnemyInformation> m_likedProfiles = new();
-        private List<RuntimeEnemyInformation> m_dislikedProfiles = new();
-        private List<RuntimeEnemyInformation> m_superLikedProfiles = new();
+        private List<RuntimeEnemyInformation> m_allSelectedProfiles = new();
         
         private List<EnemyData> m_availableNonBossProfiles;
         private List<EnemyData> m_availableBossProfiles;
 
-        private List<EnemyData> m_profilePool;
+        private EnemyLocationData m_selectedEnemyLocation;
         
-        public RuntimeEnemyInformation CurrentProfile => this.m_currentProfile;
+        private readonly List<RuntimeEnemyInformation> m_availableForSelection = new();
         
         private void Awake()
         {
-            this.m_draftUI ??= FindFirstObjectByType<DraftUI>();
-            this.m_enemyFactory ??= FindFirstObjectByType<EnemyFactory>();
+            this.m_enemyFactory ??= FindFirstObjectByType<EnemyFactory>(FindObjectsInactive.Include);
+            this.m_enemySelectionUI ??= FindFirstObjectByType<EnemySelectionUI>(FindObjectsInactive.Include);
+            this.m_fightManager ??= FindFirstObjectByType<FightManager>(FindObjectsInactive.Include);
+            
+            this.m_enemySelectionUI.OnProfileSelected += this.HandleProfileSelected;
+            this.m_enemySelectionUI.StartFightButton.OnButtonClicked += this.HandleStartFight;
         }
 
-        private void Start()
-        {
-            this.m_dislikedEventBinding = new EventBinding<ProfileDislikedEvent>(this.OnDislikeEvent);
-            GameEventBus<ProfileDislikedEvent>.Register(this.m_dislikedEventBinding);
 
-            this.m_likedEventBinding = new EventBinding<ProfileLikedEvent>(this.OnLikeEvent);
-            GameEventBus<ProfileLikedEvent>.Register(this.m_likedEventBinding);
-
-            this.m_superLikedEventBinding = new EventBinding<ProfileSuperLikedEvent>(this.OnSuperLikeEvent);
-            GameEventBus<ProfileSuperLikedEvent>.Register(this.m_superLikedEventBinding);
-            
-            this.m_startFightEventBinding = new EventBinding<StartFightEvent>(this.OnStartFightEvent);
-            GameEventBus<StartFightEvent>.Register(this.m_startFightEventBinding);
-            
-            this.m_startDraftEventBinding = new EventBinding<StartDraftEvent>(this.OnStartDraftEvent);
-            GameEventBus<StartDraftEvent>.Register(this.m_startDraftEventBinding);
-            
-            var rizzIndex = Math.Min(this.m_playerStats[this.m_characterStatFacade.Rizz].CurrentValue - 1, this.m_poolsPerRizzLevel.Count - 1);
-            this.m_availableNonBossProfiles = new List<EnemyData>(this.m_poolsPerRizzLevel[rizzIndex].NonBossProfiles);
-            this.m_availableBossProfiles = new List<EnemyData>(this.m_poolsPerRizzLevel[rizzIndex].BossProfiles);
-            
-            this.StartDraft();
-        }
-        
         private void OnDestroy()
         {
-            GameEventBus<ProfileDislikedEvent>.Unregister(this.m_dislikedEventBinding);
-            GameEventBus<ProfileLikedEvent>.Unregister(this.m_likedEventBinding);
-            GameEventBus<ProfileSuperLikedEvent>.Unregister(this.m_superLikedEventBinding);
-            GameEventBus<StartFightEvent>.Unregister(this.m_startFightEventBinding);
-            GameEventBus<StartDraftEvent>.Unregister(this.m_startDraftEventBinding);
+            this.m_enemySelectionUI.OnProfileSelected -= this.HandleProfileSelected;
         }
         
-        private void ChooseNewProfile()
+        private void ChooseNewProfiles()
         {
-            var roundController = this.m_playerStats[this.m_characterStatFacade.Round];
-            List<EnemyData> anchorProfiles;
-            if (roundController.CurrentValue % 3 == 0)
+            this.m_availableForSelection.Clear();
+            var availableProfiles = new List<EnemyData>(this.m_availableNonBossProfiles);
+            for (var i = 0; i < 3; i++)
             {
-                anchorProfiles = this.m_availableBossProfiles;
+                var selectedProfile = availableProfiles.GetRandomElement();
+                var runtimeEnemyInformation = this.m_enemyFactory.CreateEnemy(selectedProfile);
+                this.m_availableForSelection.Add(runtimeEnemyInformation);
+                availableProfiles.Remove(selectedProfile);
             }
-            else
-            {
-                anchorProfiles = this.m_availableNonBossProfiles;
-            }
-
-            var selectedProfile = anchorProfiles[UnityEngine.Random.Range(0, anchorProfiles.Count)];
-            this.m_currentProfile = this.m_enemyFactory.CreateEnemy(selectedProfile);
-            this.m_draftUI.DisplayProfile(this.m_currentProfile);
-            anchorProfiles.Remove(selectedProfile);
         }
         
 
-        private void StartDraft()
+        public void StartDraft(List<EnemyData> availableNonBossProfiles, List<EnemyData>  availableBossProfiles)
         {
+            this.m_enemySelectionUI.StartFightButton.Disable();
+            this.m_availableNonBossProfiles = new List<EnemyData>(availableNonBossProfiles);
+            this.m_availableBossProfiles = new List<EnemyData>(availableBossProfiles);
             this.m_likedProfiles.Clear();
-            this.m_dislikedProfiles.Clear();
             this.m_superLikedProfiles.Clear();
-            this.ChooseNewProfile();
-            this.m_draftUI.ShowProfiles();
+            this.ChooseNewProfiles();
+            this.m_enemySelectionUI.UpdateDisplayedProfiles(this.m_availableForSelection);
         }
-        
-        private void OnStartDraftEvent(object sender, StartDraftEvent e)
-        {
-            var roundStatController = this.m_playerStats[this.m_characterStatFacade.Round];
-            roundStatController.Add(1);
 
-            if ((roundStatController.CurrentValue - 1) % 3 == 0 && roundStatController.CurrentValue != 1)
+        private void HandleProfileSelected(RuntimeEnemyInformation enemy)
+        {
+            this.m_likedProfiles.Add(enemy);
+            this.ChooseNewProfiles();
+            this.m_enemySelectionUI.UpdateDisplayedProfiles(this.m_availableForSelection);
+
+            if (this.m_likedProfiles.Count >= 4)
             {
-                var rizzController = this.m_playerStats[this.m_characterStatFacade.Rizz];
-                rizzController.Add(1);
-                
-                var rizzIndex = Math.Min(this.m_playerStats[this.m_characterStatFacade.Rizz].CurrentValue - 1, this.m_poolsPerRizzLevel.Count - 1);
-                this.m_availableNonBossProfiles = new List<EnemyData>(this.m_poolsPerRizzLevel[rizzIndex].NonBossProfiles);
-                this.m_availableBossProfiles = new List<EnemyData>(this.m_poolsPerRizzLevel[rizzIndex].BossProfiles);
+                this.m_enemySelectionUI.StartFightButton.Enable();
             }
             
-            this.StartDraft();
-        }
-
-        private void OnDislikeEvent(object sender, ProfileDislikedEvent e)
-        {
-            this.m_dislikedProfiles.Add(e.EnemyData);
-            var playerDislikes = this.m_playerStats[this.m_characterStatFacade.Dislikes];
-            playerDislikes.UseResource(1);
-            this.ChooseNewProfile();
-        }
-
-        private void OnLikeEvent(object sender, ProfileLikedEvent e)
-        {
-            this.m_likedProfiles.Add(e.EnemyData);
-            var playerLikes = this.m_playerStats[this.m_characterStatFacade.Likes];
-            playerLikes.UseResource(1);
-            if (playerLikes.CurrentValue > 0)
-            {
-                this.ChooseNewProfile();
-            }
-            else
-            {
-                var allProfiles = this.m_likedProfiles.Concat(this.m_superLikedProfiles).ToList();
-                this.m_draftUI.ShowStartFight(allProfiles);
-            }
+            GameEventBus<ProfileLikedEvent>.Invoke(this, new ProfileLikedEvent(enemy));
         }
 
         private void OnSuperLikeEvent(object sender, ProfileSuperLikedEvent e)
         {
-            this.m_enemyFactory.AmplifyEnemyForSuperlike(e.EnemyData);
-            this.m_superLikedProfiles.Add(e.EnemyData);
+            this.m_enemyFactory.AmplifyEnemyForSuperlike(e.Enemy);
+            this.m_superLikedProfiles.Add(e.Enemy);
             var playerSuperlikes = this.m_playerStats[this.m_characterStatFacade.SuperLike];
             playerSuperlikes.UseResource(1);
-            this.ChooseNewProfile();
+            this.ChooseNewProfiles();
+            GameEventBus<ProfileSuperLikedEvent>.Invoke(this, new ProfileSuperLikedEvent(e.Enemy));
         }
-        
-        private void OnStartFightEvent(object sender, StartFightEvent e)
+
+        private void HandleStartFight()
         {
-            this.m_likedProfiles.Clear();
-            this.m_dislikedProfiles.Clear();
-            this.m_superLikedProfiles.Clear();
+            this.m_allSelectedProfiles = this.m_likedProfiles.Concat(this.m_superLikedProfiles).ToList();
+            this.m_fightManager.StartFight(this.m_allSelectedProfiles);
         }
     }
 }

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Nidavellir.Entity;
-using Nidavellir.GameEventBus;
-using Nidavellir.GameEventBus.Events.Shop;
+using Nidavellir.EventBus;
+using Nidavellir.EventBus.Events.Location;
+using Nidavellir.EventBus.Events.Shop;
 using Nidavellir.Scriptables;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,12 +16,20 @@ namespace Nidavellir.UI.Shop
         [SerializeField] private UpgradeCardUI m_upgradeCardPrefab;
         [SerializeField] private EntityStats m_playerStats;
         [SerializeField] private Button m_startDraftButton;
+
+        private Action m_onStartLocationDraftClicked;
         
         private List<UpgradeCardUI> m_upgradeCards;
+        
+        public event Action OnStartLocationDraftClicked
+        {
+            add => this.m_onStartLocationDraftClicked += value;
+            remove => this.m_onStartLocationDraftClicked -= value;
+        }
 
         private void Awake()
         {
-            this.m_startDraftButton.onClick.AddListener(this.OnStartDraftClick);
+            this.m_startDraftButton.onClick.AddListener(this.OnStartLocationDraftClick);
             this.m_playerStats ??= FindFirstObjectByType<EntityStats>(FindObjectsInactive.Include);
         }
 
@@ -54,9 +63,9 @@ namespace Nidavellir.UI.Shop
             Destroy(upgradeCardUI.gameObject);
         }
         
-        private void OnStartDraftClick()
+        private void OnStartLocationDraftClick()
         {
-            GameEventBus<StartDraftEvent>.Invoke(this, new StartDraftEvent());
+            this.m_onStartLocationDraftClicked?.Invoke();
         }
     }
 }

@@ -1,20 +1,18 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Nidavellir.Entity;
 using Nidavellir.EventArgs;
-using Nidavellir.GameEventBus;
-using Nidavellir.GameEventBus.EventBindings;
-using Nidavellir.GameEventBus.Events;
-using Nidavellir.GameEventBus.Events.Draft;
-using Nidavellir.GameEventBus.Events.Fight;
+using Nidavellir.EventBus;
+using Nidavellir.EventBus.EventBindings;
+using Nidavellir.EventBus.Events.Draft;
+using Nidavellir.EventBus.Events.Fight;
+using Nidavellir.Location;
 using Nidavellir.Player;
 using Nidavellir.Scriptables;
 using Nidavellir.UI.Draft;
 using Nidavellir.UI.Fight;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Nidavellir.Fight
 {
@@ -25,6 +23,8 @@ namespace Nidavellir.Fight
         [SerializeField] private CharacterStatFacade m_characterStatFacade;
         [SerializeField] private FightUI m_fightUI;
         [SerializeField] private BountyRequirementController m_bountyRequirementController;
+        [SerializeField] private LocationDraftManager m_locationDraftManager;
+        
         
         private List<RuntimeEnemyInformation> m_likedEnemies;
         private List<RuntimeEnemyInformation> m_defeatedEnemies = new();
@@ -35,15 +35,18 @@ namespace Nidavellir.Fight
         private RuntimeEnemyInformation m_currentEnemyData;
         private EntityAttacker m_currentEnemyAttacker;
         
-        private IEventBinding<StartFightEvent> m_startFightEventBinding;
-        
         private void Awake()
         {
-            this.m_fightUI ??= FindFirstObjectByType<FightUI>();
+            this.m_locationDraftManager ??= FindFirstObjectByType<LocationDraftManager>(FindObjectsInactive.Include);
+            this.m_fightUI ??= FindFirstObjectByType<FightUI>(FindObjectsInactive.Include);
             this.m_bountyRequirementController ??= FindFirstObjectByType<BountyRequirementController>(FindObjectsInactive.Include);
+            
+            this.m_fightUI.OnSelectNextLocationClicked += this.HandleSelectNextLocationClick;
+        }
 
-            this.m_startFightEventBinding = new EventBinding<StartFightEvent>(this.OnStartFight);
-            GameEventBus<StartFightEvent>.Register(this.m_startFightEventBinding);
+        private void HandleSelectNextLocationClick()
+        {
+            this.m_locationDraftManager.SelectLocations();
         }
 
         private void Start()
@@ -51,21 +54,16 @@ namespace Nidavellir.Fight
             this.m_fightUI.InitPlayerCard(this.m_playerInformation, this.m_playerAttacker);
         }
 
-        private void OnDestroy()
-        {
-            GameEventBus<StartFightEvent>.Unregister(this.m_startFightEventBinding);
-        }
-
-        private void OnStartFight(object sender, StartFightEvent e)
-        {
-            this.StartFight(e.LikedProfiles);
-            this.m_fightUI.ShowFightUI();
-        }
-        
-        private void StartFight(List<RuntimeEnemyInformation> likedEnemies)
+        public void StartFight(List<RuntimeEnemyInformation> likedEnemies)
         {
             this.m_likedEnemies = likedEnemies;
-            var shuffledList = this.m_likedEnemies.OrderBy(x => x.Stats[this.m_characterStatFacade.Distance]).ToList();
+            this.InitializeFight(likedEnemies);
+            GameEventBus<FightStartedEvent>.Invoke(this, new(likedEnemies));
+        }
+        
+        private void InitializeFight(List<RuntimeEnemyInformation> likedEnemies)
+        {
+            var shuffledList = likedEnemies.OrderBy(x => x.Stats[this.m_characterStatFacade.Distance]).ToList();
             foreach (var enemy in shuffledList)
             {
                 this.m_enemyQueue.Enqueue(enemy);
@@ -120,13 +118,6 @@ namespace Nidavellir.Fight
         {
             if (this.m_enemyQueue.Count == 0)
             {
-
-                if (!this.m_bountyRequirementController.HasFulfilledBountyRequirement())
-                {
-                    GameEventBus<BountyRequirementNotFulfilled>.Invoke(this, new());
-                    return;
-                }
-                
                 this.StartCoroutine(this.QueueAfterFight());
                 return;
             }
@@ -147,7 +138,6 @@ namespace Nidavellir.Fight
         private IEnumerator QueueAfterFight()
         {
             yield return new WaitForSeconds(1f);
-            GameEventBus<BountyRequirementFulfilled>.Invoke(this, new());
             this.m_fightUI.ShowAfterFightUI();
         }
 

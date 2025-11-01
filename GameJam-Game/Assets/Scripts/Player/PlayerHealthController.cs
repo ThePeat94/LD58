@@ -1,8 +1,8 @@
 ﻿using System;
 using Nidavellir.Entity;
 using Nidavellir.EventArgs;
-using Nidavellir.GameEventBus;
-using Nidavellir.GameEventBus.Events;
+using Nidavellir.EventBus;
+using Nidavellir.EventBus.Events;
 using Nidavellir.Scriptables;
 using UnityEngine;
 

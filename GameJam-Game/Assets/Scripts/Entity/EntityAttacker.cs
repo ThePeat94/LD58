@@ -5,21 +5,21 @@ using Nidavellir.EventArgs;
 using Nidavellir.Player;
 using Nidavellir.Scriptables;
 using UnityEngine;
+using UnityEngine.TestTools;
 
 namespace Nidavellir.Entity
 {
     public class EntityAttacker : MonoBehaviour
     {
         [SerializeField] private EntityInformation m_ownEntityInformation;
-        private EntityInformation m_targetEntityInformation;
         [SerializeField] private CharacterStatFacade m_characterStatFacade;
         [SerializeField] private PlayerUpgradeController m_playerUpgradeController;
         
-
+        private EntityInformation m_targetEntityInformation;
         private int m_attackFrames = 90;
         private int m_currentAttackFrame = 90;
 
-        private EntityMode m_entityMode = EntityMode.Player;
+        [SerializeField] private EntityMode m_entityMode = EntityMode.Unknown;
 
         public bool CanAttack
         {
@@ -35,6 +35,11 @@ namespace Nidavellir.Entity
             if (this.m_playerUpgradeController is null)
             {
                 this.m_playerUpgradeController = FindFirstObjectByType<PlayerUpgradeController>(FindObjectsInactive.Include);
+            }
+
+            if (this.m_entityMode == EntityMode.Player)
+            {
+                this.m_ownEntityInformation.EntityStats[this.m_characterStatFacade.AtkSpeed].OnValueChanged += this.OnAtkSpeedChanged;
             }
         }
 
@@ -54,6 +59,12 @@ namespace Nidavellir.Entity
             this.Attack();
         }
 
+        private void OnDestroy()
+        {
+            this.m_ownEntityInformation.EntityStats[this.m_characterStatFacade.Hp].OnValueChanged -= this.OnOwnHealthChanged;
+            this.m_ownEntityInformation.EntityStats[this.m_characterStatFacade.AtkSpeed].OnValueChanged -= this.OnAtkSpeedChanged;
+        }
+
         public void Initialize(EntityInformation ownEntityInformation, EntityInformation targetEntityInformation, CharacterStatFacade characterStatFacade, EntityMode entityMode)
         {
             this.m_ownEntityInformation = ownEntityInformation;
@@ -65,6 +76,8 @@ namespace Nidavellir.Entity
             
             this.m_ownEntityInformation.EntityStats[this.m_characterStatFacade.Hp].OnValueChanged += this.OnOwnHealthChanged;
             this.m_entityMode = entityMode;
+            
+            this.m_ownEntityInformation.EntityStats[this.m_characterStatFacade.AtkSpeed].OnValueChanged += this.OnAtkSpeedChanged;
         }
 
         private void OnOwnHealthChanged(object sender, CharacterStatValueChangeEventArgs e)
@@ -179,8 +192,16 @@ namespace Nidavellir.Entity
 
         public enum EntityMode
         {
+            Unknown,
             Player,
             Enemy
+        }
+
+        private void OnAtkSpeedChanged(object sender, CharacterStatValueChangeEventArgs e)
+        {
+            var oldValue = this.m_attackFrames;
+            this.m_attackFrames = e.NewValue;
+            this.m_currentAttackFrame = Math.Min(this.m_currentAttackFrame, e.NewValue);
         }
     }
 }

@@ -15,7 +15,8 @@ namespace Nidavellir.UI.Fight
         {
             if (this.m_attacker is null || !this.m_attacker.CanAttack)
                 return;
-            
+
+            this.m_slider.maxValue = this.m_attacker.AttackFrames;
             this.m_slider.value = this.m_attacker.CurrentAttackFrame;
         }
 

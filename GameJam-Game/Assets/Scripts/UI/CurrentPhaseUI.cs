@@ -1,7 +1,7 @@
 ﻿using System;
-using Nidavellir.GameEventBus;
-using Nidavellir.GameEventBus.EventBindings;
-using Nidavellir.GameEventBus.Events;
+using Nidavellir.EventBus;
+using Nidavellir.EventBus.EventBindings;
+using Nidavellir.EventBus.Events;
 using Nidavellir.GameState;
 using TMPro;
 using UnityEngine;
@@ -42,7 +42,7 @@ namespace Nidavellir.UI
             this.m_currentPhaseText.text = state.ToString().ToUpper();
             this.m_description.text = state switch
             {
-                State.Draft => "Choose your enemies wisely!",
+                State.EnemyDraft => "Choose your enemies wisely!",
                 State.Fight => "Defeat all your enemies!",
                 State.Shop => "Buy upgrades to become stronger!",
                 State.Gameover => "You have been defeated!",

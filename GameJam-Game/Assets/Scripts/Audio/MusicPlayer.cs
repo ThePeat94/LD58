@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Nidavellir.GameEventBus;
-using Nidavellir.GameEventBus.EventBindings;
-using Nidavellir.GameEventBus.Events.Draft;
-using Nidavellir.GameEventBus.Events.Fight;
-using Nidavellir.GameEventBus.Events.Shop;
+using Nidavellir.EventBus;
+using Nidavellir.EventBus.EventBindings;
+using Nidavellir.EventBus.Events.Draft;
+using Nidavellir.EventBus.Events.Fight;
+using Nidavellir.EventBus.Events.Shop;
 using Nidavellir.Scriptables.Audio;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -31,9 +31,9 @@ namespace Nidavellir.Audio
         private double m_nextStartTime;
         private double m_latestQueueTime;
         
-        private IEventBinding<VisitShopEvent> m_visitShopEventBinding;
-        private IEventBinding<StartDraftEvent> m_startDraftEventBinding;
-        private IEventBinding<StartFightEvent> m_startFightEventBinding;
+        private IEventBinding<ShopEnteredEvent> m_visitShopEventBinding;
+        private IEventBinding<StartEnemyDraftEvent> m_startDraftEventBinding;
+        private IEventBinding<FightStartedEvent> m_startFightEventBinding;
 
         private static MusicPlayer s_instance;
 
@@ -72,14 +72,14 @@ namespace Nidavellir.Audio
                 audioSource.playOnAwake = false;
             }
             
-            this.m_visitShopEventBinding = new EventBinding<VisitShopEvent>(this.OnVisitShop);
-            GameEventBus<VisitShopEvent>.Register(this.m_visitShopEventBinding);
+            this.m_visitShopEventBinding = new EventBinding<ShopEnteredEvent>(this.OnVisitShop);
+            GameEventBus<ShopEnteredEvent>.Register(this.m_visitShopEventBinding);
             
-            this.m_startDraftEventBinding = new EventBinding<StartDraftEvent>(this.OnStartDraft);
-            GameEventBus<StartDraftEvent>.Register(this.m_startDraftEventBinding);
+            this.m_startDraftEventBinding = new EventBinding<StartEnemyDraftEvent>(this.OnStartDraft);
+            GameEventBus<StartEnemyDraftEvent>.Register(this.m_startDraftEventBinding);
             
-            this.m_startFightEventBinding = new EventBinding<StartFightEvent>(this.OnStartFight);
-            GameEventBus<StartFightEvent>.Register(this.m_startFightEventBinding);
+            this.m_startFightEventBinding = new EventBinding<FightStartedEvent>(this.OnStartFight);
+            GameEventBus<FightStartedEvent>.Register(this.m_startFightEventBinding);
             
             GlobalSettings.Instance.MusicVolumeChanged += this.OnMusicVolumeChanged;
             SceneManager.sceneLoaded += this.SceneChanged;
@@ -160,17 +160,17 @@ namespace Nidavellir.Audio
                 this.PlayClipList(this.m_gameTheme);
         }
 
-        private void OnVisitShop(object sender, VisitShopEvent e)
+        private void OnVisitShop(object sender, ShopEnteredEvent e)
         {
             this.PlayClipList(this.m_shopTheme);
         }
         
-        private void OnStartDraft(object sender, StartDraftEvent e)
+        private void OnStartDraft(object sender, StartEnemyDraftEvent e)
         {
             this.PlayClipList(this.m_draftTheme);
         }
         
-        private void OnStartFight(object sender, StartFightEvent e)
+        private void OnStartFight(object sender, FightStartedEvent e)
         {
             this.PlayClipList(this.m_fightTheme);
         }

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40caac78cd94fb7b13c4229bf854e5a, type: 3}
+  m_Name: Elf Glade
+  m_EditorClassIdentifier: Assembly-CSharp::Nidavellir.Scriptables.Location.EnemyLocationData
+  m_name: Elf Glade
+  m_description: Something something
+  m_backgroundImage: {fileID: 21300000, guid: 21b84c9e21644bf49b1967f54ca99afe, type: 3}
+  m_availableNonBossProfiles:
+  - {fileID: 11400000, guid: 8336df7d787593047b95165132915944, type: 2}
+  - {fileID: 11400000, guid: a9d590c4f25fe3d4b859cb85f16520dd, type: 2}
+  - {fileID: 11400000, guid: f08832a9c1faf3a46bfda099bc00610e, type: 2}
+  - {fileID: 11400000, guid: 68c8e6d5e05f85640a916596dcef852e, type: 2}
+  - {fileID: 11400000, guid: b80c29227ed98f54e929e0a982104ca9, type: 2}
+  - {fileID: 11400000, guid: 4d6a814b3425c79478419d27b54b8329, type: 2}
+  - {fileID: 11400000, guid: d208738b465325742a2508ee60831a18, type: 2}
+  m_availableBossProfiles: []

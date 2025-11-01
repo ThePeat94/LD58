@@ -2,8 +2,8 @@
 using Nidavellir.Draft;
 using Nidavellir.Entity;
 using Nidavellir.EventArgs;
-using Nidavellir.GameEventBus;
-using Nidavellir.GameEventBus.Events.Draft;
+using Nidavellir.EventBus;
+using Nidavellir.EventBus.Events.Draft;
 using Nidavellir.Scriptables;
 using Nidavellir.Scriptables.Audio;
 using Unity.VisualScripting;
@@ -50,7 +50,7 @@ namespace Nidavellir.UI.Draft
         
         private void OnButtonClick()
         {
-            GameEventBus<ProfileSuperLikedEvent>.Invoke(this, new ProfileSuperLikedEvent(this.m_draftManager.CurrentProfile));
+            // GameEventBus<ProfileSuperLikedEvent>.Invoke(this, new ProfileSuperLikedEvent(this.m_draftManager.CurrentProfile));
             this.m_superlikeSfxPlayer.PlayOneShot(this.m_superlikeSfx);
         }
     }

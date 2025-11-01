@@ -1,6 +1,7 @@
-﻿using Nidavellir.Entity;
-using Nidavellir.GameEventBus;
-using Nidavellir.GameEventBus.Events.Fight;
+﻿using System;
+using Nidavellir.Entity;
+using Nidavellir.EventBus;
+using Nidavellir.EventBus.Events.Location;
 using Nidavellir.Player;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,6 +17,13 @@ namespace Nidavellir.UI.Fight
         [SerializeField] private GameObject m_duringFightPanelUi;
         [SerializeField] private GameObject m_afterFightPanelUi;
 
+        private Action m_onSelectNextLocationClicked;
+        
+        public event Action OnSelectNextLocationClicked
+        {
+            add => this.m_onSelectNextLocationClicked += value;
+            remove => this.m_onSelectNextLocationClicked -= value;
+        }
 
         private void Awake()
         {
@@ -24,10 +32,7 @@ namespace Nidavellir.UI.Fight
 
         private void OnGoToShopClick()
         {
-            this.m_duringFightPanelUi.SetActive(false);
-            this.m_afterFightPanelUi.SetActive(false);
-            this.m_fightPanelUi.SetActive(false);
-            GameEventBus<VisitShopEvent>.Invoke(this, new VisitShopEvent());
+            this.m_onSelectNextLocationClicked?.Invoke();
         }
 
         public void ShowFightUI()
@@ -35,6 +40,13 @@ namespace Nidavellir.UI.Fight
             this.m_fightPanelUi.SetActive(true);
             this.m_duringFightPanelUi.SetActive(true);
             this.m_afterFightPanelUi.SetActive(false);
+        }
+
+        public void Hide()
+        {
+            this.m_duringFightPanelUi.SetActive(false);
+            this.m_afterFightPanelUi.SetActive(false);
+            this.m_fightPanelUi.SetActive(false);
         }
         
         public void ShowAfterFightUI()
