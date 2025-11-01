@@ -201,7 +201,7 @@ namespace Nidavellir.Entity
         {
             var oldValue = this.m_attackFrames;
             this.m_attackFrames = e.NewValue;
-            this.m_currentAttackFrame = Math.Clamp(this.m_currentAttackFrame, e.NewValue, oldValue);
+            this.m_currentAttackFrame = Math.Min(this.m_currentAttackFrame, e.NewValue);
         }
     }
 }
