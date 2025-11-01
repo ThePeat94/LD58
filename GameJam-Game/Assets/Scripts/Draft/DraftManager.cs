@@ -2,14 +2,11 @@
 using System.Linq;
 using Nidavellir.Entity;
 using Nidavellir.EventBus;
-using Nidavellir.EventBus.EventBindings;
 using Nidavellir.EventBus.Events.Draft;
-using Nidavellir.EventBus.Events.Location;
 using Nidavellir.Fight;
 using Nidavellir.Location;
 using Nidavellir.Scriptables;
 using Nidavellir.Scriptables.Location;
-using Nidavellir.UI;
 using Nidavellir.UI.Draft;
 using Nidavellir.UI.EnemyDraft;
 using Nidavellir.Util;
@@ -44,13 +41,14 @@ namespace Nidavellir.Draft
             this.m_enemySelectionUI ??= FindFirstObjectByType<EnemySelectionUI>(FindObjectsInactive.Include);
             this.m_fightManager ??= FindFirstObjectByType<FightManager>(FindObjectsInactive.Include);
             
-            this.m_enemySelectionUI.OnProfileLiked += this.HandleProfileLiked;
+            this.m_enemySelectionUI.OnProfileSelected += this.HandleProfileSelected;
+            this.m_enemySelectionUI.StartFightButton.OnButtonClicked += this.HandleStartFight;
         }
 
 
         private void OnDestroy()
         {
-            this.m_enemySelectionUI.OnProfileLiked -= this.HandleProfileLiked;
+            this.m_enemySelectionUI.OnProfileSelected -= this.HandleProfileSelected;
         }
         
         private void ChooseNewProfiles()
@@ -69,6 +67,7 @@ namespace Nidavellir.Draft
 
         public void StartDraft(List<EnemyData> availableNonBossProfiles, List<EnemyData>  availableBossProfiles)
         {
+            this.m_enemySelectionUI.StartFightButton.Disable();
             this.m_availableNonBossProfiles = new List<EnemyData>(availableNonBossProfiles);
             this.m_availableBossProfiles = new List<EnemyData>(availableBossProfiles);
             this.m_likedProfiles.Clear();
@@ -77,21 +76,17 @@ namespace Nidavellir.Draft
             this.m_enemySelectionUI.UpdateDisplayedProfiles(this.m_availableForSelection);
         }
 
-        public void HandleProfileLiked(RuntimeEnemyInformation enemy)
+        private void HandleProfileSelected(RuntimeEnemyInformation enemy)
         {
             this.m_likedProfiles.Add(enemy);
-            var playerLikes = this.m_playerStats[this.m_characterStatFacade.Likes];
-            playerLikes.UseResource(1);
-            if (playerLikes.CurrentValue > 0)
+            this.ChooseNewProfiles();
+            this.m_enemySelectionUI.UpdateDisplayedProfiles(this.m_availableForSelection);
+
+            if (this.m_likedProfiles.Count >= 4)
             {
-                this.ChooseNewProfiles();
-                this.m_enemySelectionUI.UpdateDisplayedProfiles(this.m_availableForSelection);
+                this.m_enemySelectionUI.StartFightButton.Enable();
             }
-            else
-            {
-                this.m_allSelectedProfiles = this.m_likedProfiles.Concat(this.m_superLikedProfiles).ToList();
-                this.m_fightManager.StartFight(this.m_allSelectedProfiles);
-            }
+            
             GameEventBus<ProfileLikedEvent>.Invoke(this, new ProfileLikedEvent(enemy));
         }
 
@@ -103,6 +98,12 @@ namespace Nidavellir.Draft
             playerSuperlikes.UseResource(1);
             this.ChooseNewProfiles();
             GameEventBus<ProfileSuperLikedEvent>.Invoke(this, new ProfileSuperLikedEvent(e.Enemy));
+        }
+
+        private void HandleStartFight()
+        {
+            this.m_allSelectedProfiles = this.m_likedProfiles.Concat(this.m_superLikedProfiles).ToList();
+            this.m_fightManager.StartFight(this.m_allSelectedProfiles);
         }
     }
 }

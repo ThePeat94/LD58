@@ -11,17 +11,20 @@ namespace Nidavellir.UI.EnemyDraft
         [SerializeField] private GameObject m_enemyDisplayRow;
         [SerializeField] private BaseProfileCardUI m_baseProfileCardPrefab;
         [SerializeField] private GameObject m_enemySelectionPanel;
+        [SerializeField] private StartFightButton m_startFightButton;
         
         private Action<RuntimeEnemyInformation> m_onProfileCardClicked;
         
         private readonly List<BaseProfileCardUI> m_displayedEnemies = new();
 
-        public event Action<RuntimeEnemyInformation> OnProfileLiked
+        public StartFightButton StartFightButton => this.m_startFightButton;
+        
+        public event Action<RuntimeEnemyInformation> OnProfileSelected
         {
             add => this.m_onProfileCardClicked += value;
             remove => this.m_onProfileCardClicked -= value;
         }
-
+        
         public void UpdateDisplayedProfiles(List<RuntimeEnemyInformation> profile)
         {
             this.Clear();
