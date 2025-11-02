@@ -10,6 +10,7 @@ using Nidavellir.Scriptables.Location;
 using Nidavellir.UI.Draft;
 using Nidavellir.UI.EnemyDraft;
 using Nidavellir.Util;
+using NUnit.Framework;
 using UnityEngine;
 
 namespace Nidavellir.Draft
@@ -29,7 +30,6 @@ namespace Nidavellir.Draft
         private List<RuntimeEnemyInformation> m_allSelectedProfiles = new();
         
         private List<EnemyData> m_availableNonBossProfiles;
-        private List<EnemyData> m_availableBossProfiles;
 
         private EnemyLocationData m_selectedEnemyLocation;
         
@@ -63,13 +63,11 @@ namespace Nidavellir.Draft
                 availableProfiles.Remove(selectedProfile);
             }
         }
-        
 
-        public void StartDraft(List<EnemyData> availableNonBossProfiles, List<EnemyData>  availableBossProfiles)
+        public void StartDraft(List<EnemyData> availableNonBossProfiles, List<EnemyData> availableBossProfiles)
         {
             this.m_enemySelectionUI.StartFightButton.Disable();
             this.m_availableNonBossProfiles = new List<EnemyData>(availableNonBossProfiles);
-            this.m_availableBossProfiles = new List<EnemyData>(availableBossProfiles);
             this.m_likedProfiles.Clear();
             this.m_superLikedProfiles.Clear();
             this.ChooseNewProfiles();
@@ -79,6 +77,7 @@ namespace Nidavellir.Draft
         private void HandleProfileSelected(RuntimeEnemyInformation enemy)
         {
             this.m_likedProfiles.Add(enemy);
+            this.m_availableNonBossProfiles.Remove(enemy.BaseData);
             this.ChooseNewProfiles();
             this.m_enemySelectionUI.UpdateDisplayedProfiles(this.m_availableForSelection);
 
