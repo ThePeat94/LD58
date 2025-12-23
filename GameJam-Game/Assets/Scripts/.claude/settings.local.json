@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//f/Projekte/LD58/GameJam-Game/**)",
+      "WebSearch"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
